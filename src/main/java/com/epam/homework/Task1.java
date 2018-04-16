@@ -1,5 +1,11 @@
 package com.epam.homework;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
+import java.io.*;
+import static java.lang.Integer.parseInt;
+
+
 public class Task1 {
 
     /**
@@ -33,10 +39,34 @@ public class Task1 {
      * MIN (29): Унылая пора! Очей очарованье!
      * MAX (35): Приятна мне твоя прощальная краса —
      */
-    public static void main(String[] args) {
-        // TODO реализация
+    public static void main(String[] args)throws Exception {
 
-        // TODO System.out.println("MIN (" + minLength + "): " + minString);
-        // TODO System.out.println("MAX (" + maxLength + "): " + maxString);
+        int minLength = 0;
+        int maxLength = 0;
+        String minString = null;
+        String maxString = null;
+        int num = parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine());
+
+        while(num < 0 || num > 100){
+            System.out.println("Введите, пожалуйста целое число от 0 до 100");
+            num = parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine());
+        }
+
+        for (int i = 0; i < num; i++) {
+            String s = new BufferedReader(new InputStreamReader(System.in)).readLine();
+
+            if(minLength == 0 || minLength >= s.length()){
+                minLength = s.length();
+                minString = s;
+            }
+
+            if(maxLength <= s.length()){
+                maxLength = s.length();
+                maxString = s;
+            }
+        }
+
+        System.out.println("MIN (" + minLength + "): " + minString);
+        System.out.println("MAX (" + maxLength + "): " + maxString);
     }
 }
