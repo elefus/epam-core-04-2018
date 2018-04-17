@@ -1,5 +1,9 @@
 package com.epam.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Task1 {
 
     /**
@@ -33,10 +37,30 @@ public class Task1 {
      * MIN (29): Унылая пора! Очей очарованье!
      * MAX (35): Приятна мне твоя прощальная краса —
      */
-    public static void main(String[] args) {
-        // TODO реализация
-
-        // TODO System.out.println("MIN (" + minLength + "): " + minString);
-        // TODO System.out.println("MAX (" + maxLength + "): " + maxString);
+    public static void main(String[] args) throws IOException {
+        String line;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Введите число строк");
+        int N = Integer.parseInt(reader.readLine());
+        System.out.println("Введите строки");
+        String minString = reader.readLine();
+        String maxString = minString;
+        int minLength = minString.length();
+        int maxLength = minLength;
+        if (N>1) {
+            for (int i=1; i<N; i++) {
+                line = reader.readLine();
+                if (line.length() >= maxLength) {
+                    maxLength = line.length();
+                    maxString = line;
+                }
+                if (line.length() <= minLength) {
+                    minLength = line.length();
+                    minString = line;
+                }
+            }
+        }
+        System.out.println("MIN (" + minLength + "): " + minString);
+        System.out.println("MAX (" + maxLength + "): " + maxString);
     }
 }
