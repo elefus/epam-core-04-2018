@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task1 {
 
     /**
@@ -34,9 +36,28 @@ public class Task1 {
      * MAX (35): Приятна мне твоя прощальная краса —
      */
     public static void main(String[] args) {
-        // TODO реализация
 
-        // TODO System.out.println("MIN (" + minLength + "): " + minString);
-        // TODO System.out.println("MAX (" + maxLength + "): " + maxString);
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+
+        String maxString = scanner.next();        //assuming the first string to be max and min
+        int maxLength = maxString.length();
+        String minString = maxString;
+        int minLength = minString.length();
+
+        for (int i = 1; i < n; i++){              //comparing each string with min and max values
+            String current = scanner.next();
+            if (current.length() <= minLength) {
+                minString = current;
+                minLength = current.length();
+            }
+            if (current.length() >= maxLength) {
+                maxString = current;
+                maxLength = current.length();
+            }
+        }
+
+        System.out.println("MIN (" + minLength + "): " + minString);
+        System.out.println("MAX (" + maxLength + "): " + maxString);
     }
 }
