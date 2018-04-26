@@ -85,7 +85,6 @@ public class Task9 {
         }
 
 
-
         System.out.println(result);
     }
 
@@ -94,9 +93,11 @@ public class Task9 {
 
         double discriminant = Math.pow(b, 2) - 4 * a * c;
 
-        double x1 = (-b - Math.sqrt(discriminant)) / (2 * a);
-        double x2 = (-b + Math.sqrt(discriminant)) / (2 * a);
-        roots.addAll(Arrays.asList(x1, x2));
+        if (discriminant >= 0) {
+            double x1 = (-b - Math.sqrt(discriminant)) / (2 * a);
+            double x2 = (-b + Math.sqrt(discriminant)) / (2 * a);
+            roots.addAll(Arrays.asList(x1, x2));
+        }
 
         return roots;
     }
