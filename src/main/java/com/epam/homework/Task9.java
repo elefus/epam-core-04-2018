@@ -1,5 +1,8 @@
 package com.epam.homework;
 
+import java.util.*;
+import java.util.stream.Stream;
+
 public class Task9 {
 
     /**
@@ -47,6 +50,30 @@ public class Task9 {
      * NO ROOTS
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner in = new Scanner(System.in);
+
+        double a = Double.parseDouble(in.next());
+        double b = Double.parseDouble(in.next());
+        double c = Double.parseDouble(in.next());
+//joiner
+        Set<Double> result = getRootsOfEquation(a, b, c);
+
+        for (Double root : result) {
+            System.out.println(root);
+        }
+
+
+    }
+
+    private static Set<Double> getRootsOfEquation(double a, double b, double c){
+        Set<Double> roots = new HashSet<>();
+
+        double discriminant = Math.pow(b, 2) - 4 * a * c;
+
+        double x1 = (- b + Math.sqrt(discriminant)) / (2*a);
+        double x2 = (- b - Math.sqrt(discriminant)) / (2*a);
+        roots.addAll(Arrays.asList(x1, x2));
+
+        return roots;
     }
 }
