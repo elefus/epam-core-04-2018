@@ -61,8 +61,6 @@ public class Task9 {
 
         Set<Double> roots = getRootsOfEquation(a, b, c);
         printRoots(roots);
-
-
     }
 
     private static void printRoots(Set<Double> roots) {
@@ -83,8 +81,7 @@ public class Task9 {
             result.append(df.format(iterator.next())).append(", ");
             result.append(df.format(iterator.next()));
         }
-
-
+        
         System.out.println(result);
     }
 
