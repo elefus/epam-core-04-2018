@@ -38,10 +38,10 @@ public class Task8 {
             inputWords.add(in.next());
         }
 
-        System.out.println(getTheSecondPalindromeOfNumber(inputWords, 2));
+        System.out.println(getThePalindromeOrder(inputWords, 2));
     }
 
-    private static String getTheSecondPalindromeOfNumber(List<String> words, int wordOrder) {
+    private static String getThePalindromeOrder(List<String> words, int palindromeOrder) {
         List<String> palindromeNumbers = new ArrayList<>();
 
         for (String currentWord : words) {
@@ -51,8 +51,8 @@ public class Task8 {
                 palindromeNumbers.add(currentWord);
             }
 
-            if (palindromeNumbers.size() == wordOrder) {
-                return palindromeNumbers.get(wordOrder - 1);
+            if (palindromeNumbers.size() == palindromeOrder) {
+                return palindromeNumbers.get(palindromeOrder - 1);
             }
         }
 
@@ -62,17 +62,15 @@ public class Task8 {
             return palindromeNumbers.get(0);
         }
     }
-
-    private final static Set<Character> numbers = new HashSet<>(Arrays.asList('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'));
-
+    
     private static boolean isNumber(String word) {
 
         for (int i = 0; i < word.length(); i++) {
-            if (!numbers.contains(word.charAt(i))) {
+            if (!Character.isDigit(word.charAt(i))) {
                 return false;
             }
         }
-
+        
         return true;
     }
 }
