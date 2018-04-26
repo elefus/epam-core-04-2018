@@ -1,5 +1,9 @@
 package com.epam.homework;
 
+import com.sun.deploy.util.StringUtils;
+
+import java.util.*;
+
 public class Task8 {
 
     /**
@@ -28,6 +32,53 @@ public class Task8 {
      * 22
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner in = new Scanner(System.in);
+        int countsOfWord = in.nextInt();
+
+        List<String> inputWords = new ArrayList<>();
+        for (int i = 0; i < countsOfWord; i++) {
+            inputWords.add(in.next());
+        }
+
+        System.out.println(printTheSecondPalindromeOfNumber(inputWords, 1));
+    }
+
+    private static String printTheSecondPalindromeOfNumber(List<String> words, int wordOrder){
+        List<String> palindromeNumbers = new ArrayList<>();
+
+        for (String currentWord : words) {
+
+            if (isNumber(currentWord)) {
+                StringBuilder reverseWord = new StringBuilder(currentWord).reverse();
+
+                if (currentWord.equals(reverseWord.toString())) {
+                    palindromeNumbers.add(currentWord);
+
+                    if(palindromeNumbers.size() == wordOrder + 1){
+                        break;
+                    }
+                }
+            }
+        }
+
+        if(palindromeNumbers.isEmpty()){
+            return "NOT FOUND";
+        }else if(palindromeNumbers.size() <= wordOrder){
+            return palindromeNumbers.get(0);
+        }else {
+            return palindromeNumbers.get(wordOrder);
+        }
+    }
+
+    private final static Set<Character> numbers = new HashSet<>(Arrays.asList('1','2','3','4','5','6','7','8','9','0'));
+    private static boolean isNumber(String word){
+
+        for (int i = 0; i < word.length(); i++) {
+            if(!numbers.contains(word.charAt(i))){
+                return false;
+            }
+        }
+
+        return true;
     }
 }
