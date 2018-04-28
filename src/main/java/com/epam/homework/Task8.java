@@ -32,13 +32,16 @@ public class Task8 {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int countOfWords = Integer.parseInt(in.nextLine());
-        LinkedHashSet<String> words = new LinkedHashSet<>();
 
+        int countOfWords = Integer.parseInt(in.nextLine());
+
+        LinkedHashSet<String> words = new LinkedHashSet<>();
         for (int i = 0; i < countOfWords; i++) {
             words.add(in.next());
         }
+
         String result = solve(words);
+
         System.out.println(result);
     }
 
@@ -51,8 +54,16 @@ public class Task8 {
                 if(!Character.isDigit(c)){
                        break;
                 }
-                String reverse = new StringBuffer(word).reverse().toString();
-                if(word.equalsIgnoreCase(reverse)){
+                char[] chars = word.toCharArray();
+                boolean polendrome=true;
+                for(int i = 0; i < chars.length/2; ++i)
+                {
+                    if(chars[i] != chars[chars.length-i-1]){
+                        polendrome = false;
+                        break;
+                    }
+                }
+                if (polendrome){
                     palindromesSet.add(word);
                 }
             }
