@@ -30,7 +30,7 @@ public class Task8 {
      * 22
      */
 
-    final static Set<Character> numbers       = new HashSet<>(Arrays.asList('0', '1' ,'2', '3', '4', '5', '6', '7' ,'8', '9'));
+    private final static Set<Character> numbers = new HashSet<>(Arrays.asList('0', '1' ,'2', '3', '4', '5', '6', '7' ,'8', '9'));
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -47,7 +47,7 @@ public class Task8 {
 
 
 
-    public static String solve(HashSet<String> words){
+    private static String solve(HashSet<String> words){
         LinkedHashSet<String> palindromsSet = new LinkedHashSet<>();
         for(String word:words){
             for(Character c: word.toCharArray()){
