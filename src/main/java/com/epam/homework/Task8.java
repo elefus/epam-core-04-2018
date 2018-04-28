@@ -50,20 +50,17 @@ public class Task8 {
     private static String solve(LinkedHashSet<String> words){
         LinkedHashSet<String> palindromesSet = new LinkedHashSet<>();
         for(String word : words){
-            for(Character c: word.toCharArray()){
-                if(!Character.isDigit(c)){
-                       break;
-                }
+            if (isNumber(word)){
                 char[] chars = word.toCharArray();
-                boolean polendrome=true;
+                boolean palindrome=true;
                 for(int i = 0; i < chars.length/2; ++i)
                 {
                     if(chars[i] != chars[chars.length-i-1]){
-                        polendrome = false;
-                        break;
+                            palindrome = false;
+                            break;
                     }
                 }
-                if (polendrome){
+                if (palindrome){
                     palindromesSet.add(word);
                 }
             }
@@ -76,6 +73,15 @@ public class Task8 {
         }else {
             return "NOT FOUND";
         }
+    }
+
+    private static boolean isNumber(String word){
+        for(Character c: word.toCharArray()){
+            if(!Character.isDigit(c)){
+                return false;
+            }
+        }
+        return true;
     }
 }
 
