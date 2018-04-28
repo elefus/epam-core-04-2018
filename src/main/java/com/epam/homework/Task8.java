@@ -51,16 +51,8 @@ public class Task8 {
         LinkedHashSet<String> palindromesSet = new LinkedHashSet<>();
         for(String word : words){
             if (isNumber(word)){
-                char[] chars = word.toCharArray();
-                boolean palindrome=true;
-                for(int i = 0; i < chars.length/2; ++i)
-                {
-                    if(chars[i] != chars[chars.length-i-1]){
-                            palindrome = false;
-                            break;
-                    }
-                }
-                if (palindrome){
+                String reverse = new StringBuffer(word).reverse().toString();
+                if (word.equalsIgnoreCase(reverse)){
                     palindromesSet.add(word);
                 }
             }
