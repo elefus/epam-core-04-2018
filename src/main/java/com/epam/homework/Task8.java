@@ -30,8 +30,6 @@ public class Task8 {
      * 22
      */
 
-    private final static Set<Character> numbers = new HashSet<>(Arrays.asList('0', '1' ,'2', '3', '4', '5', '6', '7' ,'8', '9'));
-
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int countOfWords = Integer.parseInt(in.nextLine());
@@ -40,29 +38,27 @@ public class Task8 {
         for (int i = 0; i < countOfWords; i++) {
             words.add(in.next());
         }
-        System.out.println(words);
         String result = solve(words);
-
         System.out.println(result);
     }
 
 
 
     private static String solve(HashSet<String> words){
-        LinkedHashSet<String> palindromsSet = new LinkedHashSet<>();
-        for(String word:words){
+        LinkedHashSet<String> palindromesSet = new LinkedHashSet<>();
+        for(String word : words){
             for(Character c: word.toCharArray()){
-                if(!numbers.contains(c)){
-                    break;
+                if(!Character.isDigit(c)){
+                       break;
                 }
                 String reverse = new StringBuffer(word).reverse().toString();
                 if(word.equalsIgnoreCase(reverse)){
-                    palindromsSet.add(word);
+                    palindromesSet.add(word);
                 }
             }
         }
-        if(palindromsSet.size()>1){
-            Iterator<String> iterator = palindromsSet.iterator();
+        if(palindromesSet.size()>1){
+            Iterator<String> iterator = palindromesSet.iterator();
             iterator.next();
             return iterator.next();
 
