@@ -44,7 +44,7 @@ public class Task8 {
 
 
 
-    private static String solve(HashSet<String> words){
+    private static String solve(LinkedHashSet<String> words){
         LinkedHashSet<String> palindromesSet = new LinkedHashSet<>();
         for(String word : words){
             for(Character c: word.toCharArray()){
