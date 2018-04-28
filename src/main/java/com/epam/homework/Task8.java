@@ -48,23 +48,23 @@ public class Task8 {
 
 
     private static String solve(LinkedHashSet<String> words){
-        LinkedHashSet<String> palindromesSet = new LinkedHashSet<>();
+        String result = "NOT FOUND";
+        int resultCounter = 0;
         for(String word : words){
             if (isNumber(word)){
                 String reverse = new StringBuffer(word).reverse().toString();
                 if (word.equalsIgnoreCase(reverse)){
-                    palindromesSet.add(word);
+                    if(!result.equals(word)){
+                        result = word;
+                        resultCounter++;
+                    }
                 }
             }
+            if (resultCounter==2){
+                break;
+            }
         }
-        if(palindromesSet.size()>1){
-            Iterator<String> iterator = palindromesSet.iterator();
-            iterator.next();
-            return iterator.next();
-
-        }else {
-            return "NOT FOUND";
-        }
+        return result;
     }
 
     private static boolean isNumber(String word){
