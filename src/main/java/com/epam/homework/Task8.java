@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.*;
+
 public class Task8 {
 
     /**
@@ -27,7 +29,45 @@ public class Task8 {
      * Выходные данные:
      * 22
      */
+
+    final static Set<Character> numbers       = new HashSet<>(Arrays.asList('0', '1' ,'2', '3', '4', '5', '6', '7' ,'8', '9'));
+
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner in = new Scanner(System.in);
+        int countOfWords = Integer.parseInt(in.nextLine());
+        LinkedHashSet<String> words = new LinkedHashSet<>();
+
+        for (int i = 0; i < countOfWords; i++) {
+            words.add(in.next());
+        }
+        String result = solve(words);
+
+        System.out.println(result);
+    }
+
+
+
+    public static String solve(HashSet<String> words){
+        LinkedHashSet<String> palindromsSet = new LinkedHashSet<>();
+        for(String word:words){
+            for(Character c: word.toCharArray()){
+                if(!numbers.contains(c)){
+                    break;
+                }
+                String reverse = new StringBuffer(word).reverse().toString();
+                if(word.equals(reverse)){
+                    palindromsSet.add(word);
+                }
+            }
+        }
+        if(palindromsSet.size()>1){
+            Iterator<String> iterator = palindromsSet.iterator();
+            iterator.next();
+            return iterator.next();
+
+        }else {
+            return "NOT FOUND";
+        }
     }
 }
+
