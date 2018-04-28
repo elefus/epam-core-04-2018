@@ -40,6 +40,7 @@ public class Task8 {
         for (int i = 0; i < countOfWords; i++) {
             words.add(in.next());
         }
+        System.out.println(words);
         String result = solve(words);
 
         System.out.println(result);
@@ -55,7 +56,7 @@ public class Task8 {
                     break;
                 }
                 String reverse = new StringBuffer(word).reverse().toString();
-                if(word.equals(reverse)){
+                if(word.equalsIgnoreCase(reverse)){
                     palindromsSet.add(word);
                 }
             }
