@@ -55,7 +55,7 @@ public class Task8 {
                     System.out.println(palindromeNumbers.get(1));
                     return;
                 }
-            } catch (NumberFormatException e){
+            } catch (Exception e){
             }
         }
         if (palindromeNumbers.isEmpty()){
