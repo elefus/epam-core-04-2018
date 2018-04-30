@@ -48,8 +48,9 @@ public class Task8 {
                         continue outer;
                     }
                 }
-                palindromeNumbers.add(number);
-
+                if (!palindromeNumbers.contains(number)){
+                    palindromeNumbers.add(number);
+                }
                 if (palindromeNumbers.size() == 2){
                     System.out.println(palindromeNumbers.get(1));
                     return;
