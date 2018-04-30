@@ -1,5 +1,10 @@
 package com.epam.homework;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
 public class Task8 {
 
     /**
@@ -28,6 +33,34 @@ public class Task8 {
      * 22
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int quantity = scanner.nextInt();
+        List<Integer> palindromeNumbers = new ArrayList<>();
+
+        outer:
+        for (int i = 0; i < quantity; i++) {
+            String word = scanner.next();
+            try {
+                int number = Integer.parseInt(word);
+
+                for (int j = 0; j < word.length() / 2; j++) {
+                    if (word.charAt(j) != word.charAt(word.length() - j - 1)){
+                        continue outer;
+                    }
+                }
+                palindromeNumbers.add(number);
+
+                if (palindromeNumbers.size() == 2){
+                    System.out.println(palindromeNumbers.get(1));
+                    return;
+                }
+            } catch (NumberFormatException e){
+            }
+        }
+        if (palindromeNumbers.isEmpty()){
+            System.out.println("NOT FOUND");
+        } else {
+            System.out.println(palindromeNumbers.get(0));
+        }
     }
 }
