@@ -42,12 +42,13 @@ public class Task3 {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int amountOfStrings = scanner.nextInt();
-        scanner.nextLine();
         List<String> stringList = new ArrayList<>();
+        int amountOfStrings = scanner.nextInt();
+        int avgLength;
+        scanner.nextLine();
 
         stringAdder(amountOfStrings, stringList);
-        int avgLength = getAvgLength(amountOfStrings, stringList);
+        avgLength = getAvgLength(amountOfStrings, stringList);
 
         stringsSmallerThanAverage(stringList, avgLength);
     }
