@@ -47,7 +47,12 @@ public class Task3 {
         int avgLength;
         scanner.nextLine();
 
-        stringAdder(amountOfStrings, stringList);
+        for (int i = 0; i < amountOfStrings; i++) {
+            String temp = scanner.nextLine();
+            stringList.add(temp);
+        }
+
+        System.out.println(stringList);
         avgLength = getAvgLength(amountOfStrings, stringList);
 
         stringsSmallerThanAverage(stringList, avgLength);
@@ -57,7 +62,7 @@ public class Task3 {
         System.out.println("AVERAGE (" + avgLength + ")");
         for (String current : stringList) {
 
-            if (current.length() < avgLength && current.length()!=0) {
+            if (current.length() < avgLength) {
                 System.out.println("(" + current.length() + "): " + current);
             }
         }
@@ -68,15 +73,7 @@ public class Task3 {
         for (String current : stringList) {
             sumOfLengths += current.length();
         }
-        System.out.println(sumOfLengths+" sum and avg ");
+        System.out.println(sumOfLengths + " sum and avg ");
         return sumOfLengths / amountOfStrings;
-    }
-
-    private static void stringAdder(int amountOfStrings, List<String> stringList) {
-        Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < amountOfStrings; i++) {
-            String temp = scanner.nextLine();
-            stringList.add(temp);
-        }
     }
 }
