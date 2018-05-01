@@ -52,7 +52,6 @@ public class Task3 {
             stringList.add(temp);
         }
 
-        System.out.println(stringList);
         avgLength = getAvgLength(amountOfStrings, stringList);
 
         stringsSmallerThanAverage(stringList, avgLength);
