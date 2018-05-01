@@ -40,22 +40,25 @@ public class Task8 {
         outer:
         for (int i = 0; i < quantity; i++) {
             String word = scanner.next();
-            try {
-                int number = Integer.parseInt(word);
 
-                for (int j = 0; j < word.length() / 2; j++) {
-                    if (word.charAt(j) != word.charAt(word.length() - j - 1)){
-                        continue outer;
-                    }
+            for (int j = 0; j < word.length(); j++) {
+                if (!(word.charAt(j) >= '0' && word.charAt(j) <= '9')){
+                    continue outer;
                 }
-                if (!palindromeNumbers.contains(number)){
-                    palindromeNumbers.add(number);
+            }
+            int number = Integer.parseInt(word);
+
+            for (int j = 0; j < word.length() / 2; j++) {
+                if (word.charAt(j) != word.charAt(word.length() - j - 1)){
+                    continue outer;
                 }
-                if (palindromeNumbers.size() == 2){
-                    System.out.println(palindromeNumbers.get(1));
-                    return;
-                }
-            } catch (Exception e){
+            }
+            if (!palindromeNumbers.contains(number)){
+                palindromeNumbers.add(number);
+            }
+            if (palindromeNumbers.size() == 2){
+                System.out.println(palindromeNumbers.get(1));
+                return;
             }
         }
         if (palindromeNumbers.isEmpty()){
