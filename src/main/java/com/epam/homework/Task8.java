@@ -1,7 +1,6 @@
 package com.epam.homework;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,19 +39,23 @@ public class Task8 {
         outer:
         for (int i = 0; i < quantity; i++) {
             String word = scanner.next();
+            String wordTrim = word;
 
-            for (int j = 0; j < word.length(); j++) {
-                if (!(word.charAt(j) >= '0' && word.charAt(j) <= '9')){
+            if (word.indexOf("-") == 0){
+                wordTrim = word.substring(1);
+            }
+            for (int j = 0; j < wordTrim.length(); j++) {
+                if (wordTrim.charAt(j) < '0' || wordTrim.charAt(j) > '9'){
+                    continue outer;
+                }
+            }
+            for (int j = 0; j < wordTrim.length() / 2; j++) {
+                if (wordTrim.charAt(j) != wordTrim.charAt(wordTrim.length() - j - 1)){
                     continue outer;
                 }
             }
             int number = Integer.parseInt(word);
 
-            for (int j = 0; j < word.length() / 2; j++) {
-                if (word.charAt(j) != word.charAt(word.length() - j - 1)){
-                    continue outer;
-                }
-            }
             if (!palindromeNumbers.contains(number)){
                 palindromeNumbers.add(number);
             }
