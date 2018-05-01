@@ -72,7 +72,6 @@ public class Task3 {
         for (String current : stringList) {
             sumOfLengths += current.length();
         }
-        System.out.println(sumOfLengths + " sum and avg ");
         return sumOfLengths / amountOfStrings;
     }
 }
