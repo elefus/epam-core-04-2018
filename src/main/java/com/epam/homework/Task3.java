@@ -47,13 +47,13 @@ public class Task3 {
         List<String> stringList = new ArrayList<>();
 
         stringAdder(amountOfStrings, stringList);
+        int avgLength = getAvgLength(amountOfStrings, stringList);
 
-        System.out.println("AVERAGE (" + getAvgLength(amountOfStrings,stringList) + ")");
-        stringsSmallerThanAverage(amountOfStrings,stringList);
+        stringsSmallerThanAverage(stringList, avgLength);
     }
 
-    private static void stringsSmallerThanAverage(int amountOfStrings,List<String> stringList) {
-        int avgLength = getAvgLength(amountOfStrings, stringList);
+    private static void stringsSmallerThanAverage(List<String> stringList, int avgLength) {
+        System.out.println("AVERAGE (" + avgLength + ")");
         for (String current : stringList) {
             if (current.length() < avgLength) {
                 System.out.println("(" + current.length() + "): " + current);
