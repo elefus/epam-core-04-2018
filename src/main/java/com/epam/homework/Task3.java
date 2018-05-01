@@ -56,7 +56,8 @@ public class Task3 {
     private static void stringsSmallerThanAverage(List<String> stringList, int avgLength) {
         System.out.println("AVERAGE (" + avgLength + ")");
         for (String current : stringList) {
-            if (current.length() < avgLength) {
+
+            if (current.length() < avgLength && current.length()!=0) {
                 System.out.println("(" + current.length() + "): " + current);
             }
         }
@@ -67,6 +68,7 @@ public class Task3 {
         for (String current : stringList) {
             sumOfLengths += current.length();
         }
+        System.out.println(sumOfLengths+" sum and avg ");
         return sumOfLengths / amountOfStrings;
     }
 
