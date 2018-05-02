@@ -1,5 +1,10 @@
 package com.epam.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
 public class Task7 {
 
     /**
@@ -27,7 +32,28 @@ public class Task7 {
      * Выходные данные:
      * The is a
      */
-    public static void main(String[] args) {
-        // TODO реализация
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(reader.readLine());
+        String[] inputWords = reader.readLine().split(" ");
+        Set<String> result = new LinkedHashSet<>();
+
+        for (int i = 0; i < n; i++) {
+            if (isFromDiffLetters(inputWords[i])) {
+                result.add(inputWords[i]);
+            }
+        }
+
+        if (!result.isEmpty()) {
+            System.out.println(String.join(" ", result));
+        } else {
+            System.out.println("NOT FOUND");
+        }
+    }
+
+    private static boolean isFromDiffLetters(String string) {
+        HashSet<String> diffLetters = new HashSet<>(Arrays.asList(string.split("")));
+        return diffLetters.size() == string.length();
     }
 }
