@@ -34,40 +34,34 @@ public class Task8 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int quantity = scanner.nextInt();
-        List<Integer> palindromeNumbers = new ArrayList<>();
+        List<String> palindromes = new ArrayList<>();
 
         outer:
         for (int i = 0; i < quantity; i++) {
             String word = scanner.next();
-            String wordTrim = word;
 
-            if (word.indexOf("-") == 0){
-                wordTrim = word.substring(1);
-            }
-            for (int j = 0; j < wordTrim.length(); j++) {
-                if (wordTrim.charAt(j) < '0' || wordTrim.charAt(j) > '9'){
+            for (int j = 0; j < word.length(); j++) {
+                if (word.charAt(j) < '0' || word.charAt(j) > '9'){
                     continue outer;
                 }
             }
-            for (int j = 0; j < wordTrim.length() / 2; j++) {
-                if (wordTrim.charAt(j) != wordTrim.charAt(wordTrim.length() - j - 1)){
+            for (int j = 0; j < word.length() / 2; j++) {
+                if (word.charAt(j) != word.charAt(word.length() - j - 1)){
                     continue outer;
                 }
             }
-            int number = Integer.parseInt(word);
-
-            if (!palindromeNumbers.contains(number)){
-                palindromeNumbers.add(number);
+            if (!palindromes.contains(word)){
+                palindromes.add(word);
             }
-            if (palindromeNumbers.size() == 2){
-                System.out.println(palindromeNumbers.get(1));
+            if (palindromes.size() == 2){
+                System.out.println(palindromes.get(1));
                 return;
             }
         }
-        if (palindromeNumbers.isEmpty()){
+        if (palindromes.isEmpty()){
             System.out.println("NOT FOUND");
         } else {
-            System.out.println(palindromeNumbers.get(0));
+            System.out.println(palindromes.get(0));
         }
     }
 }
