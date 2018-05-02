@@ -37,10 +37,11 @@ public class Task7 {
 
         int n = Integer.parseInt(reader.readLine());
         String[] inputWords = reader.readLine().split(" ");
+
         Set<String> result = new LinkedHashSet<>();
 
         for (int i = 0; i < n; i++) {
-            if (onlyLatinAlphabet(inputWords[i]) && isFromDiffLetters(inputWords[i])) {
+            if (isFromDiffLetters(inputWords[i])) {
                 result.add(inputWords[i]);
             }
         }
@@ -55,9 +56,5 @@ public class Task7 {
     private static boolean isFromDiffLetters(String string) {
         HashSet<String> diffLetters = new HashSet<>(Arrays.asList(string.toLowerCase().split("")));
         return diffLetters.size() == string.length();
-    }
-
-    private static boolean onlyLatinAlphabet(String string) {
-        return string.matches("[a-zA-Z0-9]+");
     }
 }
