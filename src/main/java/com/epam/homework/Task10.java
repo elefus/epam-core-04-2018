@@ -35,11 +35,23 @@ public class Task10 {
         try (Scanner reader = new Scanner(System.in)) {
             int number = reader.nextInt();
 
-            if (number == 1 || (number > 0 && number % 2 == 0)) {
+            if (isPowerOf2(number)) {
                 System.out.println("YES");
             } else {
                 System.out.println("NO");
             }
         }
+    }
+
+    private static boolean isPowerOf2(int number) {
+        if (number <= 0) {
+            return false;
+        }
+
+        while (number % 2 == 0) {
+            number >>>= 1;
+        }
+
+        return number == 1;
     }
 }
