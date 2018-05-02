@@ -38,7 +38,7 @@ public class Task8 {
         int countPolindrom = 0;
         while (currentCount < wordsCount) {
             String nextWord = scanner.next();
-            if (nextWord.matches("[0-9]+") && isNuberPolindrom(nextWord)) {
+            if (nextWord.matches("[0-9]+") && isNuberPolindrom(nextWord) && !isPolindrom.equals(nextWord)) {
                 isPolindrom = nextWord;
                 countPolindrom++;
             }
