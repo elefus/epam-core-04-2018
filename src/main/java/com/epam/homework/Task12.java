@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.*;
+
 public class Task12 {
 
     /**
@@ -37,6 +39,30 @@ public class Task12 {
      * 0    2    3    4    5
      */
     public static void main(String[] args) {
-        // TODO реализация
+        try (Scanner reader = new Scanner(System.in)) {
+            int n = reader.nextInt();
+            List<List<Integer>> matrix = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                List<Integer> row = new ArrayList<>();
+                for (int j = 0; j < n; j++) {
+                    row.add(reader.nextInt());
+                }
+                matrix.add(row);
+            }
+            int compareRow = reader.nextInt();
+            matrix.sort(Comparator.comparing(row -> row.get(compareRow)));
+
+            printResult(n, matrix, compareRow);
+        }
+    }
+
+    private static void printResult(int n, List<List<Integer>> matrix, int compareRow) {
+        System.out.println(compareRow);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(matrix.get(i).get(j) + " ");
+            }
+            System.out.println("");
+        }
     }
 }
