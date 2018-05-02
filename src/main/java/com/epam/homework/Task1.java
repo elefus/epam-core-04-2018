@@ -37,11 +37,9 @@ public class Task1 {
      */
     public static void main(String[] args) {
 
-        System.out.println("Enter strings quantity.");
         Scanner sc = new Scanner(System.in);
-        int count = sc.nextInt();
+        int count = Integer.parseInt(sc.nextLine());
 
-        System.out.println("Type in a text here.");
         sc.nextLine();
         String curr = sc.nextLine();
         String shortest = curr;
@@ -59,7 +57,7 @@ public class Task1 {
             }
         }
 
-        System.out.println("\nMIN (" + shortest.length() + "): " + shortest);
+        System.out.println("MIN (" + shortest.length() + "): " + shortest);
         System.out.println("MAX (" + longest.length() + "): " + longest);
     }
 }
