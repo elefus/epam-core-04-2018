@@ -58,6 +58,6 @@ public class Task7 {
     }
 
     private static boolean onlyLatinAlphabet(String string) {
-        return string.matches("[a-zA-Z]+");
+        return string.matches("[a-zA-Z0-9]+");
     }
 }
