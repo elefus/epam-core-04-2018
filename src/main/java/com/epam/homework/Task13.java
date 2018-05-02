@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task13 {
 
     /**
@@ -50,6 +52,14 @@ public class Task13 {
      * 0  -1   2
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner in = new Scanner(System.in);
+        int sizeOfMat = in.nextInt();
+        Matrix myMat = new Matrix(sizeOfMat);
+        myMat.setMatrix(in);
+
+        int amountShifts = in.nextInt();
+        myMat.shiftRows(amountShifts);
+
+        myMat.printMatrix();
     }
 }
