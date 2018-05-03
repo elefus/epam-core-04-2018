@@ -2,6 +2,7 @@ package com.epam.homework;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Task12 {
 
@@ -49,17 +50,49 @@ public class Task12 {
                     matrix[i][j] = reader.nextInt();
                 }
             }
+            int sortColumnIndex = reader.nextInt();
 
-            int sortColumnNumber = reader.nextInt();
-
-            matrix = sortMatrix(matrix, matrixDimension, sortColumnNumber);
-            for (int[] line: matrix) {
-                System.out.println(Arrays.toString(line));
-            }
+            printMatrix(sortMatrix(matrix, sortColumnIndex));
         }
     }
 
-    private static int[][] sortMatrix(int[][] matrix, int matrixDimension, int sortColumnNumber) {
+    private static int[][] sortMatrix(int[][] matrix, int sortColumnIndex) {
+        int[] sortColumn = getMatrixColumn(matrix, sortColumnIndex);
+
+        Arrays.sort(sortColumn);
+
+        for (int i = 0; i < sortColumn.length; i++) {
+            for (int j = i; j < matrix.length; j++) {
+                if (matrix[sortColumnIndex][j] == sortColumn[i]) {
+                    swapMatrixLines(matrix, i, j);
+                    break;
+                }
+            }
+        }
+
         return matrix;
+    }
+
+    private static int[] getMatrixColumn(int[][] matrix, int columnIndex) {
+        int[] matrixColumn = new int[matrix[0].length];
+
+        for (int i = 0; i < matrixColumn.length; i++) {
+            matrixColumn[i] = matrix[i][columnIndex];
+        }
+
+        return matrixColumn;
+    }
+
+    private static void swapMatrixLines(int[][] matrix, int i, int j) {
+        int[] tmp = matrix[i];
+        matrix[i] = matrix[j];
+        matrix[j] = tmp;
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int[] line: matrix) {
+            System.out.println(Arrays.stream(line)
+                    .mapToObj(String::valueOf).collect(Collectors.joining(" ")));
+        }
     }
 }
