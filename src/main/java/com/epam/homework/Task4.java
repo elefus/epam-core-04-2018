@@ -40,23 +40,22 @@ public class Task4 {
         inputToArrayOfStrings(scanner, numberOfWords, wordsFromInput);
 
         Set<Character> charsFromWordWithMinNumOfDiffLetters = new HashSet<>();
-        Set<Character> currentWord = new HashSet<>();
-
+        Set<Character> charsFromCurrentWord = new HashSet<>();
 
         for (Character currentChar : wordsFromInput[0].toCharArray()) {
             charsFromWordWithMinNumOfDiffLetters.add(currentChar);
         }
 
         for (String currentString : wordsFromInput) {
-            currentWord.clear();
+            charsFromCurrentWord.clear();
             for (Character currentChar : currentString.toCharArray()) {
-                currentWord.add(currentChar);
+                charsFromCurrentWord.add(currentChar);
             }
             currentIndex++;
-            if (currentWord.size() < charsFromWordWithMinNumOfDiffLetters.size()) {
+            if (charsFromCurrentWord.size() < charsFromWordWithMinNumOfDiffLetters.size()) {
                 minWordIndex = currentIndex - 1;
                 charsFromWordWithMinNumOfDiffLetters.clear();
-                charsFromWordWithMinNumOfDiffLetters.addAll(currentWord);
+                charsFromWordWithMinNumOfDiffLetters.addAll(charsFromCurrentWord);
             }
         }
 
@@ -70,4 +69,3 @@ public class Task4 {
         }
     }
 }
-//Cake isa a1 lie a2 lie
