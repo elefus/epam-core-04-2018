@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
 
-class Matrix {
+class Matrix{
 
     private int[][] matrix;
 
@@ -38,7 +38,7 @@ class Matrix {
             }
         });
     }
-
+  
     void shiftRows(int amountShifts) {
         if (amountShifts > 0) {
             shiftToDown(amountShifts);
@@ -68,6 +68,4 @@ class Matrix {
         matrix[row1] = matrix[row2];
         matrix[row2] = tempRow;
     }
-
-
 }
