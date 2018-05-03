@@ -65,7 +65,6 @@ public class Task4 {
     private static void inputToArrayOfStrings(Scanner scanner, int numberOfWords, String[] wordsFromInput) {
         for (int i = 0; i < numberOfWords; i++) {
             wordsFromInput[i] = scanner.next();
-            System.out.println(wordsFromInput[i]);
         }
     }
 }
