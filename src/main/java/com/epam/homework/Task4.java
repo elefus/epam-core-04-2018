@@ -59,7 +59,7 @@ public class Task4 {
             }
         }
 
-        System.out.println("answer is " + wordsFromInput[minWordIndex]);
+        System.out.println(wordsFromInput[minWordIndex]);
     }
 
     private static void inputToArrayOfStrings(Scanner scanner, int numberOfWords, String[] wordsFromInput) {
