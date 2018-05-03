@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task7 {
 
@@ -38,13 +39,10 @@ public class Task7 {
         int n = Integer.parseInt(reader.readLine());
         String[] inputWords = reader.readLine().split(" ");
 
-        Set<String> result = new LinkedHashSet<>();
-
-        for (int i = 0; i < n; i++) {
-            if (isFromDiffLetters(inputWords[i])) {
-                result.add(inputWords[i]);
-            }
-        }
+        Set<String> result = Arrays.stream(inputWords)
+                .limit(n)
+                .filter(Task7::isFromDiffLetters)
+                .collect(Collectors.toCollection(LinkedHashSet::new));
 
         if (!result.isEmpty()) {
             System.out.println(String.join(" ", result));
@@ -54,7 +52,7 @@ public class Task7 {
     }
 
     private static boolean isFromDiffLetters(String string) {
-        HashSet<String> diffLetters = new HashSet<>(Arrays.asList(string.toLowerCase().split("")));
+        Set<String> diffLetters = new HashSet<>(Arrays.asList(string.toLowerCase().split("")));
         return diffLetters.size() == string.length();
     }
 }
