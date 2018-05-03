@@ -1,5 +1,6 @@
 package com.epam.homework;
 
+import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -34,14 +35,13 @@ public class Task4 {
         int numberOfWords = scanner.nextInt();
         int currentIndex = 0;
         int minWordIndex = 0;
-        String inputText = "";
+        String[] wordsFromInput = new String[numberOfWords];
 
-        for (int i = 0; i < numberOfWords; i++) {
-            inputText = inputText + scanner.next() + " ";
-        }
+        inputToArrayOfStrings(scanner, numberOfWords, wordsFromInput);
+
         Set<Character> charsFromWordWithMinNumOfDiffLetters = new HashSet<>();
         Set<Character> currentWord = new HashSet<>();
-        String[] wordsFromInput = inputText.split(" ", numberOfWords);
+
 
         for (Character currentChar : wordsFromInput[0].toCharArray()) {
             charsFromWordWithMinNumOfDiffLetters.add(currentChar);
@@ -60,6 +60,14 @@ public class Task4 {
             }
         }
 
-        System.out.println(wordsFromInput[minWordIndex]);
+        System.out.println("answer is " + wordsFromInput[minWordIndex]);
+    }
+
+    private static void inputToArrayOfStrings(Scanner scanner, int numberOfWords, String[] wordsFromInput) {
+        for (int i = 0; i < numberOfWords; i++) {
+            wordsFromInput[i] = scanner.next();
+            System.out.println(wordsFromInput[i]);
+        }
     }
 }
+//Cake isa a1 lie a2 lie
