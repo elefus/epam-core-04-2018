@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Task7 {
 
@@ -39,10 +38,16 @@ public class Task7 {
         int n = Integer.parseInt(reader.readLine());
         String[] inputWords = reader.readLine().split(" ");
 
-        Set<String> result = Arrays.stream(inputWords)
-                .limit(n)
-                .filter(Task7::isFromDiffLetters)
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+        Set<String> result = new LinkedHashSet<>();
+
+        for (int i = 0; i < n; i++) {
+            final String current = inputWords[i].toLowerCase();
+            if (isFromDiffLetters(inputWords[i]) && result.stream()
+                    .map(String::toLowerCase)
+                    .noneMatch(string -> string.equals(current))) {
+                result.add(inputWords[i]);
+            }
+        }
 
         if (!result.isEmpty()) {
             System.out.println(String.join(" ", result));
