@@ -32,10 +32,13 @@ public class Task4 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int numberOfWords = scanner.nextInt();
-        int currentIndex=0;
-        int minWordIndex=0;
-        scanner.nextLine();
-        String inputText = scanner.nextLine();
+        int currentIndex = 0;
+        int minWordIndex = 0;
+        String inputText = "";
+
+        for (int i = 0; i < numberOfWords; i++) {
+            inputText = inputText + scanner.next() + " ";
+        }
         Set<Character> charsFromWordWithMinNumOfDiffLetters = new HashSet<>();
         Set<Character> currentWord = new HashSet<>();
         String[] wordsFromInput = inputText.split(" ", numberOfWords);
@@ -51,7 +54,7 @@ public class Task4 {
             }
             currentIndex++;
             if (currentWord.size() < charsFromWordWithMinNumOfDiffLetters.size()) {
-                minWordIndex=currentIndex-1;
+                minWordIndex = currentIndex - 1;
                 charsFromWordWithMinNumOfDiffLetters.clear();
                 charsFromWordWithMinNumOfDiffLetters.addAll(currentWord);
             }
