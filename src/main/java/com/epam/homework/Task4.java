@@ -30,9 +30,6 @@ public class Task4 {
      * a
      */
     public static void main(String[] args) {
-        // TODO реализация
-
-        // TODO System.out.println(wordWithMinimalNumDiffLetters);
         Scanner scanner = new Scanner(System.in);
         int numberOfWords = scanner.nextInt();
         int currentIndex=0;
@@ -43,7 +40,9 @@ public class Task4 {
         Set<Character> currentWord = new HashSet<>();
         String[] wordsFromInput = inputText.split(" ", numberOfWords);
 
-        setCharsFromWordWithMinNumOfDiffLetters(charsFromWordWithMinNumOfDiffLetters, wordsFromInput[0]);
+        for (Character currentChar : wordsFromInput[0].toCharArray()) {
+            charsFromWordWithMinNumOfDiffLetters.add(currentChar);
+        }
 
         for (String currentString : wordsFromInput) {
             currentWord.clear();
@@ -57,12 +56,7 @@ public class Task4 {
                 charsFromWordWithMinNumOfDiffLetters.addAll(currentWord);
             }
         }
-        System.out.println(wordsFromInput[minWordIndex]);
-    }
 
-    private static void setCharsFromWordWithMinNumOfDiffLetters(Set<Character> charsFromWordWithMinNumOfDiffLetters, String firstEntry) {
-        for (Character currentChar : firstEntry.toCharArray()) {
-            charsFromWordWithMinNumOfDiffLetters.add(currentChar);
-        }
+        System.out.println(wordsFromInput[minWordIndex]);
     }
 }
