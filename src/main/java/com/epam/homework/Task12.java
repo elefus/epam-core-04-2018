@@ -4,7 +4,6 @@ import com.sun.istack.internal.NotNull;
 
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Task12 {
 
@@ -58,7 +57,7 @@ public class Task12 {
         }
     }
 
-    private static int[][] sortMatrix(int[][] matrix, int sortColumnIndex) {
+    static int[][] sortMatrix(int[][] matrix, int sortColumnIndex) {
         int[] sortColumn = getMatrixColumn(matrix, sortColumnIndex);
 
         Arrays.sort(sortColumn);
@@ -75,7 +74,7 @@ public class Task12 {
         return matrix;
     }
 
-    private static int[] getMatrixColumn(int[][] matrix, int columnIndex) {
+    static int[] getMatrixColumn(int[][] matrix, int columnIndex) {
         int[] matrixColumn = new int[matrix.length];
 
         for (int i = 0; i < matrixColumn.length; i++) {
@@ -85,13 +84,13 @@ public class Task12 {
         return matrixColumn;
     }
 
-    private static void swapMatrixLines(int[][] matrix, int i, int j) {
+    static void swapMatrixLines(int[][] matrix, int i, int j) {
         int[] tmp = matrix[i];
         matrix[i] = matrix[j];
         matrix[j] = tmp;
     }
 
-    private static void printMatrix(int[][] matrix) {
+    static void printMatrix(int[][] matrix) {
        for (int[] line: matrix) {
             for (int el: line) {
                 System.out.format("%4d", el);

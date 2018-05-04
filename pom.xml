@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.epam</groupId>
-    <artifactId>java-core</artifactId>
+    <artifactId>homework</artifactId>
     <version>04-2018</version>
+    <packaging>jar</packaging>
 
     <properties>
         <jdk.version>1.8</jdk.version>
