@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import com.sun.istack.internal.NotNull;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -61,9 +63,9 @@ public class Task12 {
 
         Arrays.sort(sortColumn);
 
-        for (int i = 0; i < sortColumn.length; i++) {
+        for (int i = 0; i < sortColumn.length - 1; i++) {
             for (int j = i; j < matrix.length; j++) {
-                if (matrix[sortColumnIndex][j] == sortColumn[i]) {
+                if (matrix[j][sortColumnIndex] == sortColumn[i]) {
                     swapMatrixLines(matrix, i, j);
                     break;
                 }
@@ -74,7 +76,7 @@ public class Task12 {
     }
 
     private static int[] getMatrixColumn(int[][] matrix, int columnIndex) {
-        int[] matrixColumn = new int[matrix[0].length];
+        int[] matrixColumn = new int[matrix.length];
 
         for (int i = 0; i < matrixColumn.length; i++) {
             matrixColumn[i] = matrix[i][columnIndex];
@@ -90,9 +92,11 @@ public class Task12 {
     }
 
     private static void printMatrix(int[][] matrix) {
-        for (int[] line: matrix) {
-            System.out.println(Arrays.stream(line)
-                    .mapToObj(String::valueOf).collect(Collectors.joining(" ")));
+       for (int[] line: matrix) {
+            for (int el: line) {
+                System.out.format("%4d", el);
+            }
+            System.out.println();
         }
     }
 }
