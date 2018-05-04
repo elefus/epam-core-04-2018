@@ -1,5 +1,11 @@
 package com.epam.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class Task8 {
 
     /**
@@ -27,7 +33,42 @@ public class Task8 {
      * Выходные данные:
      * 22
      */
-    public static void main(String[] args) {
-        // TODO реализация
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        final int GET_PALINDROME_INDEX = 2;
+
+        int n = Integer.parseInt(reader.readLine());
+        String[] inputWords = reader.readLine().split(" ");
+
+        List<String> palindromes = Arrays.stream(inputWords)
+                .limit(n)
+                .filter(s -> s.matches("[0-9]+"))
+                .filter(Task8::isPalindrome)
+                .distinct()
+                .limit(GET_PALINDROME_INDEX)
+                .collect(Collectors.toList());
+
+        if (!palindromes.isEmpty()) {
+            System.out.println(palindromes.get(palindromes.size() - 1));
+        } else {
+            System.out.println("NOT FOUND");
+        }
+    }
+
+    private static boolean isPalindrome(String string) {
+        boolean isPalindrome = true;
+
+        if (string.length() == 2) {
+            return string.charAt(0) == string.charAt(1);
+        }
+
+        int lastIndex = string.length() - 1;
+        for (int i = 0; i < lastIndex / 2; i++) {
+            if (string.charAt(i) != string.charAt(lastIndex - i)) {
+                isPalindrome = false;
+            }
+        }
+        return isPalindrome;
     }
 }
