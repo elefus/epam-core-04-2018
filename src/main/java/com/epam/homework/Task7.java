@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.*;
+
 public class Task7 {
 
     /**
@@ -28,6 +30,40 @@ public class Task7 {
      * The is a
      */
     public static void main(String[] args) {
-        // TODO реализация
+
+        Scanner sc = new Scanner(System.in);
+        int count = Integer.parseInt(sc.nextLine());
+        String input = sc.nextLine();
+        String[] words = input.split(" ", count);
+        Set<String> uniqueWords = new LinkedHashSet<>();
+
+        for (String word : words) {
+            if (areCharsUnique(word)) {
+                uniqueWords.add(word);
+            }
+        }
+
+        String[] output = uniqueWords.toArray(new String[0]);
+
+        if (output.length == 0) {
+            System.out.println("NOT FOUND");
+        } else
+            for (String i : output) {
+            System.out.print((i + " "));
+        }
+    }
+
+    private static boolean areCharsUnique (String str) {
+
+        Set<Character> uniqueChars = new HashSet<>();
+        str = str.toLowerCase();
+
+        for (int i = 0; i < str.length(); i++) {
+            boolean add = uniqueChars.add(str.charAt(i));
+            if (!add) {
+                return false;
+            }
+        }
+        return true;
     }
 }
