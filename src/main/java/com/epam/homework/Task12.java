@@ -63,7 +63,7 @@ public class Task12 {
     }
 
     static int[][] sortMatrix(int[][] matrix, int sortColumnIndex) {
-        Arrays.sort(matrix, Comparator.comparingInt(p -> p[sortColumnIndex]));
+        Arrays.sort(matrix, Comparator.comparingInt(line -> line[sortColumnIndex]));
 
         return matrix;
     }
