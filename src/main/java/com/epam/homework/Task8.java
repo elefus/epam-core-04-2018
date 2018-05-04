@@ -31,14 +31,19 @@ public class Task8 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = Integer.parseInt(scanner.next());
-        String str;
+        String word;
         String result = "NOT FOUND";
+        int numberOfPalindromes = 0;
 
         for (int i = 0; i < n; i++) {
-            str = scanner.next();
+            word = scanner.next();
 
-            if (isPalindrome(str) && isDigit(str)){
-                result = str;
+            if (isPalindrome(word) && isDigit(word) && !result.equals(word)){
+                result = word;
+                numberOfPalindromes++;
+            }
+            if (numberOfPalindromes == 2){
+                break;
             }
         }
         System.out.println(result);
