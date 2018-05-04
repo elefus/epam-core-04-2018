@@ -1,8 +1,7 @@
 package com.epam.homework;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Task12 {
@@ -44,50 +43,29 @@ public class Task12 {
     public static void main(String[] args) {
         try (Scanner reader = new Scanner(System.in)) {
             int matrixDimension = reader.nextInt();
-            int[][] matrix = new int[matrixDimension][matrixDimension];
-
-            for (int i = 0; i < matrixDimension; i++) {
-                for (int j = 0; j < matrixDimension; j++) {
-                    matrix[i][j] = reader.nextInt();
-                }
-            }
+            int[][] matrix = readMatrix(reader, matrixDimension);
             int sortColumnIndex = reader.nextInt();
 
             printMatrix(sortMatrix(matrix, sortColumnIndex));
         }
     }
 
-    static int[][] sortMatrix(int[][] matrix, int sortColumnIndex) {
-        int[] sortColumn = getMatrixColumn(matrix, sortColumnIndex);
+    static int[][] readMatrix(Scanner reader, int dimension) {
+        int[][] matrix = new int[dimension][dimension];
 
-        Arrays.sort(sortColumn);
-
-        for (int i = 0; i < sortColumn.length - 1; i++) {
-            for (int j = i; j < matrix.length; j++) {
-                if (matrix[j][sortColumnIndex] == sortColumn[i]) {
-                    swapMatrixLines(matrix, i, j);
-                    break;
-                }
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                matrix[i][j] = reader.nextInt();
             }
         }
 
         return matrix;
     }
 
-    static int[] getMatrixColumn(int[][] matrix, int columnIndex) {
-        int[] matrixColumn = new int[matrix.length];
+    static int[][] sortMatrix(int[][] matrix, int sortColumnIndex) {
+        Arrays.sort(matrix, Comparator.comparingInt(p -> p[sortColumnIndex]));
 
-        for (int i = 0; i < matrixColumn.length; i++) {
-            matrixColumn[i] = matrix[i][columnIndex];
-        }
-
-        return matrixColumn;
-    }
-
-    static void swapMatrixLines(int[][] matrix, int i, int j) {
-        int[] tmp = matrix[i];
-        matrix[i] = matrix[j];
-        matrix[j] = tmp;
+        return matrix;
     }
 
     static void printMatrix(int[][] matrix) {
