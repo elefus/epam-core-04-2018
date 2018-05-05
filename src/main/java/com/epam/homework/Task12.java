@@ -46,7 +46,8 @@ public class Task12 {
             int[][] matrix = readMatrix(reader, matrixDimension);
             int sortColumnIndex = reader.nextInt();
 
-            printMatrix(sortMatrix(matrix, sortColumnIndex));
+            System.out.println(matrixDimension);
+            print(sort(matrix, sortColumnIndex));
         }
     }
 
@@ -62,13 +63,13 @@ public class Task12 {
         return matrix;
     }
 
-    static int[][] sortMatrix(int[][] matrix, int sortColumnIndex) {
-        Arrays.sort(matrix, Comparator.comparingInt(line -> line[sortColumnIndex]));
+    static int[][] sort(int[][] matrix, int columnIndex) {
+        Arrays.sort(matrix, Comparator.comparingInt(line -> line[columnIndex]));
 
         return matrix;
     }
 
-    static void printMatrix(int[][] matrix) {
+    static void print(int[][] matrix) {
        for (int[] line: matrix) {
             for (int el: line) {
                 System.out.format("%4d", el);

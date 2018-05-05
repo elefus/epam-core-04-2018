@@ -25,6 +25,6 @@ class Task12Test {
                 {0,    2,    3,    4,    5}
         };
 
-        assertArrayEquals(Task12.sortMatrix(matrix, sortColumnIndex), expected);
+        assertArrayEquals(Task12.sort(matrix, sortColumnIndex), expected);
     }
 }
