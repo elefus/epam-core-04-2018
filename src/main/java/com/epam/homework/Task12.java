@@ -63,14 +63,14 @@ public class Task12 {
     }
 
     static int[][] sortMatrix(int[][] matrix, int sortColumnIndex) {
-        Arrays.sort(matrix, Comparator.comparingInt(line -> line[sortColumnIndex]));
+        Arrays.sort(matrix, Comparator.comparingInt(row -> row[sortColumnIndex]));
 
         return matrix;
     }
 
     static void printMatrix(int[][] matrix) {
-       for (int[] line: matrix) {
-            for (int el: line) {
+       for (int[] row: matrix) {
+            for (int el: row) {
                 System.out.format("%4d", el);
             }
             System.out.println();
