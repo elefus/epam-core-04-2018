@@ -34,9 +34,11 @@ public class Task10 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int x = Integer.parseInt(in.nextLine());
-        if((x > 0) && ((x & (x - 1)) == 0))
+        if((x > 0) && ((x & (x - 1)) == 0)){
             System.out.println("YES");
-        else
+        }
+        else {
             System.out.println("NO");
+        }
     }
 }
