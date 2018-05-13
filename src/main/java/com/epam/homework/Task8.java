@@ -44,7 +44,7 @@ public class Task8 {
         List<String> palindromes = Arrays.stream(inputWords)
                 .limit(n)
                 .filter(s -> s.matches("[0-9]+"))
-                .filter(Task8::isPalindrome)
+                .filter(s -> s.equalsIgnoreCase(new StringBuilder(s).reverse().toString()))
                 .distinct()
                 .limit(GET_PALINDROME_INDEX)
                 .collect(Collectors.toList());
@@ -54,21 +54,5 @@ public class Task8 {
         } else {
             System.out.println("NOT FOUND");
         }
-    }
-
-    private static boolean isPalindrome(String string) {
-        boolean isPalindrome = true;
-
-        if (string.length() == 2) {
-            return string.charAt(0) == string.charAt(1);
-        }
-
-        int lastIndex = string.length() - 1;
-        for (int i = 0; i < lastIndex / 2; i++) {
-            if (string.charAt(i) != string.charAt(lastIndex - i)) {
-                isPalindrome = false;
-            }
-        }
-        return isPalindrome;
     }
 }
