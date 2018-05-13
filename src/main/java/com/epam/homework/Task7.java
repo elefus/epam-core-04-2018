@@ -41,10 +41,8 @@ public class Task7 {
         Set<String> result = new HashSet<>();
 
         for (int i = 0; i < n; i++) {
-            final String current = inputWords[i].toLowerCase();
-            if (isFromDiffLetters(current) && result.stream()
-                    .map(String::toLowerCase)
-                    .noneMatch(string -> string.equals(current))) {
+            final String current = inputWords[i];
+            if (isFromDiffLetters(current) && result.stream().noneMatch(string -> string.equalsIgnoreCase(current))) {
                 result.add(inputWords[i]);
             }
         }
