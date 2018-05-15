@@ -45,23 +45,28 @@ public class Task6 {
         String[] wordsFromInput = scanner.nextLine().split(" ", numOfWords);
 
         for (String current : wordsFromInput) {
-            boolean isWordWithCharsCodeInAscendingOrderFound = false;
+            boolean hasWordWithCharsCodeInAscendingOrderFound = isWordWithCharsCodeInAscendingOrder(current);
 
-            for (int i = 0; i < current.length() - 1; i++) {
-                if (current.charAt(i) >= current.charAt(i + 1)) {
-                        break;
-                    } else {
-                        if (current.length() == i + 2) {
-                            isWordWithCharsCodeInAscendingOrderFound = true;
-                        }
-                    }
-                }
-
-            if (isWordWithCharsCodeInAscendingOrderFound) {
+            if (hasWordWithCharsCodeInAscendingOrderFound) {
                 answer = current;
                 break;
             }
         }
         System.out.println(answer);
+    }
+
+    private static boolean isWordWithCharsCodeInAscendingOrder(String current) {
+        boolean hasWordWithCharsCodeInAscendingOrderFound = false;
+
+        for (int i = 0; i < current.length() - 1; i++) {
+            if (current.charAt(i) >= current.charAt(i + 1)) {
+                break;
+            } else {
+                if (current.length() == i + 2) {
+                    hasWordWithCharsCodeInAscendingOrderFound = true;
+                }
+            }
+        }
+        return hasWordWithCharsCodeInAscendingOrderFound;
     }
 }
