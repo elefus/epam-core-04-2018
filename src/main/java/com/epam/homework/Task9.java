@@ -1,7 +1,8 @@
 package com.epam.homework;
 
-public class Task9 {
+import java.util.Scanner;
 
+public class Task9 {
     /**
      * С консоли вводятся три целых числа A, B, C.
      * Числа являются коэффициентами, задающими квадратное уравнение в общем виде: A*x^2 + B*x + C = 0
@@ -47,6 +48,23 @@ public class Task9 {
      * NO ROOTS
      */
     public static void main(String[] args) {
-        // TODO реализация
+        try (Scanner scanner = new Scanner(System.in)) {
+            int firstCf = scanner.nextInt();
+            int secondCf = scanner.nextInt();
+            int thirdCf = scanner.nextInt();
+
+            int discriminant = (int) Math.pow(secondCf, 2) - 4*firstCf*thirdCf;
+            if (discriminant == 0) {
+                System.out.printf("%.2f",((-secondCf+Math.sqrt(discriminant))/(2*firstCf)));
+            }
+            else if (discriminant < 0) {
+                System.out.println("NO ROOTS");
+            }
+            else {
+                System.out.printf("%.2f",((-secondCf+Math.sqrt(discriminant))/(2*firstCf)));
+                System.out.print(", ");
+                System.out.printf("%.2f",((-secondCf-Math.sqrt(discriminant))/(2*firstCf)));
+            }
+        }
     }
 }
