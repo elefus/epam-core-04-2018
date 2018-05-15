@@ -1,8 +1,6 @@
 package com.epam.homework;
 
-public class Task7 {
-
-    /**
+    /*
      * Ввести N слов с консоли.
      * Найти слова, состоящие только из различных символов английского алфавита.
      * Символы верхнего и нижнего регистра считать одинаковыми.
@@ -27,7 +25,49 @@ public class Task7 {
      * Выходные данные:
      * The is a
      */
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Task7 {
+
+    private static List<String> array;
+
     public static void main(String[] args) {
-        // TODO реализация
+
+        Scanner scanner = new Scanner(System.in);
+        array = new ArrayList<>();
+
+        int digit = Integer.parseInt(scanner.nextLine());
+
+        next : for (int i = 0; i < digit; i++) {
+
+            String word = scanner.next();
+            if (word.length() == 1) {
+                array.add(word);
+                continue next;
+            }
+            for (int y = 1; y < word.length(); y++) {
+                for (int z = 0; z < y; z++) {
+                    if (word.charAt(z) == word.charAt(y)) continue next;
+                }
+            }
+            addToArray(word);
+        }
+        if (array.size() == 0) {
+            System.out.println("NOT FOUND");
+        }
+        else {
+            for (String a : array) {
+                System.out.print(a + " ");
+            }
+        }
     }
+
+    private static void addToArray(String a) {
+        if (!array.contains(a)) {
+            array.add(a);
+        }
+    }
+
 }
