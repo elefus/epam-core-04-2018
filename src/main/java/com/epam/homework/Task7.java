@@ -41,8 +41,10 @@ public class Task7 {
         Set<String> result = new HashSet<>();
 
         for (int i = 0; i < n; i++) {
-            final String current = inputWords[i];
-            if (isFromDiffLetters(current) && result.stream().noneMatch(string -> string.equalsIgnoreCase(current))) {
+            final String current = inputWords[i].toLowerCase();
+            if (isFromDiffLetters(current) && result.stream()
+                    .map(String::toLowerCase)
+                    .noneMatch(string -> string.equals(current))) {
                 result.add(inputWords[i]);
             }
         }
@@ -54,8 +56,8 @@ public class Task7 {
         }
     }
 
-    private static boolean isFromDiffLetters(String string) {
-        Set<String> diffLetters = new HashSet<>(Arrays.asList(string.split("")));
+    private static boolean isFromDiffLetters (String string) {
+        Set<String> diffLetters = new HashSet<>(Arrays.asList(string.toLowerCase().split("")));
         return diffLetters.size() == string.length();
     }
 }
