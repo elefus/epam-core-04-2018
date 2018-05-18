@@ -48,7 +48,7 @@ public class Task7 {
         }
 
         if (!result.isEmpty()) {
-            System.out.println(String.join(" ", result).trim());
+            System.out.println(String.join(" ", result));
         } else {
             System.out.println("NOT FOUND");
         }
