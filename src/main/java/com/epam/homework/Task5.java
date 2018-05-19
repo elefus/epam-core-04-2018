@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Task5 {
@@ -30,9 +32,11 @@ public class Task5 {
 
         Scanner sc = new Scanner(System.in);
         int count = Integer.parseInt(sc.nextLine());
+        List<String> words = new LinkedList<>();
 
-        String input = sc.nextLine();
-        String[] words = input.split(" ", count);
+        for (int i = 0; i < count; i++) {
+            words.add(sc.next());
+        }
 
         int vowelsAndConsonantsAreEqual = 0;
 
