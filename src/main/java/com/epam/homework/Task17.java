@@ -61,8 +61,8 @@ public class Task17 {
 
     private static int getDeterminant(int[][] matrix) {
 
-        if (matrix.length == 2) {
-            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+        if (matrix.length == 1) {
+            return matrix[0][0];
         }
 
         int sum = 0;
