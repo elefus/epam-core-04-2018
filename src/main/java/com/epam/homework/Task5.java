@@ -1,6 +1,7 @@
 package com.epam.homework;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,11 +35,17 @@ public class Task5 {
         Scanner scanner = new Scanner(System.in);
         int numOfWords = scanner.nextInt();
         scanner.nextLine();
-        String inputStr = scanner.nextLine().toLowerCase();
-        String[] wordsFromInput = inputStr.split(" ", numOfWords);
+
+        String[] inputWords=new String[numOfWords];
+
         List<String> onlyEnglishWords = new ArrayList<>();
 
-        getOnlyEnglishWordsWithEvenNumberOfLetters(wordsFromInput, onlyEnglishWords);
+        for (int i = 0; i < numOfWords; i++) {
+            inputWords[i] = scanner.next().toLowerCase();
+        }
+
+
+        getOnlyEnglishWordsWithEvenNumberOfLetters(inputWords, onlyEnglishWords);
         System.out.println(getNumberOfWordsWithEqualNumberOfConsonantsAndVowels(onlyEnglishWords));
     }
 
