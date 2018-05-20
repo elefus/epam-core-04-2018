@@ -86,6 +86,8 @@ public class Task16 {
 
     private static void rotateMatrix(int[][] matrix, int angle) {
 
+        System.out.println(matrix.length);
+
         angle %= 4;
         if (angle < 0) {
             angle += 4;
