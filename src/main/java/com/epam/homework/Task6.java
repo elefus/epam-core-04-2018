@@ -42,9 +42,15 @@ public class Task6 {
         Scanner scanner = new Scanner(System.in);
         int numOfWords = scanner.nextInt();
         scanner.nextLine();
-        String[] wordsFromInput = scanner.nextLine().split(" ", numOfWords);
 
-        for (String current : wordsFromInput) {
+
+        String[] inputWords=new String[numOfWords];
+
+        for (int i = 0; i < numOfWords; i++) {
+            inputWords[i] = scanner.next().toLowerCase();
+        }
+
+        for (String current : inputWords) {
             boolean hasWordWithCharsCodeInAscendingOrderFound = isWordWithCharsCodeInAscendingOrder(current);
 
             if (hasWordWithCharsCodeInAscendingOrderFound) {
