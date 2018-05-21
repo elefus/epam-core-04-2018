@@ -40,7 +40,7 @@ public class Task10 {
     }
 
     private static String DegreeOfTwo(int value) {
-        if ((value>1 && (value & (value-1))==0)) {
+        if ((value>0 && (value & (value-1))==0)) {
             return "YES";
         }
         return "NO";
