@@ -47,34 +47,32 @@ public class Task7 {
                 addToArray(word);
                 continue;
             }
-            for (int y = 1; y < word.length(); y++) {
-                for (int z = 0; z < y; z++) {
-                    char a = Character.toLowerCase(word.charAt(z));
-                    char b = Character.toLowerCase(word.charAt(y));
+            for (int y = 0; y < word.length()-1; y++) {
+                for (int z = y+1; z < word.length(); z++) {
+                    char a = word.toLowerCase().charAt(z);
+                    char b = word.toLowerCase().charAt(y);
                     if (a == b) continue next;
                 }
             }
             addToArray(word);
         }
         if (array.isEmpty()) {
-            System.out.println("NOT FOUND");
+            System.out.print("NOT FOUND");
         }
         else {
             for (int i = 0; i < array.size(); i++) {
                 String a = array.get(i);
                 if (i == array.size()-1) {
-                    System.out.println(a);
+                    System.out.print(a);
                 } else {
                     System.out.print(a + " ");
                 }
             }
         }
     }
-
     private static void addToArray(String a) {
         if (!array.contains(a)) {
             array.add(a);
         }
     }
-
 }
