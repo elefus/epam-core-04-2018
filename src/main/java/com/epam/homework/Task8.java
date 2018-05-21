@@ -38,10 +38,12 @@ public class Task8 {
             List<String> array = new ArrayList<>();
             for (int i = 0; i < amountOfWords; i++) {
                 String word = scanner.next();
-                StringBuilder builder = new StringBuilder(word);
-                if (builder.toString().equals(builder.reverse().toString())) {
-                    if (!array.contains(word))
-                    array.add(word);
+                if (word.matches("[0-9]+")) {
+                    StringBuilder builder = new StringBuilder(word);
+                    if (builder.toString().equals(builder.reverse().toString())) {
+                        if (!array.contains(word))
+                            array.add(word);
+                    }
                 }
             }
             ((ArrayList<String>) array).trimToSize();
