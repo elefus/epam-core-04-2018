@@ -47,11 +47,11 @@ public class Task14 {
                 if (digit > 0 && digit > prevDigit) {
                     curLen++;
                     prevDigit = digit;
-                    continue;
+                } else {
+                    prevDigit = 0;
+                    curLen = digit > 0 ? 1 : 0;
                 }
-                prevDigit = 0;
                 maxLen = Math.max(maxLen, curLen);
-                curLen = digit > 0 ? 1 : 0;
             }
             System.out.println(maxLen);
         }
