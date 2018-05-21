@@ -29,6 +29,7 @@ public class Task12 {
     }
 
     private static void printMartix(int[][] matrix) {
+        System.out.println(matrix.length);
         for (int[] aMatrix : matrix) {
             for (int anAMatrix : aMatrix) {
                 System.out.print(anAMatrix + " ");
