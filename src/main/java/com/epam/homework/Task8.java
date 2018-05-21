@@ -40,16 +40,21 @@ public class Task8 {
         for (int i = 0; i < numOfWords; i++) {
             wordsFromInput.add(sc.next().toLowerCase());
         }
-        answer = findLastUniquePalindrome(wordsFromInput, answer);
+        answer = findSecondUniquePalindrome(wordsFromInput, answer);
 
         System.out.println(answer.toString());
     }
 
-    private static StringBuilder findLastUniquePalindrome(List<String> wordsFromInput, StringBuilder answer) {
+    private static StringBuilder findSecondUniquePalindrome(List<String> wordsFromInput, StringBuilder answer) {
+        int numOfPalindromes = 0;
         for (String current : wordsFromInput) {
 
             if (hasOnlyDigits(current) && isPalindrome(current)) {
                 answer = answer.replace(0, answer.length(), current);
+                numOfPalindromes++;
+            }
+            if (numOfPalindromes == 2) {
+                break;
             }
         }
         return answer;
