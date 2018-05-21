@@ -38,21 +38,25 @@ public class Task14 {
     public static void main(String[] args) {
         try (Scanner reader = new Scanner(System.in)) {
             int n = reader.nextInt();
-            int maxLen = 0;
-            int curLen = 0;
-            int prevDigit = 0;
-            int digit = 0;
+            int maxLen = 1;
+            int curLen = 1;
+            int prevDigit = -1;
+            int digit = -1;
             for (int i = 0; i < n; i++) {
                 digit = reader.nextInt();
-                if (digit > 0 && digit > prevDigit) {
+                if (digit > prevDigit && prevDigit > 0) {
                     curLen++;
-                    prevDigit = digit;
-                } else {
-                    prevDigit = 0;
-                    curLen = digit > 0 ? 1 : 0;
                 }
+                else if (digit > 0) {
+                    curLen = 1;
+                }
+                else {
+                    curLen = 0;
+                }
+                prevDigit = digit;
                 maxLen = Math.max(maxLen, curLen);
             }
+            maxLen = maxLen == 1 ? 0 : maxLen;
             System.out.println(maxLen);
         }
     }
