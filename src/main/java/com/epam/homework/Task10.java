@@ -40,10 +40,8 @@ public class Task10 {
     }
 
     private static String DegreeOfTwo(int value) {
-        while (value > 1) {
-            if (value % 2 != 0) break;
-            value = value / 2;
-            if (value == 1) return "YES";
+        if ((value>1 && (value & (value-1))==0)) {
+            return "YES";
         }
         return "NO";
     }
