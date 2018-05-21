@@ -8,19 +8,32 @@ public class Task12 {
         try (Scanner scanner = new Scanner(System.in)) {
             int[][] matrix = readMatrix(scanner);
             int columnNumber = scanner.nextInt();
-            for (int i = 0; i < matrix.length; i++) {
-                for (int j = i; j > 0 && matrix[j][columnNumber] < matrix[j-1][columnNumber]; j--) {
-                    int[] current = matrix[j];
-                    matrix[j] = matrix[j-1];
-                    matrix[j-1] = current;
-                }
+            if (columnNumber == 0) {
+                printMartix(matrix);
             }
-            for (int[] aMatrix : matrix) {
-                for (int anAMatrix : aMatrix) {
-                    System.out.print(anAMatrix + " ");
+            else {
+                for (int i = 0; i < matrix.length; i++) {
+                    for (int j = i; j > 0 && matrix[j][columnNumber] < matrix[j - 1][columnNumber]; j--) {
+                        change(matrix, j);
+                    }
                 }
-                System.out.println();
+                printMartix(matrix);
             }
+        }
+    }
+
+    private static void change(int[][] matrix, int j) {
+        int[] current = matrix[j];
+        matrix[j] = matrix[j - 1];
+        matrix[j - 1] = current;
+    }
+
+    private static void printMartix(int[][] matrix) {
+        for (int[] aMatrix : matrix) {
+            for (int anAMatrix : aMatrix) {
+                System.out.print(anAMatrix + " ");
+            }
+            System.out.println();
         }
     }
 
