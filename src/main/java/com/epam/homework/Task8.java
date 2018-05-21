@@ -48,7 +48,7 @@ public class Task8 {
     private static StringBuilder findLastUniquePalindrome(List<String> wordsFromInput, StringBuilder answer) {
         for (String current : wordsFromInput) {
 
-            if (current.length() > 1 && hasOnlyDigits(current) && isPalindrome(current)) {
+            if (hasOnlyDigits(current) && isPalindrome(current)) {
                 answer = answer.replace(0, answer.length(), current);
             }
         }
