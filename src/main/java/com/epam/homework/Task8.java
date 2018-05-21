@@ -40,6 +40,7 @@ public class Task8 {
                 String word = scanner.next();
                 StringBuilder builder = new StringBuilder(word);
                 if (builder.toString().equals(builder.reverse().toString())) {
+                    if (!array.contains(word))
                     array.add(word);
                 }
             }
