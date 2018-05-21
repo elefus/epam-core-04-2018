@@ -51,12 +51,6 @@ public class Task7 {
                 for (int z = 0; z < y; z++) {
                     char a = Character.toLowerCase(word.charAt(z));
                     char b = Character.toLowerCase(word.charAt(y));
-                    if (!(((a >= 'a')&&(a <= 'z')))) {
-                        continue next;
-                    }
-                    if (!(((b >= 'a')&&(b <= 'z')))) {
-                        continue next;
-                    }
                     if (a == b) continue next;
                 }
             }
@@ -66,8 +60,13 @@ public class Task7 {
             System.out.println("NOT FOUND");
         }
         else {
-            for (String a : array) {
-                System.out.print(a + " ");
+            for (int i = 0; i < array.size(); i++) {
+                String a = array.get(i);
+                if (i == array.size()-1) {
+                    System.out.println(a);
+                } else {
+                    System.out.print(a + " ");
+                }
             }
         }
     }
