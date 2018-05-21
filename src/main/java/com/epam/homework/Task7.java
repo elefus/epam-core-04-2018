@@ -45,21 +45,29 @@ public class Task7 {
             String word = scanner.next();
             if (word.length() == 1) {
                 addToArray(word);
-                continue next;
+                continue;
             }
             for (int y = 1; y < word.length(); y++) {
                 for (int z = 0; z < y; z++) {
-                    if (word.charAt(z) == word.charAt(y)) continue next;
+                    char a = word.charAt(z);
+                    char b = word.charAt(y);
+                    if (!(((a >= 'a')&&(a <= 'z')) || ((a >= 'A')&&(a <= 'Z')))) {
+                        continue next;
+                    }
+                    if (!(((b >= 'a')&&(b <= 'z')) || ((b >= 'A')&&(b <= 'Z')))) {
+                        continue next;
+                    }
+                    if (a == b) continue next;
                 }
             }
             addToArray(word);
         }
-        if (array.size() == 0) {
+        if (array.isEmpty()) {
             System.out.println("NOT FOUND");
         }
         else {
             for (String a : array) {
-                System.out.print(a + " ");
+                System.out.print(a);
             }
         }
     }
