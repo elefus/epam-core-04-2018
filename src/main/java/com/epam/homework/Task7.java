@@ -67,7 +67,7 @@ public class Task7 {
         }
         else {
             for (String a : array) {
-                System.out.print(a);
+                System.out.print(a + " ");
             }
         }
     }
