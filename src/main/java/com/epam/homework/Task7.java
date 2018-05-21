@@ -44,7 +44,7 @@ public class Task7 {
 
             String word = scanner.next();
             if (word.length() == 1) {
-                array.add(word);
+                addToArray(word);
                 continue next;
             }
             for (int y = 1; y < word.length(); y++) {
