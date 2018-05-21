@@ -46,13 +46,11 @@ public class Task8 {
     }
 
     private static StringBuilder findLastUniquePalindrome(List<String> wordsFromInput, StringBuilder answer) {
-        for (String current:wordsFromInput) {
+        for (String current : wordsFromInput) {
 
-            if (hasOnlyDigits(current) && isPalindrome(current) ) {
-                answer = answer.replace(0,answer.length(),current);
+            if (current.length() > 1 && hasOnlyDigits(current) && isPalindrome(current)) {
+                answer = answer.replace(0, answer.length(), current);
             }
-
-
         }
         return answer;
     }
@@ -61,13 +59,8 @@ public class Task8 {
         return current.matches("[0-9]+");
     }
 
-    private static boolean isPalindrome(String testedString){
-        StringBuilder buff=new StringBuilder(testedString);
-        return buff == buff.reverse();
+    private static boolean isPalindrome(String testedString) {
+        StringBuilder reversedTestedString = new StringBuilder(testedString).reverse();
+        return testedString.equals(reversedTestedString.toString());
     }
 }
-
-
-
-//s.replaceAll("[^A-Za-zА-Яа-я0-9]", "");
-//Chapter 11 describes exceptions chapter 13 describes binary compatibility chapter 22 presents a syntactic grammar
