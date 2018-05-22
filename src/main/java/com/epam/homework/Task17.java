@@ -42,7 +42,7 @@ public class Task17 {
     public static void main(String[] args) {
         try (Scanner reader = new Scanner(System.in)) {
             double[][] matrix = getMatrix(reader);
-            System.out.println((int)gaussMethodDeterminant(matrix));
+            System.out.println(Math.round(gaussMethodDeterminant(matrix)));
         }
     }
 
