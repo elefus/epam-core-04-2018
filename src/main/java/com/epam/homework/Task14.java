@@ -38,30 +38,30 @@ public class Task14 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int[] sequence = readSequence(scanner);
-        System.out.println(getSizeOfMaxIncreasingSubsequence(sequence));
+        System.out.println(getSizeOfMaxAscendingSequence(sequence));
     }
 
-    private static int getSizeOfMaxIncreasingSubsequence(int[] sequence) {
-        int increasingIterations = 0;
-        int maxIncreasingIterations = 0;
+    private static int getSizeOfMaxAscendingSequence(int[] sequence) {
+        int ascendingIterations = 0;
+        int maxAscendingIterations = 0;
 
         for (int i = 0, j = 1; j < sequence.length; i++, j++) {
             if (sequence[i] < sequence[j]) {
-                increasingIterations++;
+                ascendingIterations++;
                 continue;
             }
 
-            if (increasingIterations > maxIncreasingIterations) {
-                maxIncreasingIterations = increasingIterations;
+            if (ascendingIterations > maxAscendingIterations) {
+                maxAscendingIterations = ascendingIterations;
             }
-            if (maxIncreasingIterations > sequence.length - j) {
+            if (maxAscendingIterations > sequence.length - j) {
                 break;
             }
 
-            increasingIterations = 0;
+            ascendingIterations = 0;
         }
 
-        return maxIncreasingIterations == 0 ? maxIncreasingIterations : maxIncreasingIterations + 1;
+        return maxAscendingIterations == 0 ? maxAscendingIterations : maxAscendingIterations + 1;
     }
 
     private static int[] readSequence(Scanner scanner) {
