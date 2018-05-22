@@ -49,7 +49,7 @@ public class Task8 {
         int numOfPalindromes = 0;
         for (String current : wordsFromInput) {
 
-            if (hasOnlyDigits(current) && isPalindrome(current)) {
+            if (hasOnlyDigits(current) && isPalindrome(current) && isUnique(answer, current)) {
                 answer = answer.replace(0, answer.length(), current);
                 numOfPalindromes++;
             }
@@ -58,6 +58,10 @@ public class Task8 {
             }
         }
         return answer;
+    }
+
+    private static boolean isUnique(StringBuilder answer, String current) {
+        return !answer.toString().equals(current);
     }
 
     private static boolean hasOnlyDigits(String current) {
