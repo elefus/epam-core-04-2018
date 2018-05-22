@@ -44,7 +44,7 @@ public class Task14 {
             int digit = -1;
             for (int i = 0; i < n; i++) {
                 digit = reader.nextInt();
-                if (digit > prevDigit && prevDigit > 0) {
+                if (digit > prevDigit) {
                     curLen++;
                 }
                 else if (digit > 0) {
