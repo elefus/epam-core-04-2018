@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task15 {
 
     /**
@@ -28,6 +30,47 @@ public class Task15 {
      * -1
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int[][] matrix = readMatrix(scanner);
+        System.out.println(calcSum(matrix));
+    }
+
+    private static int[][] readMatrix(Scanner scanner) {
+        int dimension = scanner.nextInt();
+        int[][] matrix = new int[dimension][dimension];
+
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+
+        return matrix;
+    }
+
+    private static int calcSum(int[][] matrix) {
+        int sum = 0;
+
+        for (int[] row : matrix) {
+            int positiveElementsCount = 0;
+
+            for (int element : row) {
+                if (element > 0) {
+                    positiveElementsCount++;
+
+                    if (positiveElementsCount > 1) {
+                        break;
+                    }
+
+                    continue;
+                }
+
+                if (positiveElementsCount > 0) {
+                    sum += element;
+                }
+            }
+        }
+
+        return sum;
     }
 }
