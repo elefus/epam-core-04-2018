@@ -46,13 +46,14 @@ public class Task17 {
      0 0 2 0 -3
      -1 0 4 2 2
 
-     6
-     1 2 3 4 5 6
-     0 1 0 1 0 1
-     2 3 1 3 1 3
-     3 2 1 1 2 3
-     6 5 4 3 2 1
-     7 -3 -2 3 -2 1
+     7
+     1 2 3 4 5 6 1
+     0 1 0 1 0 1 2
+     2 3 1 3 1 3 3
+     3 2 1 1 2 3 4
+     6 5 4 3 2 1 5
+     7 -3 -2 3 -2 1 0
+     -5 -4 -3 -2 -1 0 3
      */
     public static void main(String[] args) {
         try (Scanner reader = new Scanner(System.in)) {
@@ -90,9 +91,10 @@ public class Task17 {
 
     private static double determinantCount(double[][] matrix) {
         boolean sign = true;
+        printMatrix(matrix);
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                if (matrix[i][j] != 0) {
+                if (roundResult(matrix[i][j], (int)Math.pow(10, 8)) != 0) {
                     if (i != j) {
                         swapLines(matrix, i, j);
                         sign = !sign;
@@ -102,6 +104,15 @@ public class Task17 {
             }
         }
         return resultCalculate(matrix, sign);
+    }
+
+    private static double roundResult (double d, int precise) {
+
+        precise = 10^precise;
+        d = d*precise;
+        int i = (int) Math.round(d);
+        return (double) i/precise;
+
     }
 
     private static double resultCalculate(double[][] matrix, boolean sign) {
@@ -116,6 +127,16 @@ public class Task17 {
         double[] temp = matrix[j];
         matrix[j] = matrix[i];
         matrix[i] = temp;
+    }
+
+    private static void printMatrix(double[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print( matrix[i][j] + " ");
+            }
+            System.out.println("");
+        }
     }
 }
 
