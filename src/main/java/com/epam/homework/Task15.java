@@ -53,12 +53,14 @@ public class Task15 {
 
         for (int[] row : matrix) {
             int positiveElementsCount = 0;
+            int lineSum = 0;
 
             for (int element : row) {
                 if (element > 0) {
                     positiveElementsCount++;
 
                     if (positiveElementsCount > 1) {
+                        sum += lineSum;
                         break;
                     }
 
@@ -66,7 +68,7 @@ public class Task15 {
                 }
 
                 if (positiveElementsCount > 0) {
-                    sum += element;
+                    lineSum += element;
                 }
             }
         }
