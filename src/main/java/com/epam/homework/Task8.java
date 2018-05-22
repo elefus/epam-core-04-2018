@@ -38,7 +38,7 @@ public class Task8 {
         StringBuilder answer = new StringBuilder("NOT FOUND");
 
         for (int i = 0; i < numOfWords; i++) {
-            wordsFromInput.add(sc.next().toLowerCase());
+            wordsFromInput.add(sc.next());
         }
         answer = findSecondUniquePalindrome(wordsFromInput, answer);
 
