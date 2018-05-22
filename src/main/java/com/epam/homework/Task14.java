@@ -46,12 +46,12 @@ public class Task14 {
                 digit = reader.nextInt();
                 if (digit > prevDigit) {
                     curLen++;
+                    maxLen = Math.max(maxLen, curLen);
                 }
                 else {
                     curLen = 0;
                 }
                 prevDigit = digit;
-                maxLen = Math.max(maxLen, curLen);
             }
             maxLen = maxLen == 1 ? 0 : maxLen;
             System.out.println(maxLen);
