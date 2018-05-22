@@ -38,17 +38,14 @@ public class Task14 {
     public static void main(String[] args) {
         try (Scanner reader = new Scanner(System.in)) {
             int n = reader.nextInt();
-            int maxLen = 1;
-            int curLen = 1;
-            int prevDigit = -1;
-            int digit = -1;
+            int maxLen = 0;
+            int curLen = 0;
+            int prevDigit = Integer.MIN_VALUE;
+            int digit = 0;
             for (int i = 0; i < n; i++) {
                 digit = reader.nextInt();
                 if (digit > prevDigit) {
                     curLen++;
-                }
-                else if (digit > 0) {
-                    curLen = 1;
                 }
                 else {
                     curLen = 0;
