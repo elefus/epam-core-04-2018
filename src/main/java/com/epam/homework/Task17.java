@@ -77,7 +77,7 @@ public class Task17 {
     private static double gaussMethodDeterminant(double[][] matrix) {
         for (int k = 0; k < matrix.length; k++){
             for (int i = k + 1; i < matrix.length; i++) {
-                if (matrix[k][k] == 0) {
+                if (roundResult(matrix[k][k], (int)Math.pow(10, 8)) == 0) {
                     continue;
                 }
                 double n = - matrix[i][k] / matrix[k][k];
@@ -91,7 +91,6 @@ public class Task17 {
 
     private static double determinantCount(double[][] matrix) {
         boolean sign = true;
-        printMatrix(matrix);
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 if (roundResult(matrix[i][j], (int)Math.pow(10, 8)) != 0) {
