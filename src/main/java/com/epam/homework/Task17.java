@@ -45,6 +45,14 @@ public class Task17 {
      3 1 7 1 0
      0 0 2 0 -3
      -1 0 4 2 2
+
+     6
+     1 2 3 4 5 6
+     0 1 0 1 0 1
+     2 3 1 3 1 3
+     3 2 1 1 2 3
+     6 5 4 3 2 1
+     7 -3 -2 3 -2 1
      */
     public static void main(String[] args) {
         try (Scanner reader = new Scanner(System.in)) {
@@ -93,6 +101,10 @@ public class Task17 {
                 }
             }
         }
+        return resultCalculate(matrix, sign);
+    }
+
+    private static double resultCalculate(double[][] matrix, boolean sign) {
         double determinant = 1;
         for (int j = 0; j < matrix.length; j++) {
             determinant *= matrix[j][j];
