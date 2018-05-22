@@ -38,6 +38,13 @@ public class Task17 {
      *
      * Выходные данные:
      * -65
+     *
+     *
+     -1 -4 0 0 -2
+     0 1 1 5 4
+     3 1 7 1 0
+     0 0 2 0 -3
+     -1 0 4 2 2
      */
     public static void main(String[] args) {
         try (Scanner reader = new Scanner(System.in)) {
@@ -84,6 +91,7 @@ public class Task17 {
                     if (i != j) {
                         swapLines(matrix, i, j);
                         sign = !sign;
+                        break;
                     }
                 }
             }
