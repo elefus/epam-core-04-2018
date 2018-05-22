@@ -82,10 +82,7 @@ public class Task17 {
             for (int j = 0; j < matrix.length; j++) {
                 if (matrix[i][j] != 0) {
                     if (i != j) {
-                        double[] temp;
-                        temp = matrix[j];
-                        matrix[j] = matrix[i];
-                        matrix[i] = temp;
+                        swapLines(matrix, i, j);
                         sign = !sign;
                     }
                 }
@@ -97,5 +94,12 @@ public class Task17 {
         }
         return determinant * (sign ? 1 : -1);
     }
+
+    private static void swapLines(double[][] matrix, int i, int j) {
+        double[] temp = matrix[j];
+        matrix[j] = matrix[i];
+        matrix[i] = temp;
+    }
 }
+
 
