@@ -66,9 +66,6 @@ public class Task17 {
     }
 
     private static double gaussMethodDeterminant(double[][] matrix) {
-        if (matrix.length == 1) {
-            return matrix[0][0];
-        }
         for (int k = 0; k < matrix.length; k++){
             for (int i = k + 1; i < matrix.length; i++) {
                 if (matrix[k][k] == 0) {
