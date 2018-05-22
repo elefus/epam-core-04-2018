@@ -41,7 +41,7 @@ public class Task17 {
      *
      *
      -1 -4 0 0 -2
-     0 1 1 5 4
+     0 0 0 5 4
      3 1 7 1 0
      0 0 2 0 -3
      -1 0 4 2 2
@@ -55,6 +55,8 @@ public class Task17 {
      7 -3 -2 3 -2 1 0
      -5 -4 -3 -2 -1 0 3
      */
+    private static boolean sign = true;
+
     public static void main(String[] args) {
         try (Scanner reader = new Scanner(System.in)) {
             double[][] matrix = getMatrix(reader);
@@ -63,7 +65,7 @@ public class Task17 {
     }
 
 
-    private static double[][] getMatrix(Scanner reader) {
+    public static double[][] getMatrix(Scanner reader) {
         int n = reader.nextInt();
         double[][] matrix  = new double[n][n];
         for (int i = 0; i < n; i++) {
@@ -74,31 +76,43 @@ public class Task17 {
         return matrix;
     }
 
-    private static double gaussMethodDeterminant(double[][] matrix) {
+    public static double gaussMethodDeterminant(double[][] matrix) {
+        sign = true;
         for (int k = 0; k < matrix.length; k++){
+            reorderLines(matrix, k);
             for (int i = k + 1; i < matrix.length; i++) {
                 if (roundResult(matrix[k][k], (int)Math.pow(10, 8)) == 0) {
+                    matrix[k][k] = 0;
                     continue;
                 }
                 double n = - matrix[i][k] / matrix[k][k];
                 for (int j = 0; j < matrix.length; j++) {
-                    matrix[i][j] +=  matrix[k][j] * n;
+                    matrix[i][j] += matrix[k][j] * n;
                 }
             }
         }
         return determinantCount(matrix);
     }
 
+    private static void reorderLines(double[][] matrix, int k) {
+        for (int h = k; h < matrix.length; h++) {
+            if (roundResult(matrix[h][k], (int)Math.pow(10, 8)) != 0) {
+                if (h != k) {
+                    swapLines(matrix, h, k);
+                }
+                break;
+            }
+        }
+    }
+
     private static double determinantCount(double[][] matrix) {
-        boolean sign = true;
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 if (roundResult(matrix[i][j], (int)Math.pow(10, 8)) != 0) {
                     if (i != j) {
                         swapLines(matrix, i, j);
-                        sign = !sign;
-                        break;
                     }
+                    break;
                 }
             }
         }
@@ -126,6 +140,7 @@ public class Task17 {
         double[] temp = matrix[j];
         matrix[j] = matrix[i];
         matrix[i] = temp;
+        sign = !sign;
     }
 
     private static void printMatrix(double[][] matrix) {
@@ -136,6 +151,7 @@ public class Task17 {
             }
             System.out.println("");
         }
+        System.out.println("");
     }
 }
 
