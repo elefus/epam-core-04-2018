@@ -60,7 +60,6 @@ public class Task15 {
                     positiveElementsCount++;
 
                     if (positiveElementsCount > 1) {
-                        sum += lineSum;
                         break;
                     }
 
@@ -71,6 +70,8 @@ public class Task15 {
                     lineSum += element;
                 }
             }
+
+            sum += lineSum;
         }
 
         return sum;
