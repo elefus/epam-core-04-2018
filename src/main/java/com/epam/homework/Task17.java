@@ -117,7 +117,7 @@ public class Task17 {
     private static double resultCalculate(double[][] matrix, boolean sign) {
         double determinant = 1;
         for (int j = 0; j < matrix.length; j++) {
-            determinant *= matrix[j][j];
+            determinant *= roundResult(matrix[j][j], (int)Math.pow(10, 8));
         }
         return determinant * (sign ? 1 : -1);
     }
