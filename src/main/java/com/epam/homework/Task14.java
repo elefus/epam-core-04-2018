@@ -42,26 +42,20 @@ public class Task14 {
     }
 
     private static int getSizeOfMaxAscendingSequence(int[] sequence) {
-        int ascendingIterations = 0;
-        int maxAscendingIterations = 0;
+        int ascendingSequence = 1;
+        int maxAscendingSequence = 0;
 
         for (int i = 0, j = 1; j < sequence.length; i++, j++) {
             if (sequence[i] < sequence[j]) {
-                ascendingIterations++;
-                continue;
+                if (++ascendingSequence > maxAscendingSequence) {
+                    maxAscendingSequence = ascendingSequence;
+                }
+            } else {
+                ascendingSequence = 1;
             }
-
-            if (ascendingIterations > maxAscendingIterations) {
-                maxAscendingIterations = ascendingIterations;
-            }
-            if (maxAscendingIterations > sequence.length - j) {
-                break;
-            }
-
-            ascendingIterations = 0;
         }
 
-        return maxAscendingIterations == 0 ? maxAscendingIterations : maxAscendingIterations + 1;
+        return maxAscendingSequence;
     }
 
     private static int[] readSequence(Scanner scanner) {
