@@ -86,7 +86,7 @@ public class Task17 {
                     continue;
                 }
                 double n = - matrix[i][k] / matrix[k][k];
-                for (int j = 0; j < matrix.length; j++) {
+                for (int j = k; j < matrix.length; j++) {
                     matrix[i][j] += matrix[k][j] * n;
                 }
             }
