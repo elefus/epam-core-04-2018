@@ -1,5 +1,8 @@
 package com.epam.homework;
 
+
+import java.util.*;
+
 public class Task17 {
 
     /**
@@ -17,26 +20,79 @@ public class Task17 {
      * Примеры выполнения задания:
      *
      * Входные данные:
-     *  3
-     * -2  1  2
-     *  0 -1  0
-     *  1 -2  3
+     3
+     -2  1  2
+     0 -1  0
+     1 -2  3
      *
      * Выходные данные:
      * 8
      *
      *
      * Входные данные:
-     * 4
-     * 6 4 0 1
-     * 8 7 0 3
-     * 1 3 0 9
-     * 7 5 1 2
+     4
+     6 4 0 1
+     8 7 0 3
+     1 3 0 9
+     7 5 1 2
      *
      * Выходные данные:
      * -65
      */
     public static void main(String[] args) {
-        // TODO реализация
+        try (Scanner reader = new Scanner(System.in)) {
+            double[][] matrix = getMatrix(reader);
+            System.out.println((int)gaussMethodDeterminant(matrix));
+        }
+    }
+
+
+    private static double[][] getMatrix(Scanner reader) {
+        int n = reader.nextInt();
+        double[][] matrix  = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = reader.nextInt();
+            }
+        }
+        return matrix;
+    }
+
+    private static double gaussMethodDeterminant(double[][] matrix) {
+        for (int k = 0; k < matrix.length; k++){
+            for (int i = k + 1; i < matrix.length; i++) {
+                if (matrix[k][k] == 0) {
+                    continue;
+                }
+                double n = - matrix[i][k] / matrix[k][k];
+                for (int j = 0; j < matrix.length; j++) {
+                    matrix[i][j] +=  matrix[k][j] * n;
+                }
+            }
+        }
+        return determinantCount(matrix);
+    }
+
+    private static double determinantCount(double[][] matrix) {
+        boolean sign = true;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if (matrix[i][j] != 0) {
+                    if (i != j) {
+                        double[] temp;
+                        temp = matrix[j];
+                        matrix[j] = matrix[i];
+                        matrix[i] = temp;
+                        sign = !sign;
+                    }
+                }
+            }
+        }
+        double determinant = 1;
+        for (int j = 0; j < matrix.length; j++) {
+            determinant *= matrix[j][j];
+        }
+        return determinant * (sign ? 1 : -1);
     }
 }
+
