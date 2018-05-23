@@ -1,5 +1,9 @@
 package com.epam.homework;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
+
 public class Task15 {
 
     /**
@@ -28,6 +32,56 @@ public class Task15 {
      * -1
      */
     public static void main(String[] args) {
-        // TODO реализация
+        try (Scanner reader = new Scanner(System.in)) {
+            int[][] matrix = getMatrix(reader);
+            int sum = Arrays.asList(matrix).stream().map(item ->
+                    new LineSumCounter().countSum(item)
+            ).mapToInt(i -> i).sum();
+            System.out.println(sum);
+        }
+    }
+
+    private static int[][] getMatrix(Scanner reader) {
+        int n = reader.nextInt();
+        int[][] matrix  = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = reader.nextInt();
+            }
+        }
+        return matrix;
     }
 }
+
+class LineSumCounter {
+    private enum State {
+        SEARCH_FIRST, COUNT_SUM
+    }
+
+    private int sum = 0;
+
+    private State state = State.SEARCH_FIRST;
+
+    public int countSum(int[] array) {
+        int sum = 0;
+        for (int i = 0; i < array.length; i ++) {
+            switch (state) {
+                case SEARCH_FIRST: {
+                    if (array[i] > 0) {
+                        state = State.COUNT_SUM;
+                    }
+                    break;
+                }
+                case COUNT_SUM: {
+                    if (array[i] > 0) {
+                        return sum;
+                    }
+                    sum += array[i];
+                    break;
+                }
+            }
+        }
+        return 0;
+    }
+}
+
