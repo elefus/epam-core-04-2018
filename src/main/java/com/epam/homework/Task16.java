@@ -74,18 +74,22 @@ public class Task16 {
 
     private static int[][] rotate(int[][] matrix, int degrees) throws IllegalArgumentException {
         switch (degrees % 4) {
+            // +90 equals to -270
             case 1:
             case -3:
                 return doRowsAsColumns(reverseRowsOrder(matrix));
 
+            // +180 equals to -180
             case -2:
             case 2:
                 return reverseRows(reverseRowsOrder(matrix));
 
+            // -90 equals to +270
             case -1:
             case 3:
                 return doRowsAsColumns(reverseRows(matrix));
 
+            // for 0 degrees
             default:
                 return matrix;
         }
