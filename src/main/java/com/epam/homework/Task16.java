@@ -77,22 +77,34 @@ public class Task16 {
             // +90 equals to -270
             case 1:
             case -3:
-                return doRowsAsColumns(reverseRowsOrder(matrix));
+                return turnClockwise(matrix);
 
             // +180 equals to -180
             case -2:
             case 2:
-                return reverseRows(reverseRowsOrder(matrix));
+                return reverse(matrix);
 
             // -90 equals to +270
             case -1:
             case 3:
-                return doRowsAsColumns(reverseRows(matrix));
+                return turnAntiClockwise(matrix);
 
             // for 0 degrees
             default:
                 return matrix;
         }
+    }
+
+    private static int[][] reverse(int[][] matrix) {
+        return reverseRows(reverseRowsOrder(matrix));
+    }
+
+    private static int[][] turnClockwise(int[][] matrix) {
+        return doRowsAsColumns(reverseRowsOrder(matrix));
+    }
+
+    private static int[][] turnAntiClockwise(int[][] matrix) {
+        return doRowsAsColumns(reverseRows(matrix));
     }
 
     private static int[][] doRowsAsColumns(int[][] matrix) {
