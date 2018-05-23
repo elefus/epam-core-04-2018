@@ -1,5 +1,9 @@
 package com.epam.homework;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Scanner;
+
 public class Task16 {
 
     /**
@@ -60,6 +64,90 @@ public class Task16 {
      * 3 9
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int[][] matrix = readMatrix(scanner);
+        int degrees = scanner.nextInt();
+
+        System.out.println(matrix.length);
+        print(rotate(matrix, degrees));
+    }
+
+    private static int[][] rotate(int[][] matrix, int degrees) throws IllegalArgumentException {
+        switch (degrees) {
+            case 1:
+            case -3:
+            case -5:
+                return doRowsAsColumns(reverseRowsOrder(matrix));
+
+            case -2:
+            case 2:
+                return reverseRows(reverseRowsOrder(matrix));
+
+            case -1:
+            case 3:
+            case 5:
+                return doRowsAsColumns(reverseRows(matrix));
+
+            default:
+                throw new IllegalArgumentException("Unsupported degrees value: " + degrees);
+        }
+    }
+
+    private static int[][] doRowsAsColumns(int[][] matrix) {
+        int[][] newMatrix = new int[matrix.length][matrix[0].length];
+
+        for (int rowN = 0; rowN < matrix.length; rowN++) {
+            int[] row = matrix[rowN];
+
+            for (int columnN = 0; columnN < row.length; columnN++) {
+                newMatrix[columnN][rowN] = row[columnN];
+            }
+        }
+
+        return newMatrix;
+    }
+
+    private static int[][] reverseRowsOrder(int[][] matrix) {
+        Collections.reverse(Arrays.asList(matrix));
+
+        return matrix;
+    }
+
+    private static int[][] reverseRows(int[][] matrix) {
+        for (int[] row: matrix) {
+            reverse(row);
+        }
+
+        return matrix;
+    }
+
+    private static void reverse(int[] ar) {
+        for (int i = 0, j = ar.length - 1; i < j; i++, j--) {
+            int tmp = ar[i];
+            ar[i] = ar[j];
+            ar[j] = tmp;
+        }
+    }
+
+    private static void print(int[][] matrix) {
+        for (int[] row: matrix) {
+            for (int el: row) {
+                System.out.format("%4d", el);
+            }
+            System.out.println();
+        }
+    }
+
+    private static int[][] readMatrix(Scanner scanner) {
+        int dimension = scanner.nextInt();
+        int[][] matrix = new int[dimension][dimension];
+
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+
+        return matrix;
     }
 }
