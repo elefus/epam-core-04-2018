@@ -35,6 +35,8 @@ public class Task10 {
         Scanner scanner = new Scanner(System.in);
         int value = scanner.nextInt();
 
+        value *= 1;
+
         while (value > 2 && value % 2 == 0){
             value >>= 1;
         }
