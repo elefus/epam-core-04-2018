@@ -46,6 +46,7 @@ public class Task12 {
         int col = Integer.parseInt(in.next());
         sortBy(A,col);
 
+        System.out.println(A.getHsize());
         for (int i = 0; i < A.getVsize(); i++) {
             for (int j = 0; j < A.getHsize(); j++) {
                 System.out.printf("%.0f ",A.getElement(i,j));
