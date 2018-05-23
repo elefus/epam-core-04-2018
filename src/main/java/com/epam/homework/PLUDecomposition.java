@@ -1,6 +1,6 @@
 package com.epam.homework;
 
-import exceptions.NotSquareMatrix;
+import com.epam.homework.exceptions.NotSquareMatrix;
 
 public class PLUDecomposition {
     public static Solution PLUC(Matrix M) {
