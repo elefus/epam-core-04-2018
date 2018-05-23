@@ -39,4 +39,21 @@ public class Task17 {
     public static void main(String[] args) {
         // TODO реализация
     }
+
+    private static int determinant(int[][] matrix) {
+        if (matrix.length == 1) {
+            return matrix[0][0];
+        }
+
+        int sum = 0;
+        for (int j = 0; j < matrix.length; j++) {
+            sum += Math.pow(-1, 1 + j) * matrix[0][j] * determinant(minor(matrix, j));
+        }
+
+        return sum;
+    }
+
+    private static int[][] minor(int[][] matrix, int j) {
+        // TODO
+    }
 }
