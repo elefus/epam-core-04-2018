@@ -1,5 +1,9 @@
 package com.epam.homework;
 
+import javafx.scene.transform.MatrixType;
+
+import java.util.Scanner;
+
 public class Task12 {
 
     /**
@@ -37,6 +41,28 @@ public class Task12 {
      * 0    2    3    4    5
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner in = new Scanner(System.in);
+        Matrix A = new Matrix(in);
+        int col = Integer.parseInt(in.next());
+        sortBy(A,col);
+
+        for (int i = 0; i < A.getVsize(); i++) {
+            for (int j = 0; j < A.getHsize(); j++) {
+                System.out.printf("%.0f ",A.getElement(i,j));
+            }
+            System.out.println(System.lineSeparator());
+        }
+
+    }
+
+    private static void sortBy(Matrix A, int col) {
+        int N = A.getVsize();
+        for (int i=0; i<N;i++){
+            for (int j=1; j<N; j++){
+                if(A.getElement(j-1,col)>A.getElement(j,col)){
+                    A.swapRows(j-1,j);
+                }
+            }
+        }
     }
 }
