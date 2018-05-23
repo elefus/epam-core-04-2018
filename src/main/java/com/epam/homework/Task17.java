@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task17 {
 
     /**
@@ -37,6 +39,10 @@ public class Task17 {
      * -65
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner in = new Scanner(System.in);
+        Matrix A = new Matrix(in);
+        Solution solution = PLUDecomposition.PLUC(A);
+        double det = PLUDecomposition.det(solution);
+        System.out.printf("%.0f",det);
     }
 }
