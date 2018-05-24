@@ -41,38 +41,40 @@ public class Task12 {
      * 0    2    3    4    5
      */
 
-    private static int[][] readMatrix(Scanner scanner) {
-        int dimension = scanner.nextInt();
-        int[][] matrix = new int[dimension][dimension];
+    private static int dimension;
+    private static int[][] matrix;
 
-        for (int i = 0; i < dimension; ++i) {
-            for (int j = 0; j < dimension; ++j) {
+    private static void readMatrix(Scanner scanner) {
+        dimension = scanner.nextInt();
+        matrix = new int[dimension][dimension];
+
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
                 matrix[i][j] = scanner.nextInt();
             }
         }
-
-        return matrix;
     }
 
-    private static int[][] sortMatrixRowsByOneRowAscending(int[][] matrix, int k) {
-        Arrays.sort(matrix, Comparator.comparingInt(o -> o[k]));
-        return matrix;
-    }
-
-    private static void printMatrix(int[][] matrix) {
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                System.out.printf("%12d", matrix[i][j]);
+    private static void printMatrix(int[][] matrixToPrint) {
+        System.out.println(dimension);
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                System.out.printf("%12d", matrixToPrint[i][j]);
             }
             System.out.println("\n");
         }
     }
 
+    private static int[][] sortMatrixRowsByOneRowAscending(int[][] sortedMatrix, int k) {
+        Arrays.sort(sortedMatrix, Comparator.comparingInt(o -> o[k]));
+        return sortedMatrix;
+    }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int[][] matrix = readMatrix(in);
+        readMatrix(in);
+        int[][] sortedMatrix = matrix;
         int k = in.nextInt();
-        int[][] sortedMatrix = sortMatrixRowsByOneRowAscending(matrix, k);
-        printMatrix(sortedMatrix);
+        printMatrix(sortMatrixRowsByOneRowAscending(sortedMatrix, k));
     }
 }
