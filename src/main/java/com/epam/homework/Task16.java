@@ -105,7 +105,6 @@ public class Task16 {
     }
 
     private static void printMatrix(int[][] matrix) {
-        System.out.println(matrix.length);
         for (int[] aMatrix : matrix) {
             for (int col = 0; col < matrix.length; col++) {
                 System.out.printf("%5d", aMatrix[col]);
