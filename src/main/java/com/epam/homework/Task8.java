@@ -50,6 +50,10 @@ public class Task8 {
             int counterOfSecond = 0;
             Iterator<String> iterator = palindromes.iterator();
             while (iterator.hasNext()) {
+                if(palindromes.size() == 1){
+                    System.out.println(iterator.next());
+                    return;
+                }
                 if(counterOfSecond == 1){
                     System.out.println(iterator.next());
                     return;
