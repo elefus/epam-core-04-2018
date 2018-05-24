@@ -62,7 +62,7 @@ public class Task14 {
                 count = 1;
             }
         }
-
-        return (maxLength > 1) ? maxLength: 0;
+        return (count > maxLength) ? count :
+                (maxLength > 1) ? maxLength: 0;
     }
 }
