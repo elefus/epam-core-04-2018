@@ -41,12 +41,14 @@ public class Task7 {
         for (int i = 0; i < numOfWords; i++) {
             String word = scanner.next();
             if (word.length() == numOfUniqueLetters(word)) {
-                if (!isFirstWord) {
-                    System.out.print(" ");
-                }
+
                 notFound = false;
-                isFirstWord = false;
+
                 if(!uniqueWords.contains(word)) {
+                    if (!isFirstWord) {
+                        System.out.print(" ");
+                    }
+                    isFirstWord = false;
                     uniqueWords.add(word);
                     System.out.print(word);
                 }
