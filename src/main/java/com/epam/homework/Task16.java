@@ -78,7 +78,6 @@ public class Task16 {
 
     private static void printTurnedMatrix(int k) {
         k = (k < 0) ? k % 4 + 4 : k % 4;
-        System.out.println(k);
 
         switch (k) {
             case 3:
@@ -118,6 +117,7 @@ public class Task16 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         readMatrix(in);
+        System.out.println(dimension);
         printTurnedMatrix(in.nextInt());
     }
 }
