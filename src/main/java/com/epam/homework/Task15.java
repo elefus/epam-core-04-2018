@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task15 {
 
     /**
@@ -27,7 +29,51 @@ public class Task15 {
      * Выходные данные:
      * -1
      */
+
+    private static int dimension;
+    private static int[][] matrix;
+
+    private static void readMatrix(Scanner scanner) {
+        dimension = scanner.nextInt();
+        matrix = new int[dimension][dimension];
+
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+    }
+
+    private static int sumOfNumsBetweenTwoPositiveNumsInOneRow(int row) {
+        int sumOfNumsBetweenTwoPositiveNumsInOneRow = 0;
+        int numOfPositiveNums = 0;
+
+        for (int column = 0; column < dimension; column++) {
+            if (numOfPositiveNums >= 2) {
+                break;
+            }
+            if (matrix[row][column] < 0) {
+                    sumOfNumsBetweenTwoPositiveNumsInOneRow += (numOfPositiveNums == 1) ? matrix[row][column] : 0;
+            } else {
+                numOfPositiveNums++;
+            }
+        }
+        return sumOfNumsBetweenTwoPositiveNumsInOneRow;
+    }
+
+    private static int sumOfNumsBetweenTwoPositiveNumsInAllRows() {
+        int sumOfNumsBetweenTwoPositiveNumsInAllRows = 0;
+        if (dimension < 3) {
+            return sumOfNumsBetweenTwoPositiveNumsInAllRows;
+        }
+        for (int i = 0; i < dimension; i++) {
+            sumOfNumsBetweenTwoPositiveNumsInAllRows += sumOfNumsBetweenTwoPositiveNumsInOneRow(i);
+        }
+        return sumOfNumsBetweenTwoPositiveNumsInAllRows;
+    }
+
     public static void main(String[] args) {
-        // TODO реализация
+        readMatrix(new Scanner(System.in));
+        System.out.println(sumOfNumsBetweenTwoPositiveNumsInAllRows());
     }
 }
