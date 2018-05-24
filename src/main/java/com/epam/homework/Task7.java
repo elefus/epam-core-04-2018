@@ -40,16 +40,17 @@ public class Task7 {
         boolean isFirstWord = true;
         for (int i = 0; i < numOfWords; i++) {
             String word = scanner.next();
+
             if (word.length() == numOfUniqueLetters(word)) {
 
                 notFound = false;
 
-                if(!uniqueWords.contains(word)) {
+                if(!uniqueWords.contains(word.toUpperCase())) {
                     if (!isFirstWord) {
                         System.out.print(" ");
                     }
                     isFirstWord = false;
-                    uniqueWords.add(word);
+                    uniqueWords.add(word.toUpperCase());
                     System.out.print(word);
                 }
             }
