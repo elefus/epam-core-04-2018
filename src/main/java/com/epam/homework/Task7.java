@@ -35,6 +35,7 @@ public class Task7 {
 
         Scanner scanner = new Scanner(System.in);
         int numOfWords = scanner.nextInt();
+        HashSet <String> uniqueWords = new HashSet<>();
         boolean notFound = true;
         boolean isFirstWord = true;
         for (int i = 0; i < numOfWords; i++) {
@@ -45,7 +46,10 @@ public class Task7 {
                 }
                 notFound = false;
                 isFirstWord = false;
-                System.out.print(word);
+                if(!uniqueWords.contains(word)) {
+                    uniqueWords.add(word);
+                    System.out.print(word);
+                }
             }
         }
         if (notFound) {
