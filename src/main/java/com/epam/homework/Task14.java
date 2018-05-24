@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task14 {
 
     /**
@@ -33,7 +35,36 @@ public class Task14 {
      * Выходные данные:
      * 0
      */
+
+    public static int lengthOfLongestAscendingSequence(int[] numbers) {
+        int lengthOfCurrentAscendingSequence = 0;
+        int lengthOfLongestAscendingSequence = lengthOfCurrentAscendingSequence;
+
+        for (int i = 0; i < numbers.length - 1; i++) {
+
+            if (numbers[i] >= numbers[i + 1]) {
+                if (lengthOfCurrentAscendingSequence > lengthOfLongestAscendingSequence) {
+                    lengthOfLongestAscendingSequence = lengthOfCurrentAscendingSequence;
+                }
+                lengthOfCurrentAscendingSequence = 0;
+            } else {
+                lengthOfCurrentAscendingSequence += (lengthOfCurrentAscendingSequence == 0) ? 2 : 1;
+            }
+        }
+
+        return lengthOfLongestAscendingSequence;
+    }
+
     public static void main(String[] args) {
-        // TODO реализация
+        try (Scanner in = new Scanner(System.in)) {
+            int N = in.nextInt();
+            int[] numbers = new int[N];
+
+            for (int i = 0; i < N; i++) {
+                numbers[i] = in.nextInt();
+            }
+
+            System.out.println(lengthOfLongestAscendingSequence(numbers));
+        }
     }
 }
