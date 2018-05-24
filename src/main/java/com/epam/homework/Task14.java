@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task14 {
 
     /**
@@ -34,6 +36,32 @@ public class Task14 {
      * 0
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner in = new Scanner(System.in);
+        int length = Integer.parseInt(in.next());
+        int maxLength = 0;
+        int currentLength = 0;
+        int previous = Integer.MIN_VALUE;
+        int next;
+        for (int i = 0; i < length; i++) {
+            next = Integer.parseInt(in.next());
+            if (next>previous && previous!=Integer.MIN_VALUE){
+                currentLength++;
+            }else {
+                if (currentLength>maxLength){
+                    maxLength=currentLength;
+                }
+                currentLength=0;
+            }
+            previous=next;
+        }
+        if (currentLength>maxLength){
+            maxLength=currentLength;
+        }
+        if(maxLength>1){
+            System.out.println(maxLength+1);
+        }else {
+            System.out.println(0);
+        }
+
     }
 }
