@@ -35,6 +35,7 @@ public class Task7 {
 
         Scanner scanner = new Scanner(System.in);
         int numOfWords = scanner.nextInt();
+        boolean notFound = true;
         boolean isFirstWord = true;
         for (int i = 0; i < numOfWords; i++) {
             String word = scanner.next();
@@ -42,9 +43,13 @@ public class Task7 {
                 if (!isFirstWord) {
                     System.out.print(" ");
                 }
+                notFound = false;
                 isFirstWord = false;
                 System.out.print(word);
             }
+        }
+        if (notFound) {
+            System.out.println("NOT FOUND");
         }
     }
 
