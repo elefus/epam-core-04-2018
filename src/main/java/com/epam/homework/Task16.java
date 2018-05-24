@@ -54,7 +54,7 @@ public class Task16 {
      2
      9  3
      2  4
-     * -2
+     -2
      *
      * Выходные данные:
      * 2
@@ -72,22 +72,19 @@ public class Task16 {
     }
 
     private static double[][] switchDegrees(int degrees, double[][] matrix) {
-        switch (degrees) {
-            case 3:
-            case -1:
-            case -5:
-                return turnAntiClockWise90(matrix);
+        int n = degrees % 4;
+        while (n < 0) {
+            n += 4;
+        }
+        switch (n) {
             case 0:
-            case 4:
-            case -4:
                 return matrix;
             case 1:
-            case 5:
-            case -3:
                 return turnClockWise90(matrix);
             case 2:
-            case -2:
                 return turnClockWise180(matrix);
+            case 3:
+                return turnAntiClockWise90(matrix);
         }
         return null;
     }
