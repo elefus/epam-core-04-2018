@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task17 {
 
     /**
@@ -37,7 +39,22 @@ public class Task17 {
      * -65
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int[][] matrix = readMatrix(scanner);
+        System.out.println(determinant(matrix));
+    }
+
+    private static int[][] readMatrix(Scanner scanner) {
+        int dimension = scanner.nextInt();
+        int[][] matrix = new int[dimension][dimension];
+
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+
+        return matrix;
     }
 
     private static int determinant(int[][] matrix) {
@@ -47,13 +64,28 @@ public class Task17 {
 
         int sum = 0;
         for (int j = 0; j < matrix.length; j++) {
-            sum += Math.pow(-1, 1 + j) * matrix[0][j] * determinant(minor(matrix, j));
+            // "(j + 1)" is put instead of "j" because of j starts from 0
+            sum += Math.pow(-1, 1 + (j + 1)) * matrix[0][j] * determinant(minor(matrix, j));
         }
 
         return sum;
     }
 
-    private static int[][] minor(int[][] matrix, int j) {
-        // TODO
+    private static int[][] minor(int[][] matrix, int columnN) {
+        int[][] minor = new int[matrix.length - 1][matrix[0].length - 1];
+
+        // remove 0-row and columnN-column
+        for (int i = 1; i < matrix.length; i ++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (j < columnN) {
+                    minor[i - 1][j] = matrix[i][j];
+                }
+                if (j > columnN) {
+                    minor[i - 1][j - 1] = matrix[i][j];
+                }
+            }
+        }
+
+        return minor;
     }
 }
