@@ -58,6 +58,11 @@ public class Task15 {
                 numOfPositiveNums++;
             }
         }
+
+        if (numOfPositiveNums < 2) {
+            sumOfNumsBetweenTwoPositiveNumsInOneRow = 0;
+        }
+        
         return sumOfNumsBetweenTwoPositiveNumsInOneRow;
     }
 
