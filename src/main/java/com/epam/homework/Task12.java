@@ -1,7 +1,5 @@
 package com.epam.homework;
 
-import javafx.scene.transform.MatrixType;
-
 import java.util.Scanner;
 
 public class Task12 {
