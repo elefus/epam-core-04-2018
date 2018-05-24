@@ -36,6 +36,18 @@ public class Task16 {
      * Примеры выполнения задания:
      *
      * Входные данные:
+     *
+     *
+     *
+     *
+
+     4
+     1 0 0 0
+     0 2 0 0
+     0 0 3 0
+     0 0 0 4
+     0
+
      3
      1  -2   1
      -3   0   2
@@ -67,6 +79,7 @@ public class Task16 {
             double[][] matrix = getMatrix(reader);
             int degree = reader.nextInt();
             matrix = switchDegrees(degree, matrix);
+            System.out.println(matrix.length);
             printMatrix(matrix);
         }
     }
@@ -92,7 +105,7 @@ public class Task16 {
     private static double[][] turnClockWise180(double[][] matrix) {
         int n = matrix.length;
         double[][] result = new double[n][n];
-        for(int i=0;i<n;i++) {
+        for(int i = 0;i < n;i++) {
             for (int j = 0; j < n; j++) {
                 result[n - 1 - i][n - 1 - j] = matrix[i][j];
             }
