@@ -41,14 +41,14 @@ public class Task14 {
         int lengthOfLongestAscendingSequence = lengthOfCurrentAscendingSequence;
 
         for (int i = 0; i < numbers.length - 1; i++) {
+            if (numbers[i] < numbers[i + 1]) {
+                lengthOfCurrentAscendingSequence += (lengthOfCurrentAscendingSequence == 0) ? 2 : 1;
 
-            if (numbers[i] >= numbers[i + 1]) {
                 if (lengthOfCurrentAscendingSequence > lengthOfLongestAscendingSequence) {
                     lengthOfLongestAscendingSequence = lengthOfCurrentAscendingSequence;
                 }
-                lengthOfCurrentAscendingSequence = 0;
             } else {
-                lengthOfCurrentAscendingSequence += (lengthOfCurrentAscendingSequence == 0) ? 2 : 1;
+                lengthOfCurrentAscendingSequence = 0;
             }
         }
 
