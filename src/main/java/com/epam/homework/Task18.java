@@ -53,7 +53,7 @@ public class Task18 {
      */
     public static void main(String[] args) {
         try (Scanner in = new Scanner(System.in)) {
-            Matrix matrix = new Matrix(in);
+            Matrix matrix = Matrix.readMatrix(in);
             Matrix newMatrix = matrix.removeRowsAndColumnsWithMaxElement();
             newMatrix.printMatrix();
         }
@@ -71,17 +71,20 @@ class Matrix {
         data = new int[rowsCount][columnsCount];
     }
 
-    public Matrix(Scanner scanner) {
-        rowsCount = scanner.nextInt();
-        columnsCount = rowsCount;
+    public static Matrix readMatrix (Scanner scanner) {
 
-        data = new int[rowsCount][columnsCount];
+        int rowsCount = scanner.nextInt();
+        int columnsCount = rowsCount;
+
+        Matrix matrix = new Matrix(rowsCount, columnsCount);
 
         for (int i = 0; i < rowsCount; i++) {
             for (int j = 0; j < columnsCount; j++) {
-                data[i][j] = scanner.nextInt();
+                matrix.data[i][j] = scanner.nextInt();
             }
         }
+
+        return matrix;
     }
 
     public void printMatrix() {
