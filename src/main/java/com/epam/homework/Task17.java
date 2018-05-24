@@ -1,6 +1,8 @@
 package com.epam.homework;
 
 import java.util.Scanner;
+import com.akalji.SystemsOfLinearEquations.*;
+import com.akalji.matrix.Matrix;
 
 public class Task17 {
 
