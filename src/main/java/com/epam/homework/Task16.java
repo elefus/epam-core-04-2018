@@ -40,7 +40,7 @@ public class Task16 {
      1  -2   1
      -3   0   2
      3  -2   1
-     -1
+     1
      *
      * Выходные данные:
      3
@@ -119,7 +119,7 @@ public class Task16 {
         double[][] result = new double[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                result[j][i] = matrix[i][j];
+                result[j][n - i - 1] = matrix[i][j];
             }
         }
         return result;
