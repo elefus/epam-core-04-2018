@@ -53,8 +53,8 @@ public class Task15 {
                 break;
             }
             if (matrix[row][column] < 0) {
-                    sumOfNumsBetweenTwoPositiveNumsInOneRow += (numOfPositiveNums == 1) ? matrix[row][column] : 0;
-            } else {
+                sumOfNumsBetweenTwoPositiveNumsInOneRow += (numOfPositiveNums == 1) ? matrix[row][column] : 0;
+            } else if (matrix[row][column] > 0) {
                 numOfPositiveNums++;
             }
         }
@@ -62,7 +62,7 @@ public class Task15 {
         if (numOfPositiveNums < 2) {
             sumOfNumsBetweenTwoPositiveNumsInOneRow = 0;
         }
-        
+
         return sumOfNumsBetweenTwoPositiveNumsInOneRow;
     }
 
