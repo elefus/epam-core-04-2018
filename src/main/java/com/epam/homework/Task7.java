@@ -54,6 +54,7 @@ public class Task7 {
     }
 
     private static int numOfUniqueLetters(String word) {
+        word = word.toUpperCase();
         boolean onlyLatinAlphabet = word.matches("^[a-zA-Z0-9]+$");
         Set<Character> uniqueWords = new HashSet<>();
 
