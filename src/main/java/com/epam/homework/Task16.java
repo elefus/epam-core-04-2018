@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task16 {
 
     /**
@@ -59,7 +61,63 @@ public class Task16 {
      * 4 2
      * 3 9
      */
+
+    private static int dimension;
+    private static int[][] matrix;
+
+    private static void readMatrix(Scanner scanner) {
+        dimension = scanner.nextInt();
+        matrix = new int[dimension][dimension];
+
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+    }
+
+    private static void printTurnedMatrix(int k) {
+        k = (k < 0) ? k % 4 + 4 : k % 4;
+        System.out.println(k);
+
+        switch (k) {
+            case 3:
+                for (int i = 0; i < dimension; i++) {
+                    for (int j = 0; j < dimension; j++) {
+                        System.out.printf("%12d", matrix[j][dimension - 1 - i]);
+                    }
+                    System.out.println("\n");
+                }
+                break;
+            case 2:
+                for (int i = 0; i < dimension; i++) {
+                    for (int j = 0; j < dimension; j++) {
+                        System.out.printf("%12d", matrix[dimension - 1 - i][dimension - 1 - j]);
+                    }
+                    System.out.println("\n");
+                }
+                break;
+            case 1:
+                for (int i = 0; i < dimension; i++) {
+                    for (int j = 0; j < dimension; j++) {
+                        System.out.printf("%12d", matrix[dimension - 1 - j][i]);
+                    }
+                    System.out.println("\n");
+                }
+                break;
+            default:
+                for (int i = 0; i < dimension; i++) {
+                    for (int j = 0; j < dimension; j++) {
+                        System.out.printf("%12d", matrix[i][j]);
+                    }
+                    System.out.println("\n");
+                }
+            }
+    }
+
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner in = new Scanner(System.in);
+        readMatrix(in);
+        printTurnedMatrix(in.nextInt());
     }
 }
