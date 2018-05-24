@@ -53,8 +53,8 @@ public class Task18 {
      */
     public static void main(String[] args) {
         try (Scanner in = new Scanner(System.in)) {
-            Matrix matrix = Matrix.readMatrix(in);
-            Matrix newMatrix = matrix.removeRowsAndColumnsWithMaxElement();
+            Matrix matrix = Matrix.readSquareMatrix(in);
+            Matrix newMatrix = matrix.removeRowsAndColumnsContainingValue(matrix.getMaxElement());
             newMatrix.printMatrix();
         }
     }
@@ -71,7 +71,7 @@ class Matrix {
         data = new int[rowsCount][columnsCount];
     }
 
-    public static Matrix readMatrix (Scanner scanner) {
+    public static Matrix readSquareMatrix(Scanner scanner) {
 
         int rowsCount = scanner.nextInt();
         int columnsCount = rowsCount;
@@ -110,20 +110,41 @@ class Matrix {
         return maxElement;
     }
 
-    public Matrix removeRowsAndColumnsWithMaxElement() {
+    private enum matrixElement {
+        ROW,
+        COLUMN
+    }
 
-        int maxElement = getMaxElement();
-        Set<Integer> rowsToRemove = new HashSet<>(rowsCount);
-        Set<Integer> columnsToRemove = new HashSet<>(columnsCount);
+    public Map<matrixElement, Set<Integer>> getRowsAndColumnsContainingValue(int value) {
+
+        Map<matrixElement, Set<Integer>> res = new HashMap<>();
+        res.put(matrixElement.ROW, new HashSet<>());
+        res.put(matrixElement.COLUMN, new HashSet<>());
 
         for (int i = 0; i < rowsCount; i++) {
             for (int j = 0; j < columnsCount; j++) {
-                if (data[i][j] == maxElement) {
-                    rowsToRemove.add(i);
-                    columnsToRemove.add(j);
+                if (data[i][j] == value) {
+
+                    Set<Integer> rows = new HashSet<>(res.get(matrixElement.ROW));
+                    rows.add(i);
+
+                    Set<Integer> columns = new HashSet<>(res.get(matrixElement.COLUMN));
+                    columns.add(j);
+
+                    res.put(matrixElement.ROW, rows);
+                    res.put(matrixElement.COLUMN, columns);
                 }
             }
         }
+
+        return res;
+    }
+
+    public Matrix removeRowsAndColumnsContainingValue(int value) {
+
+        Map<matrixElement, Set<Integer>> rowsAndColumnsToRemove = getRowsAndColumnsContainingValue(value);
+        Set<Integer> rowsToRemove = rowsAndColumnsToRemove.get(matrixElement.ROW);
+        Set<Integer> columnsToRemove = rowsAndColumnsToRemove.get(matrixElement.COLUMN);
 
         Matrix newMatrix = new Matrix(rowsCount - rowsToRemove.size(),
                 columnsCount - columnsToRemove.size());
