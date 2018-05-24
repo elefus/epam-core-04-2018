@@ -47,13 +47,14 @@ public class Task8 {
         if (palindromes.size() == 0) {
             System.out.println("NOT FOUND");
         } else {
-            int reverseCounter = palindromes.size();
+            int counterOfSecond = 0;
             Iterator<String> iterator = palindromes.iterator();
             while (iterator.hasNext()) {
-                if ((--reverseCounter) == 0) {
+                if(counterOfSecond == 1){
                     System.out.println(iterator.next());
                     return;
                 }
+                counterOfSecond++;
                 iterator.next();
             }
         }
