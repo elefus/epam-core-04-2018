@@ -47,12 +47,14 @@ public class Task14 {
 
         for (int i = 0, j = 1; j < sequence.length; i++, j++) {
             if (sequence[i] < sequence[j]) {
-                if (++ascendingSequence > maxAscendingSequence) {
-                    maxAscendingSequence = ascendingSequence;
-                }
-            } else {
-                ascendingSequence = 1;
+                ascendingSequence++;
+                continue;
             }
+
+            if (ascendingSequence > maxAscendingSequence && ascendingSequence > 1) {
+                maxAscendingSequence = ascendingSequence;
+            }
+            ascendingSequence = 1;
         }
 
         return maxAscendingSequence;
