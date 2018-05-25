@@ -62,7 +62,9 @@ public class Task18 {
 
                 for (int j = 0; j < matrix.getColumnsCount(); j++) {
                     if (matrix.getElement(i, j) == maxElement) {
-                        matrix.removeColumn(j--);
+                        if (matrix.countValueInColumn(j, maxElement) == 1) {
+                            matrix.removeColumn(j--);
+                        }
                         removeRow = true;
                     }
                 }
@@ -165,5 +167,14 @@ class Matrix {
 
     public int getElement(int i, int j) {
         return data[i][j];
+    }
+
+    public int countValueInColumn(int columnIndex, int value) {
+        int count = 0;
+        for (int i = 0; i < rowsCount; i++)
+            if (data[i][columnIndex] == value) {
+                count++;
+            }
+        return count;
     }
 }
