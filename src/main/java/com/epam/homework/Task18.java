@@ -83,11 +83,11 @@ public class Task18 {
         Set<Integer> jToDelete = matrixEntries.stream().map(item -> item.getJ()).collect(Collectors.toSet());
         int oldSize = matrix.length;
         int[][] result = new int[oldSize - iToDelete.size()][oldSize - jToDelete.size()];
-        for (int i = 0, newi = 0; i < oldSize; i++, newi++) {
+        for (int i = 0, newi = 0; i < oldSize && newi < result.length; i++, newi++) {
             while (iToDelete.contains(i)) {
                 i++;
             }
-            for (int j = 0, newj = 0; j < oldSize; j++, newj++) {
+            for (int j = 0, newj = 0; j < oldSize && newj < result[newi].length; j++, newj++) {
                 while (jToDelete.contains(j)) {
                     j++;
                 }
@@ -107,7 +107,7 @@ public class Task18 {
         }
         List<MatrixEntry> matrixEntries = new ArrayList<>();
         Integer maxValue = matrixQueue.peek().getValue();
-        while (matrixQueue.peek().getValue() == maxValue) {
+        while (matrixQueue.size() > 0 && matrixQueue.peek().getValue() == maxValue) {
             matrixEntries.add(matrixQueue.remove());
         }
         return matrixEntries;
@@ -130,6 +130,11 @@ public class Task18 {
 
 
     private static void printMatrix(int[][] matrix) {
+        if (matrix.length == 0) {
+            System.out.println(0);
+            System.out.println(0);
+            return;
+        }
         System.out.println(matrix.length);
         System.out.println(matrix[0].length);
         for (int i = 0; i < matrix.length; i++) {
