@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Task16 {
@@ -66,6 +68,7 @@ public class Task16 {
         int[][] matrix = readMatrix(scanner);
         int rotateDimension = scanner.nextInt();
         matrix = rotateMatrix(matrix, rotateDimension);
+        System.out.println(matrix.length);
         printMatrix(matrix);
     }
 
@@ -123,4 +126,6 @@ public class Task16 {
         }
         return matrix;
     }
+
+
 }
