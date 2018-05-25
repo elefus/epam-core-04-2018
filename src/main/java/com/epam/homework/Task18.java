@@ -55,7 +55,10 @@ public class Task18 {
         Scanner scanner = new Scanner(System.in);
         int[][] matrix = readMatrix(scanner);
         int maxMatrix = maxMatrix(matrix);
-        printMatrix(matrixWithoutMax(matrix, maxMatrix));
+        matrix = matrixWithoutMax(matrix, maxMatrix);
+        System.out.println(matrix.length);
+        System.out.println(matrix[0].length);
+        printMatrix(matrix);
     }
 
     public static int[][] matrixWithoutMax(int[][] matrix, int maxMatrix) {
