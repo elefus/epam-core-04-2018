@@ -1,5 +1,13 @@
 package com.epam.homework;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class Task18 {
 
     /**
@@ -22,10 +30,10 @@ public class Task18 {
      * Примеры выполнения задания:
      *
      * Входные данные:
-     *  3
-     *  2  1 -3
-     * -2  3  2
-     * -1  0  0
+   3
+   2  1 -3
+  -2  3  2
+  -1  0  0
      *
      * Выходные данные:
      *  2
@@ -36,20 +44,100 @@ public class Task18 {
      *
      *
      * Входные данные:
-     *  4
-     *  3 -2 -4  1
-     *  1  4  4  2
-     * -1  0 -3  1
-     *  0  2  1  3
+     4
+     3 -2 -4  1
+     1  4  4  2
+     -1  0 -3  1
+     0  2  1  3
      *
      * Выходные данные:
-     *  3
-     *  2
-     *  3  1
-     * -1  1
-     *  0  3
+  3
+  2
+  3  1
+ -1  1
+  0  3
      */
     public static void main(String[] args) {
-        // TODO реализация
+        try (Scanner reader = new Scanner(System.in)) {
+            int[][] matrix = getMatrix(reader);
+            List<MatrixEntry> matrixEntries = getMatrixMaxEntries(matrix);
+            matrix = deleteRowCols(matrix, matrixEntries);
+            printMatrix(matrix);
+        }
+    }
+
+
+    public static int[][] getMatrix(Scanner reader) {
+        int n = reader.nextInt();
+        int[][] matrix  = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = reader.nextInt();
+            }
+        }
+        return matrix;
+    }
+
+    private static int[][] deleteRowCols(int[][] matrix, List<MatrixEntry> matrixEntries) {
+        Set<Integer> iToDelete = matrixEntries.stream().map(item -> item.getI()).collect(Collectors.toSet());
+        Set<Integer> jToDelete = matrixEntries.stream().map(item -> item.getJ()).collect(Collectors.toSet());
+        int oldSize = matrix.length;
+        int[][] result = new int[oldSize - iToDelete.size()][oldSize - jToDelete.size()];
+        for (int i = 0, newi = 0; i < oldSize; i++, newi++) {
+            while (iToDelete.contains(i)) {
+                i++;
+            }
+            for (int j = 0, newj = 0; j < oldSize; j++, newj++) {
+                while (jToDelete.contains(j)) {
+                    j++;
+                }
+                result[newi][newj] = matrix[i][j];
+            }
+        }
+        return result;
+    }
+
+    private static List<MatrixEntry> getMatrixMaxEntries(int[][] matrix) {
+        int n = matrix.length;
+        Queue<MatrixEntry> matrixQueue = new PriorityQueue<>(Comparator.reverseOrder());
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrixQueue.add(new MatrixEntry(i, j, matrix[i][j]));
+            }
+        }
+        List<MatrixEntry> matrixEntries = new ArrayList<>();
+        Integer maxValue = matrixQueue.peek().getValue();
+        while (matrixQueue.peek().getValue() == maxValue) {
+            matrixEntries.add(matrixQueue.remove());
+        }
+        return matrixEntries;
+    }
+
+    @Setter
+    @Getter
+    @ToString
+    @AllArgsConstructor
+    private static class MatrixEntry implements Comparable {
+        private int i;
+        private int j;
+        private int value;
+
+        @Override
+        public int compareTo(Object o) {
+            return Integer.compare(value, ((MatrixEntry)o).getValue());
+        }
+    }
+
+
+    private static void printMatrix(int[][] matrix) {
+        System.out.println(matrix.length);
+        System.out.println(matrix[0].length);
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print( matrix[i][j] + " ");
+            }
+            System.out.println("");
+        }
+        System.out.println("");
     }
 }
