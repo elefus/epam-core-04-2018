@@ -50,6 +50,7 @@ public class Task12 {
             order.put(matrix[i][k], i);
         }
 
+        System.out.println(N);
         for (Map.Entry<Integer, Integer> item : order.entrySet()) {
             for (int i = 0; i < N; i++) {
                 if (i != 0) {
