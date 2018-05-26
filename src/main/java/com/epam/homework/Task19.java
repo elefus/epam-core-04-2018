@@ -1,5 +1,9 @@
 package com.epam.homework;
 
+import java.util.*;
+
+import static java.util.Collection.*;
+
 public class Task19 {
 
     /**
@@ -36,6 +40,50 @@ public class Task19 {
      * -3  1
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int[][] matrix = readMatrix(scanner);
+        printMatrix(matrix);
+
+        System.out.println(matrix.length);
+        System.out.println(matrix[0].length);
+        printMatrix(reverseMatrix(matrix));
+        System.out.println();
+        printMatrix(reverseMatrix(matrix));
+
+    }
+
+    public static int[][] matrixWithoutZero(int[][] matrix, int maxMatrix) {
+
+        return matrix;
+    }
+
+    private static int[][] reverseMatrix(int[][] matrix) {
+        int[][] matrixReverse = new int[matrix[0].length][matrix.length];
+        for (int row = 0; row<matrix.length; row++) {
+            for(int col = 0; col<matrix.length; col++) {
+                matrixReverse[row][col] = matrix[col][row];
+            }
+                }
+        return matrixReverse;
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int[] aMatrix : matrix) {
+            for (int col = 0; col < matrix[0].length; col++) {
+                System.out.printf("%5d", aMatrix[col]);
+            }
+            System.out.println();
+        }
+    }
+
+    private static int[][] readMatrix(Scanner scanner) {
+        int dimension = scanner.nextInt();
+        int[][] matrix = new int[dimension][dimension];
+        for (int row = 0; row < dimension; row++) {
+            for (int col = 0; col < dimension; col++) {
+                matrix[row][col] = scanner.nextInt();
+            }
+        }
+        return matrix;
     }
 }
