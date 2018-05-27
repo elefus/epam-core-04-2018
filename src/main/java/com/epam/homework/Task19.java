@@ -76,9 +76,15 @@ public class Task19 {
             while (iToDelete.contains(i)) {
                 i++;
             }
+            if (i >= oldSize) {
+                break;
+            }
             for (int j = 0, newj = 0; j < oldSize; j++, newj++) {
                 while (jToDelete.contains(j)) {
                     j++;
+                }
+                if (j >= oldSize) {
+                    break;
                 }
                 result[newi][newj] = matrix[i][j];
             }
