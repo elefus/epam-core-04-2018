@@ -1,5 +1,16 @@
 package com.epam.homework;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class Task19 {
 
     /**
@@ -22,11 +33,11 @@ public class Task19 {
      * Примеры выполнения задания:
      *
      * Входные данные:
-     *  4
-     *  2  0  0 -1
-     *  0  0  0  0
-     *  0  0  0  3
-     * -3  0  0  1
+  4
+  2  0  0 -1
+  0  0  0  0
+  0  0  0  3
+ -3  0  0  1
      *
      * Выходные данные:
      *  3
@@ -36,6 +47,81 @@ public class Task19 {
      * -3  1
      */
     public static void main(String[] args) {
-        // TODO реализация
+        try (Scanner reader = new Scanner(System.in)) {
+            int[][] matrix = getMatrix(reader);
+            Pair zeroRowsAndCols = getZeroRowsCols(matrix);
+            matrix = deleteRowCols(matrix, zeroRowsAndCols);
+            printMatrix(matrix);
+        }
+    }
+
+
+    public static int[][] getMatrix(Scanner reader) {
+        int n = reader.nextInt();
+        int[][] matrix  = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = reader.nextInt();
+            }
+        }
+        return matrix;
+    }
+
+    private static int[][] deleteRowCols(int[][] matrix, Pair calsAndRowsToDelete) {
+        Set<Integer> iToDelete = calsAndRowsToDelete.getNonZeroRows();
+        Set<Integer> jToDelete = calsAndRowsToDelete.getNonZeroCols();
+        int oldSize = matrix.length;
+        int[][] result = new int[oldSize - iToDelete.size()][oldSize - jToDelete.size()];
+        for (int i = 0, newi = 0; i < oldSize; i++, newi++) {
+            while (iToDelete.contains(i)) {
+                i++;
+            }
+            for (int j = 0, newj = 0; j < oldSize; j++, newj++) {
+                while (jToDelete.contains(j)) {
+                    j++;
+                }
+                result[newi][newj] = matrix[i][j];
+            }
+        }
+        return result;
+    }
+
+    private static Pair getZeroRowsCols(int[][] matrix) {
+        Set<Integer> zeroRows = IntStream.range(0, matrix.length).boxed().collect(Collectors.toSet());
+        Set<Integer> zeroCols = IntStream.range(0, matrix.length).boxed().collect(Collectors.toSet());
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] != 0) {
+                    zeroCols.remove(j);
+                    zeroRows.remove(i);
+                }
+            }
+        }
+        return new Pair(zeroRows, zeroCols);
+    }
+
+    @Setter
+    @Getter
+    @ToString
+    @AllArgsConstructor
+    private static class Pair {
+        private Set<Integer> nonZeroRows;
+        private Set<Integer> nonZeroCols;
+    }
+
+
+    private static void printMatrix(int[][] matrix) {
+        if (matrix.length == 0)
+            return;
+        System.out.println(matrix.length);
+        System.out.println(matrix[0].length);
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print( matrix[i][j] + " ");
+            }
+            System.out.println("");
+        }
+        System.out.println("");
     }
 }
