@@ -54,6 +54,9 @@ public class Task15 {
                     }
                 }
             }
+            if (firstPositive && (!secondPositive)) {
+                break;
+            }
             totalSum += tempSum;
             tempSum = 0;
             firstPositive = false;
