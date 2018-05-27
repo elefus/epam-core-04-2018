@@ -1,6 +1,8 @@
 package com.epam.homework;
 
+import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task12 {
 
@@ -45,20 +47,15 @@ public class Task12 {
         int[][] matrix = readMatrix(scanner, N);
         int k = scanner.nextInt();
 
-        Map<Integer, Integer> order = new TreeMap<>();
-        for (int i = 0; i < N; i++) {
-            order.put(matrix[i][k], i);
-        }
+        Arrays.sort(matrix, Comparator.comparingInt(o -> o[k]));
 
         System.out.println(N);
-        for (Map.Entry<Integer, Integer> item : order.entrySet()) {
-            for (int i = 0; i < N; i++) {
-                if (i != 0) {
-                    System.out.print(" ");
-                }
-                System.out.print(matrix[item.getValue()][i]);
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                System.out.printf("%12d", matrix[i][j]);
             }
-            System.out.println();
+            System.out.println("\n");
         }
     }
 
