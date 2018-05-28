@@ -83,16 +83,18 @@ public class Task18 {
         Set<Integer> jToDelete = matrixEntries.stream().map(item -> item.getJ()).collect(Collectors.toSet());
         int oldSize = matrix.length;
         int[][] result = new int[oldSize - iToDelete.size()][oldSize - jToDelete.size()];
-        for (int i = 0, newi = 0; i < oldSize; i++, newi++) {
-            while (iToDelete.contains(i)) {
-                i++;
+        for (int i = 0, newi = 0; i < oldSize; i++) {
+            if (iToDelete.contains(i)) {
+                continue;
             }
-            for (int j = 0, newj = 0; j < oldSize; j++, newj++) {
-                while (jToDelete.contains(j)) {
-                    j++;
+            for (int j = 0, newj = 0; j < oldSize; j++) {
+                if (jToDelete.contains(j)) {
+                    continue;
                 }
                 result[newi][newj] = matrix[i][j];
+                newj++;
             }
+            newi++;
         }
         return result;
     }
