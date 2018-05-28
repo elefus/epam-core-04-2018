@@ -40,7 +40,7 @@ class Matrix {
             }
         });
     }
-  
+
     void shiftRows(int amountShifts) {
         amountShifts %= matrixSize;
         if (amountShifts > 0) {
@@ -54,6 +54,67 @@ class Matrix {
         for (int i = 0; i < amountShifts; i++) {
             matrix.add(matrix.get(0));
             matrix.remove(0);
+        }
+    }
+  
+    int getSumBetweenFirstAndLastPositiveNumber() {
+        int result = 0;
+        int tempSum = 0;
+
+        for (Integer[] row : matrix) {
+            out:
+            for (int i = 0; i < row.length; i++) {
+                if (row[i] > 0) {
+                    for (int j = i + 1; j < row.length; j++) {
+                        if (row[j] > 0) {
+                            result += tempSum;
+                            tempSum = 0;
+                            break out;
+                        }
+                        tempSum += row[j];
+                    }
+                }
+                tempSum = 0;
+            }
+        }
+        return result;
+    }
+
+    void rotate(int degree) {
+        if (degree == 0) {
+            return;
+        } else if (degree < 0) {
+            degree = 4 + (degree % 4);
+        } else {
+            degree %= 4;
+        }
+
+        switch (degree) {
+            case 1:
+                rotate90Degrees();
+                break;
+            case 2:
+                rotate90Degrees();
+                rotate90Degrees();
+                break;
+            case 3:
+                rotate90Degrees();
+                rotate90Degrees();
+                rotate90Degrees();
+                break;
+        }
+    }
+
+    private void rotate90Degrees() {
+        int temp;
+        for (int i = 0; i <= matrixSize / 2; i++) {
+            for (int j = i; j < matrixSize - i - 1; j++) {
+                temp = matrix.get(i)[j];
+                matrix.get(i)[j] = matrix.get(matrixSize - j - 1)[i];
+                matrix.get(matrixSize - j - 1)[i] = matrix.get(matrixSize - i - 1)[matrixSize - j - 1];
+                matrix.get(matrixSize - i - 1)[matrixSize - j - 1] = matrix.get(j)[matrixSize - i - 1];
+                matrix.get(j)[matrixSize - i - 1] = temp;
+            }
         }
     }
 }
