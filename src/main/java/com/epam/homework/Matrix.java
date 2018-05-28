@@ -56,7 +56,7 @@ class Matrix {
             matrix.remove(0);
         }
     }
-
+  
     int getSumBetweenFirstAndLastPositiveNumber() {
         int result = 0;
         int tempSum = 0;
