@@ -1,6 +1,5 @@
 package com.epam.homework;
 
-
 import java.util.*;
 
 class Matrix {
@@ -57,7 +56,7 @@ class Matrix {
             matrix.remove(0);
         }
     }
-
+  
     int getSumBetweenFirstAndLastPositiveNumber() {
         int result = 0;
         int tempSum = 0;
@@ -118,6 +117,4 @@ class Matrix {
             }
         }
     }
-
-
 }
