@@ -34,6 +34,11 @@ public class Task15 {
         Scanner scanner = new Scanner(System.in);
         int dimension = scanner.nextInt();
         int[][] matrix = readMatrix(scanner, dimension);
+        System.out.println(countSum(dimension, matrix));
+
+    }
+
+    private static int countSum(int dimension, int[][] matrix) {
         int totalSum = 0;
         int tempSum = 0;
         boolean firstPositive = false;
@@ -62,8 +67,7 @@ public class Task15 {
             firstPositive = false;
             secondPositive = false;
         }
-        System.out.println(totalSum);
-
+        return totalSum;
     }
 
     private static int[][] readMatrix(Scanner scanner, int dimension) {
