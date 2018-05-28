@@ -41,27 +41,27 @@ public class Task12 {
      * 0    2    3    4    5
      */
     public static void main(String[] args) {
-        Scanner reader = new Scanner(System.in);
-        int matrixDimension = reader.nextInt();
-        int[][] matrix = readMatrix(reader, matrixDimension);
-        int sortColumnIndex = reader.nextInt();
+        Scanner scanner = new Scanner(System.in);
+        int[][] matrix = readMatrix(scanner);
+        int columnN = scanner.nextInt();
 
-        System.out.println(sortColumnIndex);
-        print(sortMatrix(matrix, sortColumnIndex));
+        System.out.println(columnN);
+        print(sort(matrix, columnN));
     }
 
-    static int[][] sortMatrix(int[][] matrix, int sortColumnIndex) {
-        Arrays.sort(matrix, Comparator.comparingInt(row -> row[sortColumnIndex]));
+    private static int[][] sort(int[][] matrix, int columnN) {
+        Arrays.sort(matrix, Comparator.comparingInt(row -> row[columnN]));
 
         return matrix;
     }
 
-    private static int[][] readMatrix(Scanner reader, int dimension) {
+    private static int[][] readMatrix(Scanner scanner) {
+        int dimension = scanner.nextInt();
         int[][] matrix = new int[dimension][dimension];
 
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                matrix[i][j] = reader.nextInt();
+                matrix[i][j] = scanner.nextInt();
             }
         }
 
