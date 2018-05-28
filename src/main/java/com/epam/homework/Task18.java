@@ -56,8 +56,6 @@ public class Task18 {
         int[][] matrix = readMatrix(scanner);
         int maxMatrix = maxMatrix(matrix);
         matrix = matrixWithoutMax(matrix, maxMatrix);
-        System.out.println(matrix.length);
-        System.out.println(matrix[0].length);
         printMatrix(matrix);
     }
 
@@ -103,6 +101,8 @@ public class Task18 {
     }
 
     private static void printMatrix(int[][] matrix) {
+        System.out.println(matrix.length);
+        System.out.println(matrix[0].length);
         for (int[] aMatrix : matrix) {
             for (int col = 0; col < matrix[0].length; col++) {
                 System.out.printf("%5d", aMatrix[col]);
