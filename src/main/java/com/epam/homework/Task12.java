@@ -41,16 +41,15 @@ public class Task12 {
      * 0    2    3    4    5
      */
     public static void main(String[] args) {
-        try (Scanner reader = new Scanner(System.in)) {
-            int matrixDimension = reader.nextInt();
-            int[][] matrix = readMatrix(reader, matrixDimension);
-            int sortColumnIndex = reader.nextInt();
+        Scanner reader = new Scanner(System.in);
+        int matrixDimension = reader.nextInt();
+        int[][] matrix = readMatrix(reader, matrixDimension);
+        int sortColumnIndex = reader.nextInt();
 
-            printMatrix(sortMatrix(matrix, sortColumnIndex));
-        }
+        print(sortMatrix(matrix, sortColumnIndex));
     }
 
-    static int[][] readMatrix(Scanner reader, int dimension) {
+    private static int[][] readMatrix(Scanner reader, int dimension) {
         int[][] matrix = new int[dimension][dimension];
 
         for (int i = 0; i < dimension; i++) {
@@ -62,13 +61,13 @@ public class Task12 {
         return matrix;
     }
 
-    static int[][] sortMatrix(int[][] matrix, int sortColumnIndex) {
+    private static int[][] sortMatrix(int[][] matrix, int sortColumnIndex) {
         Arrays.sort(matrix, Comparator.comparingInt(row -> row[sortColumnIndex]));
 
         return matrix;
     }
 
-    static void printMatrix(int[][] matrix) {
+    private static void print(int[][] matrix) {
        for (int[] row: matrix) {
             for (int el: row) {
                 System.out.format("%4d", el);
