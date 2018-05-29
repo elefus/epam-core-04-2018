@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task15 {
 
     /**
@@ -28,6 +30,13 @@ public class Task15 {
      * -1
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner in = new Scanner(System.in);
+        int sizeOfMatrix = in.nextInt();
+
+        MatrixForTask15 myMat = new MatrixForTask15(sizeOfMatrix);
+        myMat.setMatrix(in);
+
+        System.out.println(myMat.getSumBetweenFirstAndLastPositiveNumber());
+
     }
 }
