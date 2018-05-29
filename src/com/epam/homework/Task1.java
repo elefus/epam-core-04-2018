@@ -41,7 +41,7 @@ public class Task1 {
      * MAX (35): Приятна мне твоя прощальная краса —
      */
     public static void main(String[] args) throws IOException {
-        // TODO реализация
+        
         int N = parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine());
         String maxString;
         String minString;
