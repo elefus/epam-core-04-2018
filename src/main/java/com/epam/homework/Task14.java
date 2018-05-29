@@ -9,10 +9,9 @@ public class Task14 {
             int maxAmount = 0;
             int limit = Integer.parseInt(scanner.nextLine());
             if (limit > 1) {
-                int initial = scanner.nextInt();
+                int initial = Integer.MIN_VALUE;
                 int localMax = 0;
-                for (int i = 0; i < limit-1; i++) {
-                    if (i == 0) localMax++;
+                for (int i = 0; i < limit; i++) {
                     int current = scanner.nextInt();
                     if (current > initial) {
                         localMax++;
