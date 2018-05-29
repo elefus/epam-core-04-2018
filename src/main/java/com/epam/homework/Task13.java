@@ -93,11 +93,12 @@ public class Task13 {
 
     private static int[][] changeMatrixRows(int[][] initialMatrix, int transformDigit) {
         int[][] someMatrix = new int[initialMatrix.length][initialMatrix.length];
-        int digitForRowsShifted = Math.abs(transformDigit) > initialMatrix.length ? Math.abs(transformDigit % initialMatrix.length) : Math.abs(transformDigit);
+        int digitForRowsShifted = Math.abs(transformDigit) > initialMatrix.length ? transformDigit % initialMatrix.length : transformDigit;
         if (digitForRowsShifted > 0) {
             System.arraycopy(initialMatrix, 0, someMatrix, digitForRowsShifted, initialMatrix.length-digitForRowsShifted);
             System.arraycopy(initialMatrix, initialMatrix.length-digitForRowsShifted, someMatrix, 0, digitForRowsShifted);
         } else {
+            digitForRowsShifted = Math.abs(digitForRowsShifted);
             System.arraycopy(initialMatrix, digitForRowsShifted, someMatrix, 0, initialMatrix.length-digitForRowsShifted);
             System.arraycopy(initialMatrix, 0, someMatrix, initialMatrix.length-digitForRowsShifted, digitForRowsShifted);
         }
