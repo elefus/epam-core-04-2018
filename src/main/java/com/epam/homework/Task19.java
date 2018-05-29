@@ -2,8 +2,6 @@ package com.epam.homework;
 
 import java.util.*;
 
-import static java.util.Collection.*;
-
 public class Task19 {
 
     /**
