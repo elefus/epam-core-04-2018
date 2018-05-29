@@ -12,9 +12,9 @@ public class Task14 {
                 int initial = scanner.nextInt();
                 int localMax = 0;
                 for (int i = 0; i < limit-1; i++) {
+                    if (i == 0) localMax++;
                     int current = scanner.nextInt();
                     if (current > initial) {
-                        if (i == 0) localMax++;
                         localMax++;
                     } else {
                         if (localMax > maxAmount) maxAmount = localMax;
@@ -22,6 +22,7 @@ public class Task14 {
                     }
                     initial = current;
                 }
+                if (maxAmount == 0 && localMax > 0) maxAmount = localMax;
             }
             System.out.println(maxAmount);
         }
