@@ -73,8 +73,10 @@ public class Task13 {
 
     private static void printMatrix(int[][] matrix) {
         System.out.println(matrix.length);
-        for (int[] aMatrix : matrix) {
-            for (int anAMatrix : aMatrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            int[] aMatrix = matrix[i];
+            for (int i1 = 0; i1 < aMatrix.length; i1++) {
+                int anAMatrix = aMatrix[i1];
                 System.out.print(anAMatrix + " ");
             }
             System.out.println();
@@ -82,10 +84,11 @@ public class Task13 {
     }
 
     private static int[][] transformMatrix(int[][] initialMatrix, int transformDigit) {
-        if (transformDigit != 0 && initialMatrix.length != 1) {
+        if (transformDigit == 0 || initialMatrix.length == 1) {
+            return initialMatrix;
+        } else {
             return changeMatrixRows(initialMatrix, transformDigit);
         }
-        return initialMatrix;
     }
 
     private static int[][] changeMatrixRows(int[][] initialMatrix, int transformDigit) {
