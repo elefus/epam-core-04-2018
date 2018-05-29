@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task16 {
 
     /**
@@ -60,6 +62,15 @@ public class Task16 {
      * 3 9
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner in = new Scanner(System.in);
+        int size = in.nextInt();
+        MatrixForTask16 myMatrixForTask16 = new MatrixForTask16(size);
+        myMatrixForTask16.setMatrix(in);
+
+        int degree = in.nextInt();
+        myMatrixForTask16.rotate(degree);
+
+        myMatrixForTask16.printMatrix();
+
     }
 }
