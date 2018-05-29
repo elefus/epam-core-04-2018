@@ -1,6 +1,5 @@
 package com.epam.homework;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Task8 {
