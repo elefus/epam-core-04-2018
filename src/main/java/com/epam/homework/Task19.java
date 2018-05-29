@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.*;
+
 public class Task19 {
 
     /**
@@ -36,6 +38,76 @@ public class Task19 {
      * -3  1
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int[][] matrix = readMatrix(scanner);
+        matrix = matrixWithoutZero(matrix);
+        System.out.println(matrix.length);
+        System.out.println(matrix[0].length);
+        printMatrix(matrix);
+
+    }
+
+    public static int[][] matrixWithoutZero(int[][] matrix) {
+        matrix = deleteLineMatrix(reverseMatrix(matrix));
+        matrix = deleteLineMatrix(reverseMatrix(matrix));
+        return matrix;
+    }
+
+    public static int[][] deleteLineMatrix(int[][] matrix) {
+        Set<Integer> countDeleteLines = zeroLineCounter(matrix);
+        int[][] matrixZeroOut = new int[matrix.length-countDeleteLines.size()][matrix[0].length];
+        int count = 0;
+        for (int row = 0; row<matrix.length; row++) {
+            if (countDeleteLines.contains(row)) {
+                count++;
+            }
+            else {
+                matrixZeroOut[row-count] = matrix[row];
+            }
+        }
+        return matrixZeroOut;
+    }
+
+    private static Set<Integer> zeroLineCounter (int[][] matrix) {
+        int[] zeroLine = new int[matrix[0].length];
+        Collections.fill(Arrays.asList(zeroLine), 0);
+        Set<Integer> countDeleteLines = new HashSet<>();
+        for (int i = 0; i<matrix.length; i++) {
+            if (Arrays.equals(matrix[i], zeroLine)) {
+                countDeleteLines.add(i);
+            }
+        }
+        return countDeleteLines;
+    }
+
+    private static int[][] reverseMatrix(int[][] matrix) {
+        int[][] matrixReverse = new int[matrix[0].length][matrix.length];
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[0].length; col++) {
+                matrixReverse[col][row] = matrix[row][col];
+            }
+        }
+        return matrixReverse;
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int[] aMatrix : matrix) {
+            for (int col = 0; col < matrix[0].length; col++) {
+                System.out.printf("%5d", aMatrix[col]);
+            }
+            System.out.println();
+        }
+    }
+
+    private static int[][] readMatrix(Scanner scanner) {
+        int dimension = scanner.nextInt();
+        int[][] matrix = new int[dimension][dimension];
+        for (int row = 0; row < dimension; row++) {
+            for (int col = 0; col < dimension; col++) {
+                matrix[row][col] = scanner.nextInt();
+            }
+        }
+        return matrix;
     }
 }
+
