@@ -44,10 +44,8 @@ public class Task20 {
     public static void main(String[] args) {
         try (Scanner reader = new Scanner(System.in)) {
             Coord newCoord = new Coord(reader.nextInt(), reader.nextInt());
-//            int lineNum = reader.nextInt();
-//            int colNum = reader.nextInt();
-            int n = reader.nextInt();
-            int[][] matrix = getMatrix(n, reader);
+            int size = reader.nextInt();
+            int[][] matrix = getMatrix(size, reader);
             Coord minCoord = getMin(matrix);
             matrix = modifyMatrix(newCoord, minCoord, matrix);
             printMatrix(matrix);
@@ -56,24 +54,27 @@ public class Task20 {
 
     private static int[][] modifyMatrix(Coord newCoord, Coord oldCoord, int[][] matrix) {
         int size = matrix.length;
-        int[][] result = new int[size][size];
-        fillOldCol(newCoord, oldCoord, matrix,result);
-        fillOldRow(newCoord, oldCoord, matrix,result);
+        int[][] result = getTemplateMatrixFilledWithNewRowAndCol(newCoord, oldCoord, matrix);
+        fillMatrixWithOtherRowsAndCols(newCoord, oldCoord, matrix, size, result);
+        return result;
+    }
+
+    private static void fillMatrixWithOtherRowsAndCols(Coord newCoord, Coord oldCoord, int[][] matrix, int size, int[][] result) {
         for (int i = 0, newi = 0; i < size && newi < size;) {
-            if (oldCoord.getI() == newi) {
+            if (newCoord.getI() == newi) {
                 newi++;
                 continue;
             }
-            if (newCoord.getI() == i) {
+            if (oldCoord.getI() == i) {
                 i++;
                 continue;
             }
             for (int j = 0, newj = 0; j < size && newj < size;) {
-                if (oldCoord.getJ() == newj) {
+                if (newCoord.getJ() == newj) {
                     newj++;
                     continue;
                 }
-                if (newCoord.getJ() == j) {
+                if (oldCoord.getJ() == j) {
                     j++;
                     continue;
                 }
@@ -84,36 +85,54 @@ public class Task20 {
             newi++;
             i++;
         }
+    }
+
+    private static int[][] getTemplateMatrixFilledWithNewRowAndCol(Coord newCoord, Coord oldCoord, int[][] matrix) {
+        int size = matrix.length;
+        int[][] result = new int[size][size];
+        int[] newCol = fillNewCol(newCoord, oldCoord, matrix);
+        int[] newRow = fillNewRow(newCoord, oldCoord, matrix);
+        result[newCoord.getI()] = newRow;
+        for (int i = 0; i < matrix.length; i++) {
+            result[i][newCoord.getJ()] = newCol[i];
+        }
         return result;
     }
 
-    private static void fillOldRow(Coord newCoord, Coord oldCoord, int[][] matrix, int[][] result) {
+    private static int[] fillNewCol(Coord newCoord, Coord oldCoord, int[][] matrix) {
         int size = matrix.length;
-        for (int i = 0, newi = 0; i < size && newi < size;) {
-            if(oldCoord.getI() == newi) {
-                result[newi][oldCoord.getJ()] = matrix[newCoord.getI()][newCoord.getJ()];
-                newi++;
+        int[] result = new int[size];
+        for (int k = 0, newk = 0; k < size && newk < size;) {
+            if (k == newCoord.getI()) {
+                result[k++] = matrix[oldCoord.getI()][oldCoord.getJ()];
                 continue;
             }
-            if(newCoord.getI() == i) {
-                i++;
+            if (newk == oldCoord.getI()) {
+                newk++;
                 continue;
             }
-            result[newi++][oldCoord.getJ()] = matrix[i++][newCoord.getJ()];
+            result[k++] = matrix[newk++][oldCoord.getJ()];
         }
+        return result;
     }
 
-    private static void fillOldCol(Coord newCoord, Coord oldCoord, int[][] matrix, int[][] result) {
+    private static int[] fillNewRow(Coord newCoord, Coord oldCoord, int[][] matrix) {
         int size = matrix.length;
-        for (int j = 0, newj = 0; j < size && newj < size;) {
-            if(newCoord.getJ() == newj) {
-                result[oldCoord.getI()][newj] = matrix[newCoord.getI()][oldCoord.getJ()];
-                newj++;
+        int[] result = new int[size];
+        for (int k = 0, newk = 0; k < size && newk < size;) {
+            if (k == newCoord.getJ()) {
+                result[k++] = matrix[oldCoord.getI()][oldCoord.getJ()];
                 continue;
             }
-            result[oldCoord.getI()][newj++] = matrix[newCoord.getI()][j++];
+            if (newk == oldCoord.getJ()) {
+                newk++;
+                continue;
+            }
+            result[k++] = matrix[oldCoord.getI()][newk++];
         }
+        return result;
     }
+
 
     private static Coord getMin(int[][] matrix) {
         int min = Integer.MAX_VALUE;
