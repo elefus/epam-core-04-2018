@@ -64,6 +64,7 @@ public class Task19 {
                     tmpCols.remove(col);
                 }
             }
+            colsZeros = 0;
         }
         Set<Integer> cols = new HashSet<>(tmpCols);
         clearArray(matrix, rows, cols);
