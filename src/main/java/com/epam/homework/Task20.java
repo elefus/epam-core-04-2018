@@ -122,9 +122,10 @@ public class Task20 {
     private static int[] fillNewCol(Coord newCoord, Coord oldCoord, int[][] matrix) {
         int size = matrix.length;
         int[] result = new int[size];
-        for (int k = 0, newk = 0; k < size || newk < size;) {
+        result[newCoord.getI()] = matrix[oldCoord.getI()][oldCoord.getJ()];
+        for (int k = 0, newk = 0; k < size && newk < size;) {
             if (k == newCoord.getI()) {
-                result[k++] = matrix[oldCoord.getI()][oldCoord.getJ()];
+                k++;
                 continue;
             }
             if (newk == oldCoord.getI()) {
@@ -139,9 +140,10 @@ public class Task20 {
     private static int[] fillNewRow(Coord newCoord, Coord oldCoord, int[][] matrix) {
         int size = matrix.length;
         int[] result = new int[size];
-        for (int k = 0, newk = 0; k < size || newk < size;) {
+        result[newCoord.getI()] = matrix[oldCoord.getI()][oldCoord.getJ()];
+        for (int k = 0, newk = 0; k < size && newk < size;) {
             if (k == newCoord.getJ()) {
-                result[k++] = matrix[oldCoord.getI()][oldCoord.getJ()];
+                k++;
                 continue;
             }
             if (newk == oldCoord.getJ()) {
