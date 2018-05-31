@@ -1,5 +1,8 @@
 package com.epam.homework;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class Task14 {
 
     /**
@@ -34,6 +37,27 @@ public class Task14 {
      * 0
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int quantity = scanner.nextInt();
+        int maxCount = 1;
+        int count = 1;
+        int pastValue = -1;
+        int currentValue;
+
+        for (int i = 0; i < quantity; i++) {
+            currentValue = scanner.nextInt();
+
+            if (i != 0 && currentValue > pastValue){
+                if (maxCount < ++count){
+                    maxCount = count;
+                }
+            }
+            else {
+                count = 1;
+            }
+            pastValue = currentValue;
+        }
+
+        System.out.println(maxCount > 1 ? maxCount : 0);
     }
 }
