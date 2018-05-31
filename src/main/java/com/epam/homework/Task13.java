@@ -81,7 +81,7 @@ public class Task13 {
         System.arraycopy(matrix, 0, answerMatrix, row0Becomes, dimension - row0Becomes);
 
         if (isPositive) {
-            System.arraycopy(matrix, row0Becomes - 1, answerMatrix, 0, row0Becomes);
+            System.arraycopy(matrix, dimension - row0Becomes, answerMatrix, 0, row0Becomes);
         } else {
             System.arraycopy(matrix, dimension - realMoveCoeff, answerMatrix, 0, row0Becomes);
         }
