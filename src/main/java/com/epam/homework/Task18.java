@@ -116,13 +116,16 @@ public class Task18 {
             int columnsOffset = 0;
             if (removingRows.contains(i)) {
                 rowsOffset++;
-            }
-            for (int j = 0; j < oldMatrix[0].length; j++) {
-                if (removingColumns.contains(j)) {
-                    columnsOffset++;
+            } else {
+                for (int j = 0; j < oldMatrix[0].length; j++) {
+                    if (removingColumns.contains(j)) {
+                        columnsOffset++;
+                    } else {
+                        newMatrix[i - rowsOffset][j - columnsOffset] = oldMatrix[i][j];
+                    }
                 }
-                newMatrix[i - rowsOffset][j - columnsOffset] = oldMatrix[i][j];
             }
+
         }
         return newMatrix;
     }
