@@ -1,7 +1,7 @@
 package com.epam.homework;
 
 
-import java.util.*;
+import java.util.Scanner;
 
 public class Task13 {
 
@@ -57,7 +57,8 @@ public class Task13 {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        int matrixDimension = Math.abs(sc.nextInt());
+        int matrixDimension = sc.nextInt();
+        System.out.println("matrixDimension = " + matrixDimension);
         int[][] inputmatrix = readMatrix(sc, matrixDimension);
         int inputMoveCoeff = sc.nextInt();
 
@@ -78,12 +79,12 @@ public class Task13 {
         int row0Becomes = isPositive ? realMoveCoeff : (dimension - realMoveCoeff);
 
         System.arraycopy(matrix, 0, answerMatrix, row0Becomes, dimension - row0Becomes);
+
         if (isPositive) {
             System.arraycopy(matrix, row0Becomes - 1, answerMatrix, 0, row0Becomes);
         } else {
             System.arraycopy(matrix, dimension - realMoveCoeff, answerMatrix, 0, row0Becomes);
         }
-
         return answerMatrix;
     }
 
