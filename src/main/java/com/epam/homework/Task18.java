@@ -112,27 +112,19 @@ public class Task18 {
         int[][] newMatrix = new int[oldMatrix.length - removingRows.size()][oldMatrix.length - removingColumns.size()];
 
         int rowsOffset = 0;
-        for (int i = 0; i < newMatrix.length; i++) {
-            rowsOffset += getNext(i, oldMatrix.length, removingRows);
+        for (int i = 0; i < oldMatrix.length; i++) {
             int columnsOffset = 0;
-            for (int j = 0; j < newMatrix[0].length; j++) {
-                columnsOffset += getNext(j, oldMatrix.length, removingColumns);
-                newMatrix[i][j] = oldMatrix[i + rowsOffset][j + columnsOffset];
+            if (removingRows.contains(i)) {
+                rowsOffset++;
+            }
+            for (int j = 0; j < oldMatrix[0].length; j++) {
+                if (removingColumns.contains(j)) {
+                    columnsOffset++;
+                }
+                newMatrix[i - rowsOffset][j - columnsOffset] = oldMatrix[i][j];
             }
         }
         return newMatrix;
-    }
-
-    private static int getNext(int currentIteration, int matrixLength, Set<Integer> set) {
-        int counter = 0;
-        if (currentIteration == matrixLength - 1) {
-            return counter;
-        }
-        if (set.contains(currentIteration)) {
-            counter++;
-            counter += getNext(++currentIteration, matrixLength, set);
-        }
-        return counter;
     }
 
     private static void printMatrix(int[][] matrix) {
