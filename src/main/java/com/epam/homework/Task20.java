@@ -33,6 +33,26 @@ public class Task20 {
 0  1  3 -1
 -1  0  2  3
 -2  1 -1  4
+
+     4
+     4
+     5
+     2  4 -2 -3 1
+     0  1  3 -1 1
+     -1  0  2  3 1
+     -2  1 -1  -7 1
+     1 2 3 4 5
+
+     0
+     0
+     1
+     1
+
+     0
+     0
+     2
+     2  4
+     0  -4
      *
      * Выходные данные:
      *  4
@@ -102,7 +122,7 @@ public class Task20 {
     private static int[] fillNewCol(Coord newCoord, Coord oldCoord, int[][] matrix) {
         int size = matrix.length;
         int[] result = new int[size];
-        for (int k = 0, newk = 0; k < size && newk < size;) {
+        for (int k = 0, newk = 0; k < size || newk < size;) {
             if (k == newCoord.getI()) {
                 result[k++] = matrix[oldCoord.getI()][oldCoord.getJ()];
                 continue;
@@ -119,7 +139,7 @@ public class Task20 {
     private static int[] fillNewRow(Coord newCoord, Coord oldCoord, int[][] matrix) {
         int size = matrix.length;
         int[] result = new int[size];
-        for (int k = 0, newk = 0; k < size && newk < size;) {
+        for (int k = 0, newk = 0; k < size || newk < size;) {
             if (k == newCoord.getJ()) {
                 result[k++] = matrix[oldCoord.getI()][oldCoord.getJ()];
                 continue;
