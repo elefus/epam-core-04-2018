@@ -58,7 +58,6 @@ public class Task13 {
 
         Scanner sc = new Scanner(System.in);
         int matrixDimension = sc.nextInt();
-        System.out.println("matrixDimension = " + matrixDimension);
         int[][] inputmatrix = readMatrix(sc, matrixDimension);
         int inputMoveCoeff = sc.nextInt();
 
@@ -72,7 +71,7 @@ public class Task13 {
         int[][] answerMatrix = new int[dimension][];
         int realMoveCoeff = moveCoeff > dimension ? moveCoeff % dimension : moveCoeff;
 
-        if (matrix.length == 1 || realMoveCoeff % dimension == 0 || realMoveCoeff == 0) {
+        if (dimension == 1 || realMoveCoeff % dimension == 0 || realMoveCoeff == 0) {
             return matrix;
         }
 
@@ -83,7 +82,7 @@ public class Task13 {
         if (isPositive) {
             System.arraycopy(matrix, dimension - row0Becomes, answerMatrix, 0, row0Becomes);
         } else {
-            System.arraycopy(matrix, dimension - realMoveCoeff, answerMatrix, 0, row0Becomes);
+            System.arraycopy(matrix, dimension - row0Becomes, answerMatrix, 0, row0Becomes);
         }
         return answerMatrix;
     }
@@ -109,3 +108,6 @@ public class Task13 {
         }
     }
 }
+//5
+//1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4 5 5 5 5 5
+//-2
