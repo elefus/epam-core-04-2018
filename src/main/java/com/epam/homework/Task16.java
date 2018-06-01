@@ -1,5 +1,8 @@
 package com.epam.homework;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class Task16 {
 
     /**
@@ -60,6 +63,58 @@ public class Task16 {
      * 3 9
      */
     public static void main(String[] args) {
-        // TODO реализация
+        try (Scanner scanner = new Scanner(System.in)) {
+            int dimension = scanner.nextInt();
+            int[][] matrix = readMatrix(scanner, dimension);
+            int degree = scanner.nextInt();
+            degree = Math.abs(degree) > 4 ? degree % 4 : degree;
+            printMatrix(turnMatrix(matrix, degree), dimension);
+        }
+    }
+
+    private static int[][] readMatrix(Scanner scanner, int dimension) {
+        int[][] matrix = new int[dimension][dimension];
+        for (int row = 0; row < dimension; ++row) {
+            for (int col = 0; col < dimension; ++col) {
+                matrix[row][col] = scanner.nextInt();
+            }
+        }
+        return matrix;
+    }
+
+    private static int[][] turnMatrix(int[][] initialMatrix, int degree) {
+        int[][] newInitialMatrix = initialMatrix;
+        int[][] auxMatrix = new int[newInitialMatrix.length][newInitialMatrix.length];
+        int[] helper = new int[newInitialMatrix.length];
+        if (degree > 0) {
+            for (int d = degree; d > 0; d--) {
+                for (int i = 0; i < newInitialMatrix.length; i++) {
+                    int[] row = newInitialMatrix[i];
+                    System.arraycopy(row, 0, helper, 0, row.length);
+                    System.out.println(Arrays.toString(helper));
+                    for (int k = 0; k < helper.length; k++) {
+                        auxMatrix[k][newInitialMatrix.length - 1 - i] = helper[k];
+                    }
+                }
+                newInitialMatrix = auxMatrix;
+            }
+            return newInitialMatrix;
+        }
+        else if (degree < 0) {
+            return auxMatrix;
+        }
+        else {
+            return newInitialMatrix;
+        }
+    }
+
+    private static void printMatrix(int[][] matrix, int dimension) {
+        System.out.println(dimension);
+        for (int row = 0; row < dimension; ++row) {
+            for (int col = 0; col < dimension; ++col) {
+                System.out.printf("%12d", matrix[row][col]);
+            }
+            System.out.println("\n");
+        }
     }
 }
