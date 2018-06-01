@@ -49,7 +49,7 @@ public class Task12 {
         print(sort(matrix, columnN));
     }
 
-    private static int[][] sort(int[][] matrix, int columnN) {
+    static int[][] sort(int[][] matrix, int columnN) {
         Arrays.sort(matrix, Comparator.comparingInt(row -> row[columnN]));
 
         return matrix;
