@@ -41,37 +41,38 @@ public class Task12 {
      * 0    2    3    4    5
      */
     public static void main(String[] args) {
-        try (Scanner reader = new Scanner(System.in)) {
-            int matrixDimension = reader.nextInt();
-            int[][] matrix = readMatrix(reader, matrixDimension);
-            int sortColumnIndex = reader.nextInt();
+        Scanner scanner = new Scanner(System.in);
+        int[][] matrix = readMatrix(scanner);
+        int columnN = scanner.nextInt();
 
-            System.out.println(matrixDimension);
-            print(sort(matrix, sortColumnIndex));
-        }
+
+        System.out.println(matrix.length);
+        print(sort(matrix, columnN));
     }
 
-    static int[][] readMatrix(Scanner reader, int dimension) {
+    private static int[][] sort(int[][] matrix, int columnN) {
+        Arrays.sort(matrix, Comparator.comparingInt(row -> row[columnN]));
+
+        return matrix;
+    }
+
+    private static int[][] readMatrix(Scanner scanner) {
+        int dimension = scanner.nextInt();
         int[][] matrix = new int[dimension][dimension];
 
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                matrix[i][j] = reader.nextInt();
+                matrix[i][j] = scanner.nextInt();
             }
         }
 
         return matrix;
     }
 
-    static int[][] sort(int[][] matrix, int columnIndex) {
-        Arrays.sort(matrix, Comparator.comparingInt(line -> line[columnIndex]));
 
-        return matrix;
-    }
-
-    static void print(int[][] matrix) {
-       for (int[] line: matrix) {
-            for (int el: line) {
+    private static void print(int[][] matrix) {
+       for (int[] row: matrix) {
+            for (int el: row) {
                 System.out.format("%4d", el);
             }
             System.out.println();
