@@ -52,19 +52,19 @@ public class Task15 {
         int sum = 0;
         int count = 0;
 
-        for (int row = 0; row < matrix.length; row++) {
+        for (int[] aMatrix : matrix) {
             for (int col = 0; col < matrix.length; col++) {
 
-                if (count == 2){
+                if (count == 2) {
                     count = 0;
                     break;
                 }
-                if (matrix[row][col] > 0){
+                if (aMatrix[col] > 0) {
                     count++;
                     continue;
                 }
-                if (count == 1){
-                    sum =+ matrix[row][col];
+                if (count == 1) {
+                    sum += aMatrix[col];
                 }
             }
         }
