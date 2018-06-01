@@ -55,18 +55,20 @@ public class Task15 {
         for (int[] aMatrix : matrix) {
             for (int col = 0; col < matrix.length; col++) {
 
-                if (count == 2) {
-                    count = 0;
-                    break;
-                }
                 if (aMatrix[col] > 0) {
                     count++;
                     continue;
+                }
+                if (count == 2) {
+                    count = 0;
+                    break;
                 }
                 if (count == 1) {
                     sum += aMatrix[col];
                 }
             }
+            count = 0;
+            sum = 0;
         }
         return sum;
     }
