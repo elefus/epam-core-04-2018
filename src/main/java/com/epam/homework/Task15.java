@@ -49,27 +49,25 @@ public class Task15 {
     }
 
     private static int sum(int[][] matrix){
-        int sum = 0;
-        int count = 0;
+        int generalSum = 0;
 
-        for (int[] aMatrix : matrix) {
-            for (int col = 0; col < matrix.length; col++) {
+        for (int[] rowMatrix : matrix) {
+            int currentSum = 0;
+            int count = 0;
 
-                if (aMatrix[col] > 0) {
+            for (int colMatrix : rowMatrix) {
+                if (colMatrix > 0) {
                     count++;
-                    continue;
+                }
+                else if (count == 1) {
+                    currentSum += colMatrix;
                 }
                 if (count == 2) {
-                    count = 0;
+                    generalSum += currentSum;
                     break;
                 }
-                if (count == 1) {
-                    sum += aMatrix[col];
-                }
             }
-            count = 0;
-            sum = 0;
         }
-        return sum;
+        return generalSum;
     }
 }
