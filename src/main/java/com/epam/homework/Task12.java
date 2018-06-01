@@ -45,7 +45,6 @@ public class Task12 {
         int[][] matrix = readMatrix(scanner);
         int columnN = scanner.nextInt();
 
-
         System.out.println(matrix.length);
         print(sort(matrix, columnN));
     }
