@@ -42,26 +42,37 @@ public class Task17 {
         try (Scanner scanner = new Scanner(System.in)) {
             int dimension = scanner.nextInt();
             int[][] matrix = readMatrix(scanner, dimension);
-            System.out.println(getDeterminer(matrix));
+            getD(matrix);
         }
     }
 
+    private static void getD(int[][] matrix) {
+        int deter = getDeterminer(matrix);
+        System.out.println(deter);
+    }
+
     private static int getDeterminer(int[][] matrix) {
-        if (matrix.length == 2) {
-            return  (matrix[0][0]*matrix[1][1]) - (matrix[0][1]*matrix[1][0]);
+        int d = 0;
+        if (matrix.length == 2) { // минор
+            d += ((matrix[0][0]*matrix[1][1]) - (matrix[0][1]*matrix[1][0]));
         }
         else {
-        for (int i = 0; i < matrix.length; i++) {
-            int st = i % 2 == 0 ? -1 : 1;
-            int[][] newMatrix = new int[matrix.length-1][matrix.length-1];
-            for (int y = 0; y < newMatrix.length; y++) {
-                for (int z = 0; z < newMatrix[y].length; z++) {
-
+            int[] minorRow = matrix[0];
+            int[][] minor = new int[matrix.length-1][matrix.length-1];
+            for (int z = 0; z < matrix.length; z++) {
+                for (int i = 1; i < matrix.length; i++) {
+                    for (int y = z+1; y < matrix[i].length; y++) {
+                        minor[i - 1][y - 1] = matrix[i][y];
+                    }
+                    for (int y = 0; y < z; y++) {
+                        minor[i-1][y] = matrix[i][y];
+                    }
                 }
+                int st = (int) Math.pow(-1, z+2);
+                d += (st*minorRow[z])*getDeterminer(minor);
             }
-            return matrix[0][i]*st*getDeterminer(newMatrix);
         }
-        }
+        return d;
     }
 
     private static int[][] readMatrix(Scanner scanner, int dimension) {
