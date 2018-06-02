@@ -43,6 +43,6 @@ public class Task17 {
         Scanner in = new Scanner(System.in);
         Matrix matrix = new Matrix(in.nextInt());
         matrix.setMatrix(in);
-        System.out.println(matrix.calculateMatrixDeterminant());
+        System.out.println(matrix.calculateMatrixDeterminant(matrix));
     }
 }

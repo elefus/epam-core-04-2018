@@ -38,17 +38,20 @@ public class Matrix {
         }
     }
 
-    public int calculateMatrixDeterminant() {
+    public int calculateMatrixDeterminant(Matrix matrix) {
         if(this.getDimension() == 1) {
-            return matrix[0][0];
+            return matrix.matrix[0][0];
+        }
+
+        if (this.getDimension() == 2) {
+            return matrix.matrix[0][0] * matrix.matrix [1][1] - matrix.matrix[0][1] * matrix.matrix[1][0];
         }
 
         int determinant = 0;
 
         for (int i = 0; i < dimension; i++) {
-            int elementToMultiply = (i % 2 == 0) ? matrix[0][i] : -matrix[0][i];
-            determinant += elementToMultiply * this.getSubmatrix(i, i).calculateMatrixDeterminant();
-            //System.out.println(determinant);
+            int elementToMultiply = (i % 2 == 0) ? matrix.matrix[0][i] : - matrix.matrix[0][i];
+            determinant += elementToMultiply * calculateMatrixDeterminant(this.getSubmatrix(i, i));
         }
 
         return determinant;
@@ -68,6 +71,9 @@ public class Matrix {
         }
 
         Matrix submatrix = new Matrix(arrayForSubmatrix);
+        System.out.println(" ");
+        submatrix.printMatrix();
+        System.out.println(" ");
         return submatrix;
     }
 }
