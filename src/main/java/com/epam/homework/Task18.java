@@ -1,5 +1,9 @@
 package com.epam.homework;
 
+import com.akalji.genericmatrix.Matrix;
+
+import java.util.Scanner;
+
 public class Task18 {
 
     /**
@@ -50,6 +54,33 @@ public class Task18 {
      *  0  3
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int matrixSize = scanner.nextInt();
+        Matrix<Integer> matrix = new Matrix<>(matrixSize);
+
+        for (int i = 0; i < matrixSize; i++) {
+            for (int j = 0; j < matrixSize; j++) {
+                matrix.set(i, j, scanner.nextInt());
+            }
+        }
+
+    }
+
+    private static void printMatrix(Matrix<Integer> A){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(A.getVsize());
+        stringBuilder.append(System.lineSeparator());
+        stringBuilder.append(A.getHsize());
+        stringBuilder.append(System.lineSeparator());
+        for (int i = 0; i < A.getVsize(); i++) {
+            for (int j = 0; j < A.getHsize(); j++) {
+                stringBuilder.append(A.getElement(i,j));
+                if (j<A.getHsize()-1){
+                    stringBuilder.append(" ");
+                }
+            }
+            stringBuilder.append(System.lineSeparator());
+        }
+        System.out.println(stringBuilder.toString());
     }
 }
