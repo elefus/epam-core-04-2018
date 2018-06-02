@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task16 {
 
     /**
@@ -60,6 +62,75 @@ public class Task16 {
      * 3 9
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int[][] matrix = readMatrix(scanner);
+        int degrees = scanner.nextInt();
+        writeMatrix(rotateMatrix(matrix, degrees));
+    }
+
+    private static int[][] readMatrix(Scanner scanner){
+        int dimension = scanner.nextInt();
+        int [][] matrix = new int[dimension][dimension];
+
+        for (int [] row : matrix) {
+            for (int col = 0; col < dimension; col++) {
+                row[col] = scanner.nextInt();
+            }
+        }
+        return matrix;
+    }
+
+    private static int[][] rotateMatrix(int[][]matrix, int degrees){
+        int[][] rotatedMatrix = new int[matrix.length][matrix.length];
+        degrees = degrees % 4 < 0 ? degrees % 4 + 4 : degrees % 4;
+
+        switch (degrees){
+            case 1:
+                return rotateMatrix90Deg(matrix, rotatedMatrix);
+            case 2:
+                return rotateMatrix180Deg(matrix, rotatedMatrix);
+            case 3:
+                return rotateMatrix270Deg(matrix, rotatedMatrix);
+        }
+        return matrix;
+    }
+
+    private static int[][] rotateMatrix90Deg(int[][] matrix, int[][] rotatedMatrix){
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0, k = matrix.length - 1; k > -1; k--) {
+                rotatedMatrix[i][j++] = matrix[k][i];
+            }
+        }
+        return rotatedMatrix;
+    }
+
+    private static int[][] rotateMatrix180Deg(int[][] matrix, int[][] rotatedMatrix){
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                rotatedMatrix[i][j] = matrix[matrix.length - 1 - i][matrix.length - 1 - j];
+            }
+        }
+        return rotatedMatrix;
+    }
+
+    private static int[][] rotateMatrix270Deg(int[][] matrix, int[][] rotatedMatrix){
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                rotatedMatrix[i][j] = matrix[j][matrix.length - 1 - i];
+            }
+        }
+        return rotatedMatrix;
+    }
+
+    private static void writeMatrix(int[][] matrix){
+        System.out.println(matrix.length);
+
+        for (int[] row : matrix) {
+            StringBuilder builder = new StringBuilder();
+            for (int col : row) {
+                builder.append(col).append(" ");
+            }
+            System.out.println(builder.toString().trim());
+        }
     }
 }
