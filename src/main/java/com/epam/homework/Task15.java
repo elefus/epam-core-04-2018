@@ -66,7 +66,7 @@ public class Task15 {
                     lineSum += matrix.getElement(i, j);
                 }
             }
-            if (isFirst) {
+            if (isLast) {
                 totalSum += lineSum;
             }
         }
