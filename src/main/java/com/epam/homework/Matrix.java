@@ -12,20 +12,17 @@ public class Matrix {
         matrix = new int[dimension][dimension];
     }
 
+    Matrix(int[][] arrayForMatrix) {
+        dimension = arrayForMatrix.length;
+        matrix = arrayForMatrix;
+    }
+
     public void setMatrix(Scanner scanner) {
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 matrix[i][j] = scanner.nextInt();
             }
         }
-    }
-
-    public void setMatrixElement(int row, int column, int element) {
-        matrix[row][column] = element;
-    }
-
-    public int getMatrixElement(int row, int column) {
-        return matrix[row][column];
     }
 
     public int getDimension() {
@@ -41,18 +38,36 @@ public class Matrix {
         }
     }
 
-    public int calculateMatrixDeterminant(Matrix matrix) {
-        if(matrix.getDimension() == 1) {
-            return matrix.getMatrixElement(0, 0);
+    public int calculateMatrixDeterminant() {
+        if(this.getDimension() == 1) {
+            return matrix[0][0];
         }
 
-        if(matrix.getDimension() == 2) {
-            return matrix.getMatrixElement(0, 0) * matrix.getMatrixElement(1, 1)
-                    - matrix.getMatrixElement(1, 0) * matrix.getMatrixElement(0, 1);
-        }
+        int determinant = 0;
 
         for (int i = 0; i < dimension; i++) {
-            return 
+            int elementToMultiply = (i % 2 == 0) ? matrix[0][i] : -matrix[0][i];
+            determinant += elementToMultiply * this.getSubmatrix(i, i).calculateMatrixDeterminant();
+            //System.out.println(determinant);
         }
+
+        return determinant;
+    }
+
+    public Matrix getSubmatrix(int minorColumn, int minorRow) {
+        int[][] arrayForSubmatrix = new int[dimension - 1][dimension - 1];
+
+        for (int i = 0; i < dimension; i++) {
+            if (i == minorRow) {
+                continue;
+            }
+
+            int destinationRow = (i > minorRow) ? i - 1 : i;
+            System.arraycopy(matrix[i], 0, arrayForSubmatrix[destinationRow], 0, minorColumn);
+            System.arraycopy(matrix[i], minorColumn + 1, arrayForSubmatrix[destinationRow], minorColumn, (dimension - 1) - minorColumn);
+        }
+
+        Matrix submatrix = new Matrix(arrayForSubmatrix);
+        return submatrix;
     }
 }
