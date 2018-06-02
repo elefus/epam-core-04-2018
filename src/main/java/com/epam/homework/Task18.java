@@ -75,9 +75,9 @@ public class Task18 {
     }
 
     private static int[][] clean(int[][] matrix, int el) {
-        RowsAndColumns rowsAndColumnsToRemove = getRowsAndColumnsToRemove(matrix, el);
-        Set<Integer> rowsToRemove = rowsAndColumnsToRemove.getRows();
-        Set<Integer> columnsToRemove = rowsAndColumnsToRemove.getColumns();
+        Pair<Set<Integer>, Set<Integer>> rowsAndColumnsToRemove = getRowsAndColumnsOfElement(matrix, el);
+        Set<Integer> rowsToRemove = rowsAndColumnsToRemove.getFirst();
+        Set<Integer> columnsToRemove = rowsAndColumnsToRemove.getSecond();
         LinkedList<Integer> cleanMatrixAsQueue = new LinkedList<>();
 
         for (int rowN = 0; rowN < matrix.length; rowN++) {
@@ -97,7 +97,7 @@ public class Task18 {
         return queueToMatrix(cleanMatrixAsQueue, matrix.length - rowsToRemove.size(), matrix[0].length - columnsToRemove.size());
     }
 
-    private static RowsAndColumns getRowsAndColumnsToRemove(int[][] matrix, int el) {
+    private static Pair<Set<Integer>, Set<Integer>> getRowsAndColumnsOfElement(int[][] matrix, int el) {
         Set<Integer> rows = new HashSet<>();
         Set<Integer> columns = new HashSet<>();
 
@@ -110,14 +110,10 @@ public class Task18 {
             }
         }
 
-        return new RowsAndColumns(rows, columns);
+        return new Pair<>(rows, columns);
     }
 
-    private static int[][] queueToMatrix(Queue<Integer> queue, int m, int n) throws IllegalArgumentException {
-//        if (queue.size() != m * n) {
-//            throw new IllegalArgumentException("queue.size() != m * n");
-//        }
-
+    private static int[][] queueToMatrix(Queue<Integer> queue, int m, int n) {
         int[][] cleanMatrix = new int[m][n];
 
         for (int i = 0; i < m; i++) {
@@ -134,9 +130,7 @@ public class Task18 {
 
         for (int[] row : matrix) {
             for (int el : row) {
-                if (el > maxEl) {
-                    maxEl = el;
-                }
+                maxEl = Math.max(maxEl, el);
             }
         }
 
@@ -152,21 +146,21 @@ public class Task18 {
         }
     }
 
-    static class RowsAndColumns {
-        private Set<Integer> rows;
-        private Set<Integer> columns;
+    static class Pair <F, S> {
+        private F first;
+        private S second;
 
-        RowsAndColumns(Set<Integer> rows, Set<Integer> columns) {
-            this.rows = rows;
-            this.columns = columns;
+        Pair(F first, S second) {
+            this.first = first;
+            this.second = second;
         }
 
-        Set<Integer> getRows() {
-            return rows;
+        F getFirst() {
+            return first;
         }
 
-        Set<Integer> getColumns() {
-            return columns;
+        S getSecond() {
+            return second;
         }
     }
 }
