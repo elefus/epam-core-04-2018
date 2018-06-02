@@ -78,23 +78,25 @@ public class Task18 {
         Pair<Set<Integer>, Set<Integer>> rowsAndColumnsToRemove = getRowsAndColumnsOfElement(matrix, el);
         Set<Integer> rowsToRemove = rowsAndColumnsToRemove.getFirst();
         Set<Integer> columnsToRemove = rowsAndColumnsToRemove.getSecond();
-        LinkedList<Integer> cleanMatrixAsQueue = new LinkedList<>();
+        int[][] cleanMatrix = new int[matrix.length - rowsToRemove.size()][matrix[0].length - columnsToRemove.size()];
 
-        for (int rowN = 0; rowN < matrix.length; rowN++) {
+        for (int rowN = 0, newRowN = 0; rowN < matrix.length; rowN++) {
             if (rowsToRemove.contains(rowN)) {
                 continue;
             }
 
-            for (int columnN = 0; columnN < matrix[0].length; columnN++) {
+            for (int columnN = 0, newColumnN = 0; columnN < matrix[0].length; columnN++) {
                 if (columnsToRemove.contains(columnN)) {
                     continue;
                 }
 
-                cleanMatrixAsQueue.add(matrix[rowN][columnN]);
+                cleanMatrix[newRowN][newColumnN] = matrix[rowN][columnN];
+                newColumnN++;
             }
+            newRowN++;
         }
 
-        return queueToMatrix(cleanMatrixAsQueue, matrix.length - rowsToRemove.size(), matrix[0].length - columnsToRemove.size());
+        return cleanMatrix;
     }
 
     private static Pair<Set<Integer>, Set<Integer>> getRowsAndColumnsOfElement(int[][] matrix, int el) {
@@ -111,18 +113,6 @@ public class Task18 {
         }
 
         return new Pair<>(rows, columns);
-    }
-
-    private static int[][] queueToMatrix(Queue<Integer> queue, int m, int n) {
-        int[][] cleanMatrix = new int[m][n];
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                cleanMatrix[i][j] = queue.poll();
-            }
-        }
-
-        return cleanMatrix;
     }
 
     private static int getMax(int[][] matrix) {
