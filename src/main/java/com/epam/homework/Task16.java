@@ -1,6 +1,5 @@
 package com.epam.homework;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Task16 {
@@ -83,28 +82,33 @@ public class Task16 {
     }
 
     private static int[][] turnMatrix(int[][] initialMatrix, int degree) {
-        int[][] newInitialMatrix = initialMatrix;
-        int[][] auxMatrix = new int[newInitialMatrix.length][newInitialMatrix.length];
-        int[] helper = new int[newInitialMatrix.length];
+        int[][] auxMatrix = initialMatrix;
+        int[] helper = new int[initialMatrix.length];
         if (degree > 0) {
             for (int d = degree; d > 0; d--) {
-                for (int i = 0; i < newInitialMatrix.length; i++) {
-                    int[] row = newInitialMatrix[i];
+                int[][] secondAuxMatrix = new int[auxMatrix.length][auxMatrix.length];
+                for (int i = 0; i < initialMatrix.length; i++) {
+                    int[] row = auxMatrix[i];
                     System.arraycopy(row, 0, helper, 0, row.length);
-                    System.out.println(Arrays.toString(helper));
                     for (int k = 0; k < helper.length; k++) {
-                        auxMatrix[k][newInitialMatrix.length - 1 - i] = helper[k];
+                        secondAuxMatrix[k][initialMatrix.length - 1 - i] = helper[k];
                     }
                 }
-                newInitialMatrix = auxMatrix;
+               auxMatrix =  secondAuxMatrix;
             }
-            return newInitialMatrix;
-        }
-        else if (degree < 0) {
             return auxMatrix;
         }
+        else if (degree < 0) {
+            if (degree > -4) {
+                return turnMatrix(initialMatrix, 4 - Math.abs(degree));
+            }
+            else {
+                int d = Math.abs(degree) % 4;
+                return turnMatrix(initialMatrix, 4 - d);
+            }
+        }
         else {
-            return newInitialMatrix;
+            return initialMatrix;
         }
     }
 
