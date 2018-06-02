@@ -117,9 +117,9 @@ public class Task19 {
     private static void printMatrix(int[][] matrix) {
         for (int[] row : matrix) {
             for (int i = 0; i < matrix[0].length; i++) {
-                System.out.print(row[i] + " ");
+                System.out.printf("%8d", row[i]);
             }
-            System.out.println();
+            System.out.println("\n");
         }
     }
 }
