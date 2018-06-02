@@ -83,7 +83,7 @@ public class Task20 {
                     matrix.swapColumns(i, i - 1);
                 }
             } else {
-                for (int i = minX; i < X; i++) {
+                for (int i = minY; i < Y; i++) {
                     matrix.swapColumns(i, i + 1);
                 }
             }
