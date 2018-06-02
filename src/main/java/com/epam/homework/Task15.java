@@ -46,24 +46,29 @@ public class Task15 {
         int totalSum = 0;
         for (int i = 0; i < matrix.getVsize(); i++) {
             int lineSum = 0;
-            boolean flag = false;
+            boolean isFirst = false;
+            boolean isLast = false;
             for (int j = 0; j < matrix.getHsize(); j++) {
 
                 // При достижении второго положительного элемента переходим к следующей строке
-                if (flag & matrix.getElement(i, j) > 0) {
+                if (isFirst & matrix.getElement(i, j) > 0) {
+                    isLast = true;
                     break;
                 }
 
                 // При нахождении первого положительного элемента ставим флаг и переходим к следующему элементу
-                if (!flag & matrix.getElement(i, j) > 0) {
-                    flag = true;
+                if (!isFirst & matrix.getElement(i, j) > 0) {
+                    isFirst = true;
                     continue;
                 }
-                if (flag) {
+
+                if (isFirst) {
                     lineSum += matrix.getElement(i, j);
                 }
             }
-            totalSum += lineSum;
+            if (isFirst) {
+                totalSum += lineSum;
+            }
         }
         System.out.println(totalSum);
     }
