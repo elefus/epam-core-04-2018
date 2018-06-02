@@ -56,6 +56,9 @@ public class Task17 {
         if (matrix.length == 2) { // минор
             d += ((matrix[0][0]*matrix[1][1]) - (matrix[0][1]*matrix[1][0]));
         }
+        else if (matrix.length < 2) {
+            d += matrix[0][0];
+        }
         else {
             int[] minorRow = matrix[0];
             int[][] minor = new int[matrix.length-1][matrix.length-1];
