@@ -75,7 +75,7 @@ public class Task17 {
         int[][] minor = new int[matrix.length - 1][matrix[0].length - 1];
 
         // remove 0-row and columnToRemove-column
-        for (int i = 1, minor_i = 0; i < matrix.length; i ++) {
+        for (int i = 1, minor_i = 0; i < matrix.length; i ++, minor_i++) {
             for (int j = 0, minor_j = 0; j < matrix[0].length; j++) {
                 if (j == columnToRemove) {
                     continue;
@@ -84,7 +84,6 @@ public class Task17 {
                 minor[minor_i][minor_j] = matrix[i][j];
                 minor_j++;
             }
-            minor_i++;
         }
 
         return minor;
