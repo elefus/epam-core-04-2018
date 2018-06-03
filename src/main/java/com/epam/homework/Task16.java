@@ -79,24 +79,23 @@ public class Task16 {
 
         int degrees = scanner.nextInt();
 
-        Matrix.DIRECTION direction = Matrix.DIRECTION.NONE;
         if (degrees != 0) {
+            Matrix.DIRECTION direction;
             if (degrees > 0) {
                 direction = Matrix.DIRECTION.CLOCKWISE;
             } else {
                 direction = Matrix.DIRECTION.COUNTERCLOCKWISE;
             }
-        }
 
-        // Откидываем переодичность в поворотах
-        // Заменив операции поворотами на 90 и 180 градусов
-        if (Math.abs(degrees) % 4 / 2 > 0) {
-            matrix.rotate180();
+            // Откидываем переодичность в поворотах
+            // Заменив операции поворотами на 90 и 180 градусов
+            if (Math.abs(degrees) % 4 / 2 > 0) {
+                matrix.rotate180();
+            }
+            if (Math.abs(degrees) % 4 % 2 > 0) {
+                matrix.rotate90(direction);
+            }
         }
-        if (Math.abs(degrees) % 4 % 2 > 0) {
-            matrix.rotate90(direction);
-        }
-
         printMatrix(matrix);
     }
 
