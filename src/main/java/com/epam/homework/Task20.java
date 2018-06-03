@@ -91,39 +91,22 @@ public class Task20 {
         }
     }
 
-    private static void replaceRows(int destinationRow, List<Integer> startingRow, int[][] matrix) {
-        int rowPosition = startingRow.get(0);
+    private static void replaceRows(int destinationRow, List<Integer> rowMove, int[][] matrix) {
+        int rowPosition = rowMove.get(0);
         int[] copyRow = matrix[rowPosition];
-        if (rowPosition < destinationRow) {
-            System.arraycopy(matrix, rowPosition + 1, matrix, rowPosition, destinationRow - rowPosition);
-            matrix[destinationRow] = copyRow;
-        }
-        if (rowPosition > destinationRow) {
-            System.arraycopy(matrix, destinationRow, matrix,
-                    destinationRow + 1, rowPosition - destinationRow);
-            matrix[destinationRow] = copyRow;
-        }
+        matrix[rowPosition] = matrix[destinationRow];
+        matrix[destinationRow] = copyRow;
     }
 
-    private static void replaceColumns(int destinationCol, List<Integer> startingCol, int[][] matrix) {
-        int colPosition = startingCol.get(0);
+    private static void replaceColumns(int destinationCol, List<Integer> colMove, int[][] matrix) {
+        int colPosition = colMove.get(0);
         int[] copyCol = new int[matrix.length];
         for (int i = 0; i < matrix.length; i++) {
             copyCol[i] = matrix[i][colPosition];
         }
-        if (colPosition < destinationCol) {
-            for (int i = 0; i < matrix.length; i++) {
-                System.arraycopy(matrix[i], colPosition + 1, matrix[i],
-                        colPosition, destinationCol - colPosition);
-                matrix[i][destinationCol] = copyCol[i];
-            }
-        }
-        if (colPosition > destinationCol) {
-            for (int i = 0; i < matrix.length; i++) {
-                System.arraycopy(matrix[i], destinationCol, matrix[i],
-                        destinationCol + 1, colPosition - destinationCol);
-                matrix[i][destinationCol] = copyCol[i];
-            }
+        for (int i = 0; i < matrix.length; i++) {
+            matrix[i][colPosition] = matrix[i][destinationCol];
+            matrix[i][destinationCol] = copyCol[i];
         }
     }
 
