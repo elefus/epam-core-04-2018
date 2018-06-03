@@ -72,89 +72,27 @@ public class Task20 {
         }
     }
 
-    private static int[][] modifyMatrix(Coord newCoord, Coord oldCoord, int[][] matrix) {
-        int size = matrix.length;
-        int[][] result = getTemplateMatrixFilledWithNewRowAndCol(newCoord, oldCoord, matrix);
-        fillMatrixWithOtherRowsAndCols(newCoord, oldCoord, matrix, size, result);
-        return result;
+    private static int[][] modifyMatrix(Coord newCoord, Coord minCoord, int[][] matrix) {
+        return swapRows(newCoord.getI(), minCoord.getI(), swapCols(newCoord.getJ(), minCoord.getJ(), matrix));
     }
 
-    private static void fillMatrixWithOtherRowsAndCols(Coord newCoord, Coord oldCoord, int[][] matrix, int size, int[][] result) {
-        for (int i = 0, newi = 0; i < size && newi < size;) {
-            if (newCoord.getI() == newi) {
-                newi++;
-                continue;
-            }
-            if (oldCoord.getI() == i) {
-                i++;
-                continue;
-            }
-            for (int j = 0, newj = 0; j < size && newj < size;) {
-                if (newCoord.getJ() == newj) {
-                    newj++;
-                    continue;
-                }
-                if (oldCoord.getJ() == j) {
-                    j++;
-                    continue;
-                }
-                result[newi][newj] = matrix[i][j];
-                newj++;
-                j++;
-            }
-            newi++;
-            i++;
+    private static int[][] swapRows(int i1, int i2, int[][] matrix) {
+        int[] tempRow;
+        tempRow = matrix[i1];
+        matrix[i1] = matrix[i2];
+        matrix[i2] = tempRow;
+        return matrix;
+    }
+
+    private static int[][] swapCols(int j1, int j2, int[][] matrix) {
+        for (int j = 0; j < matrix.length; j++) {
+            int tempVal;
+            tempVal = matrix[j][j2];
+            matrix[j][j2] = matrix[j][j1];
+            matrix[j][j1] = tempVal;
         }
+        return matrix;
     }
-
-    private static int[][] getTemplateMatrixFilledWithNewRowAndCol(Coord newCoord, Coord oldCoord, int[][] matrix) {
-        int size = matrix.length;
-        int[][] result = new int[size][size];
-        int[] newCol = fillNewCol(newCoord, oldCoord, matrix);
-        int[] newRow = fillNewRow(newCoord, oldCoord, matrix);
-        result[newCoord.getI()] = newRow;
-        for (int i = 0; i < matrix.length; i++) {
-            result[i][newCoord.getJ()] = newCol[i];
-        }
-        return result;
-    }
-
-    private static int[] fillNewCol(Coord newCoord, Coord oldCoord, int[][] matrix) {
-        int size = matrix.length;
-        int[] result = new int[size];
-        result[newCoord.getI()] = matrix[oldCoord.getI()][oldCoord.getJ()];
-        for (int k = 0, newk = 0; k < size && newk < size;) {
-            if (k == newCoord.getI()) {
-                k++;
-                continue;
-            }
-            if (newk == oldCoord.getI()) {
-                newk++;
-                continue;
-            }
-            result[k++] = matrix[newk++][oldCoord.getJ()];
-        }
-        return result;
-    }
-
-    private static int[] fillNewRow(Coord newCoord, Coord oldCoord, int[][] matrix) {
-        int size = matrix.length;
-        int[] result = new int[size];
-        result[newCoord.getI()] = matrix[oldCoord.getI()][oldCoord.getJ()];
-        for (int k = 0, newk = 0; k < size && newk < size;) {
-            if (k == newCoord.getJ()) {
-                k++;
-                continue;
-            }
-            if (newk == oldCoord.getJ()) {
-                newk++;
-                continue;
-            }
-            result[k++] = matrix[oldCoord.getI()][newk++];
-        }
-        return result;
-    }
-
 
     private static Coord getMin(int[][] matrix) {
         int min = Integer.MAX_VALUE;
