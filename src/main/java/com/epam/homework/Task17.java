@@ -71,19 +71,20 @@ public class Task17 {
         return sum;
     }
 
-    private static int[][] minor(int[][] matrix, int columnN) {
+    private static int[][] minor(int[][] matrix, int columnToRemove) {
         int[][] minor = new int[matrix.length - 1][matrix[0].length - 1];
 
-        // remove 0-row and columnN-column
-        for (int i = 1; i < matrix.length; i ++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                if (j < columnN) {
-                    minor[i - 1][j] = matrix[i][j];
+        // remove 0-row and columnToRemove-column
+        for (int i = 1, minor_i = 0; i < matrix.length; i ++) {
+            for (int j = 0, minor_j = 0; j < matrix[0].length; j++) {
+                if (j == columnToRemove) {
+                    continue;
                 }
-                if (j > columnN) {
-                    minor[i - 1][j - 1] = matrix[i][j];
-                }
+
+                minor[minor_i][minor_j] = matrix[i][j];
+                minor_j++;
             }
+            minor_i++;
         }
 
         return minor;
