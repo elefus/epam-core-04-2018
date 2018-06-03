@@ -64,29 +64,12 @@ public class Task20 {
                 }
             }
         }
-
-        if (minX != X) {
-            if (minX > X) {
-                for (int i = minX; i > X; i--) {
-                    matrix.swapRows(i, i - 1);
-                }
-            } else {
-                for (int i = minX; i < X; i++) {
-                    matrix.swapRows(i, i + 1);
-                }
-            }
+        
+        if (X!=minX){
+            matrix.swapRows(X,minX);
         }
-
-        if (minY != Y) {
-            if (minY > Y) {
-                for (int i = minY; i > Y; i--) {
-                    matrix.swapColumns(i, i - 1);
-                }
-            } else {
-                for (int i = minY; i < Y; i++) {
-                    matrix.swapColumns(i, i + 1);
-                }
-            }
+        if (Y != minY){
+            matrix.swapColumns(minY,Y);
         }
 
         printMatrix(matrix);
