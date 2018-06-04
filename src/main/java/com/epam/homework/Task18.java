@@ -7,7 +7,6 @@ public class Task18 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int[][] matrix = readMatrix(scanner);
-
         printMatrix(getMatrix(matrix));
     }
 
@@ -25,8 +24,7 @@ public class Task18 {
 
     private static int[][] rowDeleting(int[][] matrix, Set<Integer> set) {
         int[][] newMatrix = new int[matrix.length - set.size()][matrix[0].length];
-        int zz = 0;
-        for (int i = 0; i < matrix.length; i++) {
+        for (int i = 0, zz = 0; i < matrix.length; i++) {
             if (!set.contains(i)) {
                 newMatrix[zz++] = matrix[i];
             }
@@ -36,9 +34,8 @@ public class Task18 {
 
     private static int[][] columnDeleting(int[][] matrix, Set<Integer> set) {
         int[][] newMatrix = new int[matrix.length][matrix[0].length - set.size()];
-        int zz = 0;
         for (int i = 0; i < matrix.length; i++) {
-            for (int y = 0; y < matrix[i].length; y++) {
+            for (int y = 0, zz = 0; y < matrix[i].length; y++) {
                 if (!set.contains(y)) {
                     newMatrix[i][zz++] = matrix[i][y];
                 }
@@ -63,7 +60,6 @@ public class Task18 {
                 }
             }
         }
-
         initialMatrix = rowDeleting(initialMatrix, rows);
         initialMatrix = columnDeleting(initialMatrix, columns);
         return initialMatrix;
