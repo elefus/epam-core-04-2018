@@ -1,8 +1,6 @@
 package com.epam.homework;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Task18 {
 
@@ -54,8 +52,8 @@ public class Task18 {
      *  0  3
      */
 
-    private static List<Integer> rowOfMaxArray = new ArrayList<>();
-    private static List<Integer> columnOfMaxArray = new ArrayList<>();
+    private static Set<Integer> rows = new HashSet<>();
+    private static Set<Integer> columns = new HashSet<>();
 
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
@@ -78,20 +76,25 @@ public class Task18 {
     }
 
     private static int[][] deletedMatrix(int[][] matrix) {
-        int[][] endMatrix = new int[matrix.length - rowOfMaxArray.size()][matrix.length - columnOfMaxArray.size()];
+        int[][] newMatrix = new int[matrix.length - rows.size()][matrix.length - columns.size()];
+
         int row = 0;
         for (int i = 0; i < matrix.length; i++) {
-            int col = 0;
-            if (!rowOfMaxArray.contains(i)) {
-                for (int y = 0; y < matrix.length; y++) {
-                    if (!columnOfMaxArray.contains(y)) {
-                        endMatrix[row][col++] = matrix[i][y];
+            int column = 0;
+            if (rows.contains(i)) {
+                row++;
+            } else {
+                for (int j = 0; j < matrix[0].length; j++) {
+                    if (columns.contains(j)) {
+                        column++;
+                    } else {
+                        newMatrix[i - row][j - column] = matrix[i][j];
                     }
                 }
-                row++;
             }
+
         }
-        return endMatrix;
+        return newMatrix;
     }
 
     private static void findMaxRowAndColumn(int[][] initialMatrix) {
@@ -99,12 +102,8 @@ public class Task18 {
         for (int i = 0; i < initialMatrix.length; i++){
             for (int y = 0; y < initialMatrix[0].length; y++) {
                 if(initialMatrix[i][y] == max) {
-                    if (!rowOfMaxArray.contains(i)) {
-                        rowOfMaxArray.add(i);
-                    }
-                    if (!columnOfMaxArray.contains(y)) {
-                        columnOfMaxArray.add(y);
-                    }
+                    rows.add(i);
+                    columns.add(y);
                 }
             }
         }
