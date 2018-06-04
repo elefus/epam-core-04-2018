@@ -1,5 +1,9 @@
 package com.epam.homework;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Task18 {
 
     /**
@@ -49,7 +53,88 @@ public class Task18 {
      * -1  1
      *  0  3
      */
+
+    private static List<Integer> rowOfMaxArray = new ArrayList<>();
+    private static List<Integer> columnOfMaxArray = new ArrayList<>();
+
     public static void main(String[] args) {
-        // TODO реализация
+        try (Scanner scanner = new Scanner(System.in)) {
+            int dimension = scanner.nextInt();
+            int[][] matrix = readMatrix(scanner, dimension);
+            findMaxRowAndColumn(matrix);
+            int[][] newMatrix = deletedMatrix(matrix);
+            printMatrix(newMatrix);
+        }
+    }
+
+    private static int findMax(int[][] matrix) {
+        int max = matrix[0][0];
+        for (int[] aMatrix : matrix) {
+            for (int anAMatrix : aMatrix) {
+                max = Math.max(max, anAMatrix);
+            }
+        }
+        return max;
+    }
+
+    private static int[][] deletedMatrix(int[][] initialMatrix) {
+        int[][] newMatrix =
+                new int[initialMatrix.length-rowOfMaxArray.size()][initialMatrix.length-columnOfMaxArray.size()];
+        int rows = 0;
+        for (int i = 0; i < initialMatrix.length; i++) {
+            int columns = 0;
+            if (rowOfMaxArray.contains(i)) {
+                rows++;
+            }
+            else {
+                for (int y = 0; y < initialMatrix[0].length; y++) {
+                    if (columnOfMaxArray.contains(y)) {
+                        columns++;
+                    }
+                    else {
+                        newMatrix[i-rows][y-columns] = initialMatrix[i][y];
+                    }
+                }
+            }
+        }
+        return newMatrix;
+    }
+
+    private static void findMaxRowAndColumn(int[][] initialMatrix) {
+        int max = findMax(initialMatrix);
+        for (int i = 0; i < initialMatrix.length; i++){
+            for (int y = 0; y < initialMatrix[i].length; y++) {
+                if(initialMatrix[i][y] == max) {
+                    if (!rowOfMaxArray.contains(i)) {
+                        rowOfMaxArray.add(i);
+                    }
+                    if (!columnOfMaxArray.contains(y)) {
+                        columnOfMaxArray.add(y);
+                    }
+                }
+            }
+        }
+    }
+
+    private static int[][] readMatrix(Scanner scanner, int dimension) {
+        int[][] matrix = new int[dimension][dimension];
+        for (int row = 0; row < dimension; ++row) {
+            for (int col = 0; col < dimension; ++col) {
+                matrix[row][col] = scanner.nextInt();
+            }
+        }
+        return matrix;
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        System.out.println(matrix.length);
+        System.out.println(matrix[0].length);
+        for (int[] aMatrix : matrix) {
+            for (int anAMatrix : aMatrix) {
+                System.out.printf("%12d", anAMatrix);
+
+            }
+            System.out.println("\n");
+        }
     }
 }
