@@ -77,33 +77,27 @@ public class Task18 {
         return max;
     }
 
-    private static int[][] deletedMatrix(int[][] initialMatrix) {
-        int[][] newMatrix =
-                new int[initialMatrix.length-rowOfMaxArray.size()][initialMatrix.length-columnOfMaxArray.size()];
-        int rows = 0;
-        for (int i = 0; i < initialMatrix.length; i++) {
-            int columns = 0;
-            if (rowOfMaxArray.contains(i)) {
-                rows++;
-            }
-            else {
-                for (int y = 0; y < initialMatrix[0].length; y++) {
-                    if (columnOfMaxArray.contains(y)) {
-                        columns++;
-                    }
-                    else {
-                        newMatrix[i-rows][y-columns] = initialMatrix[i][y];
+    private static int[][] deletedMatrix(int[][] matrix) {
+        int[][] endMatrix = new int[matrix.length - rowOfMaxArray.size()][matrix.length - columnOfMaxArray.size()];
+        int row = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            int col = 0;
+            if (!rowOfMaxArray.contains(i)) {
+                for (int y = 0; y < matrix.length; y++) {
+                    if (!columnOfMaxArray.contains(y)) {
+                        endMatrix[row][col++] = matrix[i][y];
                     }
                 }
+                row++;
             }
         }
-        return newMatrix;
+        return endMatrix;
     }
 
     private static void findMaxRowAndColumn(int[][] initialMatrix) {
         int max = findMax(initialMatrix);
         for (int i = 0; i < initialMatrix.length; i++){
-            for (int y = 0; y < initialMatrix[i].length; y++) {
+            for (int y = 0; y < initialMatrix[0].length; y++) {
                 if(initialMatrix[i][y] == max) {
                     if (!rowOfMaxArray.contains(i)) {
                         rowOfMaxArray.add(i);
@@ -127,14 +121,16 @@ public class Task18 {
     }
 
     private static void printMatrix(int[][] matrix) {
-        System.out.println(matrix.length);
-        System.out.println(matrix[0].length);
-        for (int[] aMatrix : matrix) {
-            for (int anAMatrix : aMatrix) {
-                System.out.printf("%12d", anAMatrix);
-
+            System.out.println(matrix.length);
+            if (matrix[0].length > 0) {
+                System.out.println(matrix[0].length);
             }
-            System.out.println("\n");
-        }
+            for (int[] aMatrix : matrix) {
+                for (int anAMatrix : aMatrix) {
+                    System.out.printf("%12d", anAMatrix);
+
+                }
+                System.out.println("\n");
+            }
     }
 }
