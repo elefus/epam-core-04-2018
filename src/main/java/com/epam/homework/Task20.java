@@ -58,12 +58,7 @@ public class Task20 {
 
     public static int[][] changeMatrixRow (int[][] matrix, int rowNumber, int minRow) {
         if (rowNumber == minRow) return matrix;
-        List <int[]> matrixChange = new LinkedList<>(Arrays.asList(matrix));
-        matrixChange.remove(minRow);
-        matrixChange.add(rowNumber, matrix[minRow]);
-        for (int row = 0; row<matrix.length; row++) {
-            matrix[row] = matrixChange.get(row);
-        }
+        Collections.swap(Arrays.asList(matrix), rowNumber, minRow);
         return matrix;
     }
 
