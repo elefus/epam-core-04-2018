@@ -1,8 +1,6 @@
 package com.epam.homework;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Scanner;
 
 public class Task19 {
@@ -60,8 +58,11 @@ public class Task19 {
         for (int row = 0; row < dimension; row++) {
             rowMap.put(row, 0);
             for (int col = 0; col < dimension; col++) {
-                colMap.putIfAbsent(col, 0);
                 matrix[row][col] = scanner.nextInt();
+
+                if (row == 0){
+                    colMap.put(col, 0);
+                }
                 if (matrix[row][col] == 0) {
                     rowMap.put(row, rowMap.get(row) + 1);
                     colMap.put(col, colMap.get(col) + 1);
