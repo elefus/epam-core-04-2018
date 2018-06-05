@@ -1,5 +1,10 @@
 package com.epam.homework;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
 public class Task19 {
 
     /**
@@ -35,7 +40,88 @@ public class Task19 {
      *  0  3
      * -3  1
      */
+
+    private static List<Integer> columnsWithAllZeros;
+    private static List<Integer> rowsWithAllZeros;
+
     public static void main(String[] args) {
-        // TODO реализация
+        try (Scanner scanner = new Scanner(System.in)) {
+            int[][] matrix = readMatrix(scanner);
+
+            findColumnsAndRowsWithAllZeros(matrix);
+            matrix = newMatrix(matrix);
+            printMatrix(matrix);
+        }
+    }
+
+
+    private static int[][] newMatrix(int[][] initialMatrix) {
+        int[][] newMatrix =
+                new int[initialMatrix.length-rowsWithAllZeros.size()][initialMatrix.length-columnsWithAllZeros.size()];
+        int rows = 0;
+        for(int i = 0; i < initialMatrix.length; i++) {
+            int columns = 0;
+            if (rowsWithAllZeros.contains(i)) {
+                rows++;
+            }
+            else {
+                for (int y = 0; y < initialMatrix[i].length; y++) {
+                    if (columnsWithAllZeros.contains(y)) {
+                        columns++;
+                    }
+                    else {
+                        newMatrix[i-rows][y-columns] = initialMatrix[i][y];
+                    }
+                }
+            }
+        }
+        return newMatrix;
+    }
+
+    private static void findColumnsAndRowsWithAllZeros(int[][] matrix) {
+        columnsWithAllZeros = new ArrayList<>();
+        rowsWithAllZeros = new ArrayList<>();
+
+        int[] aux = new int[matrix.length]; // по умолчанию все значения = 0
+
+        for (int i = 0; i < matrix.length; i++) {
+            int[] row = matrix[i];
+            if (Arrays.equals(row, aux)) {
+                rowsWithAllZeros.add(i);
+            }
+        }
+        for (int i = 0; i < matrix.length; i++) {
+            int[] column = new int[matrix.length];
+            int y = 0;
+            while (y < matrix[i].length) {
+                column[y] = matrix[y][i];
+                y++;
+            }
+            if (Arrays.equals(column, aux)) {
+                columnsWithAllZeros.add(i);
+            }
+        }
+    }
+
+    private static int[][] readMatrix(Scanner scanner) {
+        int dimension = scanner.nextInt();
+        int[][] matrix = new int[dimension][dimension];
+        for (int row = 0; row < dimension; ++row) {
+            for (int col = 0; col < dimension; ++col) {
+                matrix[row][col] = scanner.nextInt();
+            }
+        }
+        return matrix;
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        System.out.println(matrix.length);
+        System.out.println(matrix[0].length);
+        for (int[] aMatrix : matrix) {
+            for (int anAMatrix : aMatrix) {
+                System.out.print(anAMatrix + " ");
+            }
+            System.out.println();
+        }
     }
 }
