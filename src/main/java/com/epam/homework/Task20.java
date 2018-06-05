@@ -49,7 +49,7 @@ public class Task20 {
             matrix.swapRows(targetRowIndex, minElement.getRowIndex());
             matrix.swapColumns(targetColumnIndex, minElement.getColumnIndex());
 
-            matrix.printSquareMatrix();
+            System.out.println(matrix);
         }
     }
 }
@@ -82,16 +82,19 @@ class Matrix {
         return matrix;
     }
 
-    public void printSquareMatrix() {
-
-        System.out.println(rowsCount);
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(rowsCount).append('\n');
 
         for (int i = 0; i < rowsCount; i++) {
             for (int j = 0; j < columnsCount; j++) {
-                System.out.print(data[i][j] + " ");
+                sb.append(data[i][j]).append(' ');
             }
-            System.out.println();
+            sb.append('\n');
         }
+
+        return sb.toString();
     }
 
     public Element getMinElement() {
