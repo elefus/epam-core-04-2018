@@ -80,6 +80,10 @@ public class Task20 {
     }
 
     private static int[][] moveMinElementToPosition(int srcRow, int srcColumn, int destRow, int destColumn) {
+        if ((srcRow == destRow) && (srcColumn == destColumn)) {
+            return matrix;
+        }
+
         int[][] matrixWithExchangedColsAndRows = new int[dimension][dimension];
         System.arraycopy(matrix, 0, matrixWithExchangedColsAndRows, 0, dimension);
 
