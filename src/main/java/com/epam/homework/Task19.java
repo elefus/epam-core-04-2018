@@ -67,38 +67,31 @@ public class Task19 {
         }
     }
 
-    private static boolean isRowWithOnlyZeros(int row) {
-        for (int i = 0; i < columnCount; i++) {
-            if (matrix[row][i] != 0) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private static boolean isColumnWithOnlyZeros(int column) {
-        for (int i = 0; i < columnCount; i++) {
-            if (matrix[i][column] != 0) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     private static void deleteRowsAndColumnsWithOnlyZerosFromMatrix() {
+        Set<Integer> rowsToKeep = new HashSet<>();
+        Set<Integer> columnsToKeep = new HashSet<>();
 
+        for (int i = 0; i < rowCount; i++) {
+            for (int j = 0; j < columnCount; j++) {
+                if (matrix[i][j] != 0) {
+                    rowsToKeep.add(i);
+                    columnsToKeep.add(j);
+                }
+            }
+        }
+
+        int newMatrixRowCount = rowsToKeep.size();
+        int newMatrixColumnCount = columnsToKeep.size();
         int[][] matrixWithoutElement = new int[newMatrixRowCount][newMatrixColumnCount];
         int newMatrixRow = 0;
         int newMatrixColumn = 0;
 
         for (int i = 0; i < rowCount; i++) {
-            if (!isRowsAndColumnsNotWithOnlyZeros[0].contains(i)) {
+            if (!rowsToKeep.contains(i)) {
                 continue;
             }
             for (int j = 0; j < columnCount; j++) {
-                if (isRowsAndColumnsNotWithOnlyZeros[1].contains(j)) {
+                if (columnsToKeep.contains(j)) {
                     matrixWithoutElement[newMatrixRow][newMatrixColumn] = matrix[i][j];
                     newMatrixColumn++;
                 }
