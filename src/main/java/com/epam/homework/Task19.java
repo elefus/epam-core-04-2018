@@ -1,5 +1,10 @@
 package com.epam.homework;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Scanner;
+
 public class Task19 {
 
     /**
@@ -35,7 +40,70 @@ public class Task19 {
      *  0  3
      * -3  1
      */
+
+    private static HashMap<Integer, Integer> rowMap = new HashMap<>();
+    private static HashMap<Integer, Integer> colMap = new HashMap<>();
+    private static int countZeroRow;
+    private static int countZeroCol;
+
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int[][] matrix = readMatrixAndSearchZero(scanner);
+        int[][] newMatrix = removeZeroRowCol(matrix);
+        writeMatrix(newMatrix);
+    }
+
+    private static int[][] readMatrixAndSearchZero(Scanner scanner) {
+        int dimension = scanner.nextInt();
+        int[][] matrix = new int[dimension][dimension];
+
+        for (int row = 0; row < dimension; row++) {
+            rowMap.put(row, 0);
+            for (int col = 0; col < dimension; col++) {
+                colMap.putIfAbsent(col, 0);
+                matrix[row][col] = scanner.nextInt();
+                if (matrix[row][col] == 0) {
+                    rowMap.put(row, rowMap.get(row) + 1);
+                    colMap.put(col, colMap.get(col) + 1);
+                }
+                if (row == dimension - 1){
+                    countZeroCol = colMap.get(col) == dimension ? ++countZeroCol : countZeroCol;
+                }
+            }
+            countZeroRow = rowMap.get(row) == dimension ? ++countZeroRow : countZeroRow;
+        }
+        return matrix;
+    }
+
+    private static int[][] removeZeroRowCol(int[][] matrix){
+        int[][] newMatrix = new int[matrix.length - countZeroRow][matrix.length - countZeroCol];
+        int countRow = 0;
+        int countCol = 0;
+
+        for (int row = 0; row < matrix.length; row++) {
+            if (!(rowMap.get(row) == matrix.length)){
+                for (int col = 0; col < matrix.length; col++) {
+                    if (!(colMap.get(col) == matrix.length)){
+                        newMatrix[countRow][countCol++] = matrix[row][col];
+                    }
+                }
+                countRow++;
+                countCol = 0;
+            }
+        }
+        return newMatrix;
+    }
+
+    private static void writeMatrix(int[][] matrix){
+        System.out.println(matrix.length);
+        System.out.println(matrix[0].length);
+
+        for (int[] row : matrix) {
+            StringBuilder builder = new StringBuilder();
+            for (int col : row) {
+                builder.append(col).append(" ");
+            }
+            System.out.println(builder.toString().trim());
+        }
     }
 }
