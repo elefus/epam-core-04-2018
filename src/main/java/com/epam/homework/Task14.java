@@ -38,29 +38,30 @@ public class Task14 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int amountOfNumbers = sc.nextInt();
-        int maxSequence = 0;
+
 
         int[] numbersFromInput = getNumbersFromInputToArray(sc, amountOfNumbers);
 
-        maxSequence = findLengthOfMaxSequence(maxSequence, numbersFromInput);
+        System.out.println(findLengthOfMaxSequence(numbersFromInput));
 
-        System.out.println(maxSequence);
+
     }
 
-    private static int findLengthOfMaxSequence(int maxSequence, int[] numbersFromInput) {
+    private static int findLengthOfMaxSequence(int[] numbersFromInput) {
+        int maxStrictlyRisingSequence = 0;
         int amountOfNumbers = numbersFromInput.length;
         int counter = 1;
         for (int i = 0; i < amountOfNumbers - 1; i++) {
             if (numbersFromInput[i + 1] - numbersFromInput[i] == 1) {
                 counter++;
-                if (maxSequence < counter) {
-                    maxSequence = counter;
+                if (maxStrictlyRisingSequence < counter) {
+                    maxStrictlyRisingSequence = counter;
                 }
             } else {
                 counter = 1;
             }
         }
-        return maxSequence <= 1 ? 0 : maxSequence;
+        return maxStrictlyRisingSequence <= 1 ? 0 : maxStrictlyRisingSequence;
     }
 
     private static int[] getNumbersFromInputToArray(Scanner sc, int arrayLength) {
