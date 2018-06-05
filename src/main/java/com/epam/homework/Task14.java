@@ -39,18 +39,16 @@ public class Task14 {
         Scanner sc = new Scanner(System.in);
         int amountOfNumbers = sc.nextInt();
 
-
         int[] numbersFromInput = getNumbersFromInputToArray(sc, amountOfNumbers);
 
         System.out.println(findLengthOfMaxSequence(numbersFromInput));
-
-
     }
 
     private static int findLengthOfMaxSequence(int[] numbersFromInput) {
         int maxStrictlyRisingSequence = 0;
         int amountOfNumbers = numbersFromInput.length;
         int counter = 1;
+
         for (int i = 0; i < amountOfNumbers - 1; i++) {
             if (numbersFromInput[i + 1] - numbersFromInput[i] == 1) {
                 counter++;
