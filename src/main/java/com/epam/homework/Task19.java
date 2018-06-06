@@ -1,6 +1,7 @@
 package com.epam.homework;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Task19 {
@@ -39,8 +40,8 @@ public class Task19 {
      * -3  1
      */
 
-    private static HashMap<Integer, Integer> rowMap = new HashMap<>();
-    private static HashMap<Integer, Integer> colMap = new HashMap<>();
+    private static Map<Integer, Integer> rowMap = new HashMap<>();
+    private static Map<Integer, Integer> colMap = new HashMap<>();
     private static int countZeroRow;
     private static int countZeroCol;
 
