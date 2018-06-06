@@ -50,7 +50,7 @@ public class Task14 {
         int counter = 1;
 
         for (int i = 0; i < amountOfNumbers - 1; i++) {
-            if (numbersFromInput[i + 1] - numbersFromInput[i] == 1) {
+            if (numbersFromInput[i + 1] - numbersFromInput[i] > 0) {
                 counter++;
                 if (maxStrictlyRisingSequence < counter) {
                     maxStrictlyRisingSequence = counter;
