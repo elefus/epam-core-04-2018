@@ -88,19 +88,19 @@ public class Task19 {
     }
 
     private static Pair<Set<Integer>, Set<Integer>> getNotNullRowsAndColumnsOf(int[][] matrix) {
-        Set<Integer> rows = new HashSet<>();
-        Set<Integer> columns = new HashSet<>();
+        Set<Integer> notNullrows = new HashSet<>();
+        Set<Integer> notNullcolumns = new HashSet<>();
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 if (matrix[i][j] != 0) {
-                    rows.add(i);
-                    columns.add(j);
+                    notNullrows.add(i);
+                    notNullcolumns.add(j);
                 }
             }
         }
 
-        return new Pair<>(rows, columns);
+        return new Pair<>(notNullrows, notNullcolumns);
     }
 
     private static void print(int[][] matrix) {
