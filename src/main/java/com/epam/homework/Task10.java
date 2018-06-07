@@ -35,10 +35,9 @@ public class Task10 {
         Scanner scanner = new Scanner(System.in);
         int value = scanner.nextInt();
 
-        System.out.println(squareRoot(value) == 2 ? "YES" : "NO");
-    }
-
-    private static int squareRoot(int value){
-        return (value > 2 && value % 2 == 0) ? squareRoot(value >> 1) : value;
+        while (value > 2 && value % 2 == 0){
+            value >>= 1;
+        }
+        System.out.println(value == 1  ? "YES" : "NO");
     }
 }
