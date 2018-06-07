@@ -35,7 +35,7 @@ public class Task10 {
         Scanner scanner = new Scanner(System.in);
         int value = scanner.nextInt();
 
-        while (value > 2 && value % 2 == 0){
+        while (value > 1 && value % 2 == 0){
             value >>= 1;
         }
         System.out.println(value == 1  ? "YES" : "NO");
