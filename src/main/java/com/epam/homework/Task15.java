@@ -35,8 +35,8 @@ public class Task15 {
         int answer = 0;
         int[][] inputMatrix = readMatrix(sc, matrixDimension);
 
-        for (int currentrow = 0; currentrow < matrixDimension; currentrow++) {
-            answer = getRowSum(inputMatrix, currentrow) + answer;
+        for (int currentRow = 0; currentRow < matrixDimension; currentRow++) {
+            answer = getRowSum(inputMatrix, currentRow) + answer;
         }
         System.out.println(answer);
     }
