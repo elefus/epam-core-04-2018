@@ -71,6 +71,11 @@
             <artifactId>SystemsOfLinearEquations</artifactId>
             <version>master</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.akalji</groupId>
+            <artifactId>genericMatrix</artifactId>
+            <version>master</version>
+        </dependency>
     </dependencies>
 
     <repositories>
