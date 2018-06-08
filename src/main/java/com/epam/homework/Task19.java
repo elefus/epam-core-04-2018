@@ -46,21 +46,6 @@ public class Task19 {
         myMat.deleteRowsAndColumnsWithZeros();
         myMat.printMatrix();
 
-
     }
 }
-/*
 
-4
-2  0  0 -1
-0  0  0  0
-0  0  0  3
--3  0  0  1
-
-4
-2  0  0 -1
-0  0  0  0
-0  0  0  3
--3  1  1  1
-
- */
