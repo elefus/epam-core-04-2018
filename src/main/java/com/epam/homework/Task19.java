@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task19 {
 
     /**
@@ -36,6 +38,29 @@ public class Task19 {
      * -3  1
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner in = new Scanner(System.in);
+        int size = in.nextInt();
+        MatrixForTask19 myMat = new MatrixForTask19(size);
+        myMat.setMatrix(in);
+
+        myMat.deleteRowsAndColumnsWithZeros();
+        myMat.printMatrix();
+
+
     }
 }
+/*
+
+4
+2  0  0 -1
+0  0  0  0
+0  0  0  3
+-3  0  0  1
+
+4
+2  0  0 -1
+0  0  0  0
+0  0  0  3
+-3  1  1  1
+
+ */
