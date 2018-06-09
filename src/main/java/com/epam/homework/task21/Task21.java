@@ -13,4 +13,5 @@ public interface Task21 {
      * @return Список строк, прочитанных из входного файла в прямом порядке.
      */
     List<String> reverseFile(File input, File output) throws IOException;
+
 }
