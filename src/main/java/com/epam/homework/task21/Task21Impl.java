@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Task21Impl implements Task21 {
     public static void main(String[] args) throws IOException {
-        File input = new File("src/main/java/com/epam/homework/task21/1.txt");
-        File output = new File("src/main/java/com/epam/homework/task21/2.txt");
+        File input = new File("1.txt");
+        File output = new File("2.txt");
         Task21 task21 = new Task21Impl();
         task21.reverseFile(input, output);
     }
