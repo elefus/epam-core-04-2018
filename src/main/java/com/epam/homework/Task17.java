@@ -39,10 +39,55 @@ public class Task17 {
      * -65
      */
 
+    private static int[][] matrix;
+
+    private static void readMatrix(Scanner scanner) {
+        int dimension = scanner.nextInt();
+        matrix = new int[dimension][dimension];
+
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+    }
+
+    private static int calculateMatrixDeterminant(int[][] matrix) {
+        int dimension = matrix.length;
+
+        if(dimension == 1) {
+            return matrix[0][0];
+        }
+
+        if (dimension == 2) {
+            return matrix[0][0] * matrix [1][1] - matrix[0][1] * matrix[1][0];
+        }
+
+        int determinant = 0;
+
+        for (int i = 0; i < dimension; i++) {
+            int element = (i % 2 == 0) ? matrix[0][i] : - matrix[0][i];
+            determinant += element * calculateMatrixDeterminant(getSubmatrix(matrix, i));
+        }
+
+        return determinant;
+    }
+
+    private static int[][] getSubmatrix(int[][] matrix, int minorColumn) {
+        int dimension = matrix.length;
+        int[][] submatrix = new int[dimension - 1][dimension - 1];
+
+        for (int i = 1; i < dimension; i++) {
+            System.arraycopy(matrix[i], 0, submatrix[i - 1], 0, minorColumn);
+            System.arraycopy(matrix[i], minorColumn + 1, submatrix[i - 1], minorColumn, (dimension - 1) - minorColumn);
+        }
+
+        return submatrix;
+    }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Matrix matrix = new Matrix(in.nextInt());
-        matrix.setMatrix(in);
-        System.out.println(matrix.calculateMatrixDeterminant(matrix));
+        readMatrix(in);
+        System.out.println(calculateMatrixDeterminant(matrix));
     }
 }
