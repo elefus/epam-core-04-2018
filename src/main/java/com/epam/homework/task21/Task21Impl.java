@@ -16,19 +16,18 @@ public class Task21Impl implements Task21 {
         try (BufferedReader reader = new BufferedReader(new FileReader(input));
              BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
 
-            StringBuilder builder = new StringBuilder();
             List<String> strings = new ArrayList<>();
 
             String currentRow;
-            while (reader.ready()) {
-                currentRow = reader.readLine();
-                builder.append(currentRow);
-                builder.append("\n");
+            while ((currentRow = reader.readLine()) != null) {
                 strings.add(currentRow);
             }
-            builder.setLength(builder.length() - 1);
-            builder.reverse();
-            writer.write(builder.toString());
+            System.out.println(strings.size());
+            for (int i = strings.size() - 1; i >= 0; i--) {
+                writer.write(strings.get(i));
+                writer.newLine();
+            }
+
             return strings;
         }
     }
