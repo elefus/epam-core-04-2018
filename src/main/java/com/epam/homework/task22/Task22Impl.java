@@ -14,4 +14,8 @@ public class Task22Impl implements Task22 {
                 .collect(Collectors.toList());
     }
 
+    public static void main(String[] args) {
+        Task22 task22 = new Task22Impl();
+    }
+
 }
