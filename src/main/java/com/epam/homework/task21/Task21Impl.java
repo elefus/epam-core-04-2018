@@ -26,4 +26,9 @@ public class Task21Impl implements Task21 {
             return result;
         }
     }
+
+    public static void main(String[] args) throws IOException {
+        Task21 object = new Task21Impl();
+        List<String> result = object.reverseFile(new File("input.txt"), new File("output.txt"));
+    }
 }
