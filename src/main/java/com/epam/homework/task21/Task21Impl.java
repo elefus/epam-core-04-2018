@@ -28,7 +28,6 @@ public class Task21Impl implements Task21 {
             builder.setLength(builder.length() - 1);
             builder.reverse();
             writer.write(builder.toString());
-            System.out.println(strings);
             return strings;
         }
     }
