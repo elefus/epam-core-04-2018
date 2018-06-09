@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Task21Impl implements Task21 {
     public static void main(String[] args) throws IOException {
-        File input = new File("in.txt");
-        File output = new File("out.txt");
+        File input = new File("src\\main\\java\\com\\epam\\homework\\task21\\inPutFile.txt");
+        File output = new File("src\\main\\java\\com\\epam\\homework\\task21\\outPutFile.txt");
         Task21 task21 = new Task21Impl();
         task21.reverseFile(input, output);
     }
@@ -22,12 +22,10 @@ public class Task21Impl implements Task21 {
             while ((currentRow = reader.readLine()) != null) {
                 strings.add(currentRow);
             }
-            System.out.println(strings.size());
             for (int i = strings.size() - 1; i >= 0; i--) {
                 writer.write(strings.get(i));
                 writer.newLine();
             }
-
             return strings;
         }
     }
