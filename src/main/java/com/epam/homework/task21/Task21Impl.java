@@ -22,10 +22,8 @@ public class Task21Impl implements Task21 {
             String currentRow;
             while ((currentRow = reader.readLine()) != null) {
                 builder.append(currentRow);
-                builder.append("\n");
                 strings.add(currentRow);
             }
-            builder.setLength(builder.length() - 1);
             builder.reverse();
             writer.write(builder.toString());
             return strings;
