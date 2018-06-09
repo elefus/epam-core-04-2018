@@ -17,8 +17,11 @@ public class Task21Impl implements Task21 {
             List<String> result = new ArrayList<>();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                writer.write(line);
                 result.add(line);
+            }
+
+            for (int i = result.size() - 1; i >= 0 ; i--) {
+                writer.write(result.get(i));
             }
             return result;
         }
