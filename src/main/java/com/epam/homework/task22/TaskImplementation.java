@@ -6,11 +6,10 @@ import java.util.stream.Collectors;
 public class TaskImplementation implements Task22 {
     @Override
     public List<String> sortPoems(Set<IPoem> poems, String author) {
-        for (IPoem poem : poems) {
-            if (poem.getAuthor().equals(author)) {
-                return poem.getLines().stream().sorted(Comparator.comparingInt(String::length)).collect(Collectors.toList());
-            }
-        }
-        return Collections.emptyList();
+        return poems.stream()
+                .filter(iPoem -> iPoem.getAuthor().equals(author))
+                .flatMap(iPoem -> iPoem.getLines().stream())
+                .sorted(Comparator.comparingInt(String::length))
+                .collect(Collectors.toList());
     }
 }
