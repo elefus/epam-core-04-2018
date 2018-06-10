@@ -13,9 +13,10 @@ public class TaskImplementation implements Task21 {
                     strings.add(scanner.nextLine());
                 }
             }
-        try (FileOutputStream outputStream = new FileOutputStream(output)) {
+        try (BufferedWriter outputStream = new BufferedWriter(new FileWriter(output))) {
             for (int i = strings.size()-1; i >= 0; i--) {
-                outputStream.write(strings.get(i).getBytes());
+                outputStream.write(strings.get(i));
+                outputStream.newLine();
             }
         }
         return strings;
