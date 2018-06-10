@@ -21,6 +21,7 @@ public class Task21Impl implements Task21 {
                 bufferedWriter.newLine();
             }
         }
+        Collections.reverse(strings);
         return strings;
     }
 }
