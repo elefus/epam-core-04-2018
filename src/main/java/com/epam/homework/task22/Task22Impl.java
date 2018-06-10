@@ -9,8 +9,8 @@ public class Task22Impl implements Task22 {
     @Override
     public List<String> sortPoems(Set<IPoem> poems, String author) {
         List<String> strings = new ArrayList<>();
-        for (IPoem poem:poems) {
-            if(poem.getAuthor().equals(author)){
+        for (IPoem poem : poems) {
+            if (poem.getAuthor().equals(author)) {
                 strings.addAll(poem.getLines());
             }
         }
