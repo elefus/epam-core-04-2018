@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Task21Impl implements Task21 {
 
@@ -11,9 +12,9 @@ public class Task21Impl implements Task21 {
     public List<String> reverseFile(File input, File output) throws IOException {
         LinkedList<String> stringsFromFile = new LinkedList<>();
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(input)))) {
+        try (Scanner reader = new Scanner(new InputStreamReader(new FileInputStream(input)))) {
             String readLine;
-            while ((readLine = reader.readLine()) != null) {
+            while ((readLine = reader.nextLine()) != null) {
                 stringsFromFile.add(readLine);
             }
         }
