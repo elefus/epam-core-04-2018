@@ -40,15 +40,9 @@ public class Task17 {
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int matrixDimension = 4;
-//        int matrixDimension = sc.nextInt();
-//        int[][] inputMatrix = readMatrix(sc, matrixDimension);
-        int[][] inputMatrix = {
-                {-2, 1, 2},
-                {0, -1, 0},
-                {1, -2, 3},
-        };
-
+        int matrixDimension = sc.nextInt();
+        int[][] inputMatrix = readMatrix(sc, matrixDimension);
+        
         System.out.println(getMatrixDeterminant(inputMatrix));
     }
 
