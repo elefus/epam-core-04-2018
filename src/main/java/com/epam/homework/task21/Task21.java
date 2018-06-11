@@ -14,3 +14,4 @@ public interface Task21 {
      */
     List<String> reverseFile(File input, File output) throws IOException;
 }
+
