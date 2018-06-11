@@ -2,6 +2,7 @@ package com.epam.homework.task21;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Task21Imp implements Task21 {
@@ -21,6 +22,7 @@ public class Task21Imp implements Task21 {
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
+            Collections.reverse(result);
             for (String lines : result) {
                 writer.write(lines);
                 writer.newLine();
@@ -29,8 +31,8 @@ public class Task21Imp implements Task21 {
             e.printStackTrace();
         }
 
-
         return result;
     }
+
 }
 
