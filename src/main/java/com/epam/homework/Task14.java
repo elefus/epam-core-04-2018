@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task14 {
 
     /**
@@ -34,6 +36,34 @@ public class Task14 {
      * 0
      */
     public static void main(String[] args) {
-        // TODO реализация
+        try (Scanner in = new Scanner(System.in)) {
+            int[] sequence = readSequence(in);
+            System.out.println(countElementsOfMaxIncreasingSubsequence(sequence));
+        }
+    }
+
+    private static int[] readSequence(Scanner scanner) {
+        int sequenceSize = scanner.nextInt();
+        int[] sequence = new int[sequenceSize];
+        for (int i = 0; i < sequenceSize; i++) {
+            sequence[i] = scanner.nextInt();
+        }
+        return sequence;
+    }
+
+    private static int countElementsOfMaxIncreasingSubsequence(int[] sequence) {
+        int result = 1;
+        int count = 1;
+        int previous = sequence[0];
+        for (int i = 1; i < sequence.length; i++) {
+            if (sequence[i] > previous) {
+                count++;
+            } else {
+                count = 1;
+            }
+            previous = sequence[i];
+            result = count > result ? count : result;
+        }
+        return result > 1 ? result : 0;
     }
 }
