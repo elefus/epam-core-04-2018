@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Task21Impl implements Task21 {
 
@@ -28,8 +26,14 @@ public class Task21Impl implements Task21 {
         }
     }
 
-//    public static void main(String[] args) throws IOException {
+
+    public static void main(String[] args) throws IOException {
+        Double d = 1012.1;
+        System.out.println(d.byteValue());
+        Comparator
 //        Task21 object = new Task21Impl();
-//        List<String> result = object.reverseFile(new File("input.txt"), new File("output.txt"));
-//    }
+//        String INPUT = "C:\\Users\\m-i-n\\IdeaProjects\\hw\\epam-core-04-2018\\src\\main\\java\\com\\epam\\homework\\task21\\input.txt";
+//        String OUTPUT = "C:\\Users\\m-i-n\\IdeaProjects\\hw\\epam-core-04-2018\\src\\main\\java\\com\\epam\\homework\\task21\\output.txt";
+//        List<String> result = object.reverseFile(new File(INPUT), new File(OUTPUT));
+    }
 }
