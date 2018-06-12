@@ -52,19 +52,23 @@ public class Task15 {
         rowLoop:
         for (int[] row : matrix) {
             int count = 0;
+            int rowSum = 0;
             for (int element : row) {
+                if (count == 2) {
+                    continue rowLoop;
+                }
+
                 if (element > 0) {
                     count++;
                     continue;
                 }
 
                 if (count == 1) {
-                    sum += element;
+                    rowSum += element;
                 }
-
-                if (count == 2) {
-                    continue rowLoop;
-                }
+            }
+            if (count == 2) {
+                sum += rowSum;
             }
         }
         return sum;
