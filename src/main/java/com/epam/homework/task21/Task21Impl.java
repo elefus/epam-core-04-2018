@@ -18,7 +18,7 @@ public class Task21Impl implements Task21 {
                 inputLines.add(line);
             }
 
-            for (int i = inputLines.size() - 1; i > 0; i--) {
+            for (int i = inputLines.size() - 1; i >= 0; i--) {
                 writer.println(inputLines.get(i));
             }
 
