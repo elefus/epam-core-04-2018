@@ -1,8 +1,6 @@
 package com.epam.homework.task22;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Task22Impl implements Task22 {
 
@@ -15,6 +13,7 @@ public class Task22Impl implements Task22 {
                 listPoems.addAll(iPoem.getLines());
             }
         }
+        listPoems.sort(Comparator.comparingInt(String::length));
         return listPoems;
     }
 }
