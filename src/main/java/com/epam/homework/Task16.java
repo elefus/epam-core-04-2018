@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task16 {
 
     /**
@@ -60,6 +62,54 @@ public class Task16 {
      * 3 9
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int[][] matrix = readMatrix(scanner);
+        int degrees = scanner.nextInt();
+        printMatrix(rotateMatrix(matrix, degrees));
+    }
+
+    private static int[][] rotateMatrix(int[][] matrix, int degrees) {
+        degrees %= 4;
+        degrees = degrees > 0 ? Math.abs(degrees - 4) : Math.abs(degrees);
+        for (int i = 0; i < degrees; i++) {
+            matrix = rotateMatrix90DegreesLeft(matrix);
+        }
+        return matrix;
+    }
+
+    private static int[][] rotateMatrix90DegreesLeft(int[][] matrix) {
+        int matrixSize = matrix.length - 1;
+        for (int i = 0; i <= matrixSize - 1; i++) {
+            for (int j = i; j <= matrixSize - i - 1; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][matrixSize - i];
+                matrix[j][matrixSize - i] = matrix[matrixSize - i][matrixSize - j];
+                matrix[matrixSize - i][matrixSize - j] = matrix[matrixSize - j][i];
+                matrix[matrixSize - j][i] = temp;
+            }
+        }
+        return matrix;
+    }
+
+    private static int[][] readMatrix(Scanner scanner) {
+        int dimension = scanner.nextInt();
+        int[][] matrix = new int[dimension][dimension];
+        for (int row = 0; row < dimension; ++row) {
+            for (int col = 0; col < dimension; ++col) {
+                matrix[row][col] = scanner.nextInt();
+            }
+        }
+        return matrix;
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        System.out.println(matrix.length);
+        for (int[] row: matrix) {
+            StringBuilder result = new StringBuilder(String.valueOf(row[0]));
+            for (int i = 1; i < row.length; i++) {
+                result.append(String.format("   %2d", row[i]));
+            }
+            System.out.println(result);
+        }
     }
 }
