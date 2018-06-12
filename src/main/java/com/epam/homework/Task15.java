@@ -54,21 +54,19 @@ public class Task15 {
             int count = 0;
             int rowSum = 0;
             for (int element : row) {
-                if (count == 2) {
-                    continue rowLoop;
-                }
-
                 if (element > 0) {
-                    count++;
-                    continue;
+                    if (count == 0) {
+                        count++;
+                        continue;
+                    } else {
+                        sum += rowSum;
+                        continue rowLoop;
+                    }
                 }
 
                 if (count == 1) {
                     rowSum += element;
                 }
-            }
-            if (count == 2) {
-                sum += rowSum;
             }
         }
         return sum;
