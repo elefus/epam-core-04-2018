@@ -95,10 +95,9 @@ public class Task18 {
                 System.arraycopy(matrix, rowToDelete + 1, result, rowToDelete,
                         matrix.length - rowToDelete - 1);
             }
-            return result;
-        } else {
-            return matrix;
+            matrix = result;
         }
+        return matrix;
     }
 
     private static int[][] deleteColumn(int[][] matrix, int columnToDelete) {
@@ -113,10 +112,9 @@ public class Task18 {
                     }
                 }
             }
-            return result;
-        } else {
-            return matrix;
+            matrix = result;
         }
+        return matrix;
     }
 
     private static int findMaxElement(int[][] matrix) {
