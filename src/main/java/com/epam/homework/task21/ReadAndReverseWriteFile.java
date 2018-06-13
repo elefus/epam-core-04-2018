@@ -10,6 +10,7 @@ public class ReadAndReverseWriteFile implements Task21{
         List<String> list = new ArrayList<>();
         try(BufferedReader reader = new BufferedReader(new FileReader(input));
             BufferedWriter writer = new BufferedWriter(new FileWriter(output))){
+
             while (reader.ready()){
                 list.add(reader.readLine());
             }
