@@ -1,5 +1,9 @@
 package com.epam.homework;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class Task2 {
 
     /**
@@ -40,6 +44,12 @@ public class Task2 {
      */
     public static void main(String[] args) {
         // TODO реализация
+        ArrayList<String > list = new ArrayList<>();
+        String[] arr = new String[2];
+        arr[0] = "abcd d";
+        arr[1] = "abcd a";
+        Arrays.sort(arr, (o1, o2) -> o1.length() == o2.length() ? o1.compareTo(o2) : o1.length()-o2.length());
+        System.out.println(Arrays.deepToString(arr));
 
         // TODO foreach($current : $result) {
         // TODO     System.out.println("(" + current.length() + "): " + current);
