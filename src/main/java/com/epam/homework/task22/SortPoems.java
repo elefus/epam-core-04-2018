@@ -1,6 +1,7 @@
 package com.epam.homework.task22;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -14,10 +15,8 @@ public class SortPoems implements Task22 {
                 sortPoems.addAll(poem.getLines());
             }
         }
-
-        sortPoems.sort(((o1, o2) -> o1.length() == o2.length() ? o1.compareTo(o2) : o1.length() - o2.length()));
+        Collections.sort(sortPoems);
 
         return sortPoems;
     }
-
 }
