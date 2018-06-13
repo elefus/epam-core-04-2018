@@ -41,7 +41,7 @@ public class Task22class implements Task22 {
     }
 
     @Data
-    static class NewPairAuthorAndPoem implements Task22.IPoem {
+    static class NewPairAuthorAndPoem implements IPoem {
         String author;
         List<String> lines;
     }
