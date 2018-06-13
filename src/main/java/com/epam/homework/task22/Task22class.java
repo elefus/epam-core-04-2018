@@ -19,10 +19,24 @@ public class Task22class implements Task22 {
         return authorPoems;
     }
 
-    @Data
     class NewPairAuthorAndPoem implements IPoem {
         String author;
         List<String> lines;
+
+        NewPairAuthorAndPoem(List<String> lines, String author) {
+            this.author = author;
+            this.lines = lines;
+        }
+
+        @Override
+        public List<String> getLines() {
+            return lines;
+        }
+
+        @Override
+        public String getAuthor() {
+            return author;
+        }
     }
 
 
