@@ -14,18 +14,17 @@ public class Task22class implements Task22 {
                  authorPoems.addAll(poem.getLines());
             }
         }
-        Comparator<String> length = Comparator.comparingInt(String::length);
-        authorPoems.sort(length);
+        authorPoems.sort(Comparator.comparingInt(String::length));
         return authorPoems;
     }
 
     class NewPairAuthorAndPoem implements IPoem {
         String author;
-        List<String> lines;
+        List<String> lines = new ArrayList<>();
 
         NewPairAuthorAndPoem(List<String> lines, String author) {
             this.author = author;
-            this.lines = lines;
+            lines = lines;
         }
 
         @Override
