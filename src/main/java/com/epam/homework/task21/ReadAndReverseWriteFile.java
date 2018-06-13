@@ -15,6 +15,7 @@ public class ReadAndReverseWriteFile implements Task21 {
             }
             for (int i = list.size() - 1; i >= 0; i--) {
                 writer.write(list.get(i));
+                writer.newLine();
             }
         }
         return list;
