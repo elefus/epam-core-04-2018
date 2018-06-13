@@ -7,7 +7,7 @@ import java.util.List;
 public class Task21Impl implements Task21 {
 
     @Override
-    public List<String> reverseFile(File input, File output) throws IOException {
+    public List<String> reverseFile(File input, File output) {
         ArrayList<String> inputLines = new ArrayList<>();
 
         try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(output)));
