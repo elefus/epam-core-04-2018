@@ -20,11 +20,11 @@ public class Task22class implements Task22 {
 
     class NewPairAuthorAndPoem implements IPoem {
         String author;
-        List<String> lines = new ArrayList<>();
+        List<String> lines;
 
         NewPairAuthorAndPoem(List<String> lines, String author) {
             this.author = author;
-            lines = lines;
+            this.lines = lines;
         }
 
         @Override
