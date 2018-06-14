@@ -15,7 +15,7 @@ public class SortPoems implements Task22 {
                 sortPoems.addAll(poem.getLines());
             }
         }
-        Collections.sort(sortPoems);
+        sortPoems.sort(((o1, o2) -> o1.length() == o2.length() ? o1.compareTo(o2) : o1.length() - o2.length()));
 
         return sortPoems;
     }
