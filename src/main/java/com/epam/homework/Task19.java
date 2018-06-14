@@ -53,6 +53,31 @@ public class Task19 {
         printMatrix(matrix);
     }
 
+    private static int getNullRow(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            if (Arrays.stream(matrix[i]).allMatch(element -> element == 0)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static int getNullColumn(int[][] matrix) {
+        for (int column = 0; column < matrix[0].length; column++) {
+            boolean isNull = true;
+            for (int[] row : matrix) {
+                if (row[column] != 0) {
+                    isNull = false;
+                    break;
+                }
+            }
+            if (isNull) {
+                return column;
+            }
+        }
+        return -1;
+    }
+
     private static int[][] deleteRow(int[][] matrix, int rowToDelete) {
         if (rowToDelete >= 0 && rowToDelete < matrix.length) {
             int[][] result = new int[matrix.length - 1][matrix[0].length];
@@ -81,43 +106,6 @@ public class Task19 {
             matrix = result;
         }
         return matrix;
-    }
-
-    private static int getNullRow(int[][] matrix) {
-        for (int i = 0; i < matrix.length; i++) {
-            if (Arrays.stream(matrix[i]).allMatch(element -> element == 0)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private static int getNullColumn(int[][] matrix) {
-        for (int column = 0; column < matrix[0].length; column++) {
-            boolean isNull = true;
-            for (int[] row : matrix) {
-                if (row[column] != 0) {
-                    isNull = false;
-                    break;
-                }
-            }
-            if (isNull) {
-                return column;
-            }
-        }
-        return -1;
-    }
-
-    private static int findMaxElement(int[][] matrix) {
-        int maxElement = Integer.MIN_VALUE;
-        for (int[] row : matrix) {
-            for (int element : row) {
-                if (element > maxElement) {
-                    maxElement = element;
-                }
-            }
-        }
-        return maxElement;
     }
 
     private static int[][] readMatrix(Scanner scanner) {
