@@ -1,5 +1,8 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+import java.util.stream.IntStream;
+
 public class Task20 {
 
     /**
@@ -36,6 +39,72 @@ public class Task20 {
      * -2  1  4 -1
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+
+        int[] position = IntStream.range(0, 2)
+                .map(i -> scanner.nextInt())
+                .toArray();
+
+        int[][] matrix = readMatrix(scanner);
+
+        int[] minElement = findMinElement(matrix);
+
+        matrix = swapRows(matrix, minElement[0], position[0]);
+        matrix = swapColumns(matrix, minElement[1], position[1]);
+
+        printMatrix(matrix);
+    }
+
+    private static int[] findMinElement(int[][] matrix) {
+        int minElement = Integer.MAX_VALUE;
+        int[] result = new int[2];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (matrix[i][j] < minElement) {
+                    minElement = matrix[i][j];
+                    result[0] = i;
+                    result[1] = j;
+                }
+            }
+        }
+        return result;
+    }
+
+    private static int[][] swapRows(int[][] matrix, int srcRow, int destRow) {
+        int[] tempRow = matrix[srcRow];
+        matrix[srcRow] = matrix[destRow];
+        matrix[destRow] = tempRow;
+        return matrix;
+    }
+
+    private static int[][] swapColumns(int[][] matrix, int srcColumn, int destColumn) {
+        for (int[] row : matrix) {
+            int tempElement = row[srcColumn];
+            row[srcColumn] = row[destColumn];
+            row[destColumn] = tempElement;
+        }
+        return matrix;
+    }
+
+    private static int[][] readMatrix(Scanner scanner) {
+        int dimension = scanner.nextInt();
+        int[][] matrix = new int[dimension][dimension];
+        for (int row = 0; row < dimension; ++row) {
+            for (int col = 0; col < dimension; ++col) {
+                matrix[row][col] = scanner.nextInt();
+            }
+        }
+        return matrix;
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        System.out.println(matrix.length);
+        for (int[] row: matrix) {
+            StringBuilder result = new StringBuilder(String.valueOf(row[0]));
+            for (int i = 1; i < row.length; i++) {
+                result.append(String.format("   %2d", row[i]));
+            }
+            System.out.println(result);
+        }
     }
 }
