@@ -1,5 +1,9 @@
 package com.epam.homework;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
+
 public class Task2 {
 
     /**
@@ -40,9 +44,21 @@ public class Task2 {
      */
     public static void main(String[] args) {
         // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+         int N = Integer.parseInt(scanner.nextLine());
+        String[] InputArr = new String[N];
 
-        // TODO foreach($current : $result) {
-        // TODO     System.out.println("(" + current.length() + "): " + current);
-        // TODO }
+        for (int i = 0; i < N; i++) InputArr[i] = String.valueOf(scanner.nextLine());
+        Comparator<String> comparator = (o1,o2) -> o1.length() - o2.length();
+
+
+        Arrays.sort(InputArr, comparator); // применяем сортировку
+        for(String current : InputArr){
+            System.out.println("(" + current.length() + "): " + current);
+
+        }
     }
+      //  foreach($current : $result) {
+     //   System.out.println("(" + current.length() + "): " + current);
+
 }
