@@ -1,4 +1,6 @@
 package com.epam.homework;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Task2 {
 
@@ -39,10 +41,25 @@ public class Task2 {
      * (33): В царстве вечернем зеленой весны.
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        String minString = "";
+        String maxString = "";
+        int minLength = 0;
+        int maxLength = 0;
 
-        // TODO foreach($current : $result) {
-        // TODO     System.out.println("(" + current.length() + "): " + current);
-        // TODO }
+        int stringAmount = Integer.parseInt(scanner.nextLine());
+        String stringArray[] = new String[stringAmount];
+
+        for (int i = 0; i < stringAmount; ++i) {
+            stringArray[i]=scanner.nextLine();
+        }
+
+
+        Arrays.sort(stringArray, (i1, i2) -> i1.length() == i2.length() ? i1.compareTo(i2) : Integer.compare(i1.length(), i2.length()));
+
+        for(String current : stringArray) {
+                 System.out.println("(" + current.length() + "): " + current);
+        }
+
     }
 }
