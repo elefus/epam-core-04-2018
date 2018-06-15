@@ -39,8 +39,7 @@ public class Task1 {
         // TODO реализация
         Scanner scanner = new Scanner(System.in);
         int N = Integer.parseInt(scanner.nextLine());
-        if(N>0&&N<100){
-            String InputArr[] = new String[N];
+        String[] InputArr = new String[N];
 
             int minLength = 0;
             String minString = "";
@@ -68,10 +67,7 @@ public class Task1 {
             System.out.println("MAX (" + maxLength + "): " + maxString);
 
 
-        }
-        else {
-            System.out.println("Не верно введено число строк");
-        }
+
 
     }
 }
