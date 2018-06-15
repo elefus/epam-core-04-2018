@@ -43,9 +43,9 @@ public class Task1 {
             String InputArr[] = new String[N];
 
             int minLength = 0;
-            String minString = null;
+            String minString = "";
             int maxLength= 0;
-            String maxString = null;
+            String maxString = "";
             for (int i = 0; i < N; i++) {
                 InputArr[i] = String.valueOf(scanner.nextLine());
                 if (i == 0) {
