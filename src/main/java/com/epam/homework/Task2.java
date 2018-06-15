@@ -48,10 +48,8 @@ public class Task2 {
         int N = Integer.parseInt(scanner.nextLine());
         String[] InputArr = new String[N];
 
-        for (int i = 0; i < N; i++) {
-            InputArr[i] = String.valueOf(scanner.nextLine());
-        }
-        Comparator<String> comparator = (o1,o2) -> o1.length() - o2.length();
+        for (int i = 0; i < N; i++) InputArr[i] = String.valueOf(scanner.nextLine());
+        Comparator<String> comparator = Comparator.comparingInt(String::length);
 
 
         Arrays.sort(InputArr, comparator);
