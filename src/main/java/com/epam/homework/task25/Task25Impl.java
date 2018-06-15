@@ -29,29 +29,31 @@ public class Task25Impl implements Task25 {
                     map.put(']', '[');
                     break;
                 case '>':
-                    if (brackets.isEmpty()||(!brackets.poll().equals(map.get('>')))){
+                    if (brackets.poll() != map.get('>')) {
                         return false;
                     }
                     break;
                 case ')':
-                    if (brackets.isEmpty()||(!brackets.poll().equals(map.get(')')))){
+                    if (brackets.poll() != map.get(')')) {
                         return false;
                     }
                     break;
                 case '}':
-                    if (brackets.isEmpty()||(!brackets.poll().equals(map.get('}')))){
+                    if (brackets.poll() != map.get('}')) {
                         return false;
                     }
                     break;
                 case ']':
-                    if (brackets.isEmpty()||(!brackets.poll().equals(map.get(']')))){
+                    if (brackets.poll() != map.get(']')) {
                         return false;
                     }
                     break;
             }
         }
-        return true;
+        return brackets.isEmpty();
     }
+
+
 
 }
 
