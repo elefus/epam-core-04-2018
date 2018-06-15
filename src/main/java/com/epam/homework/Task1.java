@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task1 {
 
     /**
@@ -35,8 +37,41 @@ public class Task1 {
      */
     public static void main(String[] args) {
         // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int N = Integer.parseInt(scanner.nextLine());
+        if(N>0&&N<100){
+            String InputArr[] = new String[N];
 
-        // TODO System.out.println("MIN (" + minLength + "): " + minString);
-        // TODO System.out.println("MAX (" + maxLength + "): " + maxString);
+            int minLength = 0;
+            String minString = null;
+            int maxLength= 0;
+            String maxString = null;
+            for (int i = 0; i < N; i++) {
+                InputArr[i] = String.valueOf(scanner.nextLine());
+                if (i == 0) {
+                    minLength = InputArr[0].length();
+                    minString = InputArr[0];
+                    maxLength = InputArr[0].length();
+                    maxString = InputArr[0];
+                }
+                if (InputArr[i].length() <= minLength) {
+                    minLength = InputArr[i].length();
+                    minString = InputArr[i];
+                }
+                if (InputArr[i].length() >= maxLength) {
+                    maxLength = InputArr[i].length();
+                    maxString = InputArr[i];
+                }
+
+            }
+            System.out.println("MIN (" + minLength + "): " + minString);
+            System.out.println("MAX (" + maxLength + "): " + maxString);
+
+
+        }
+        else {
+            System.out.println("Не верно введено число строк");
+        }
+
     }
 }
