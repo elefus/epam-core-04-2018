@@ -45,10 +45,12 @@ public class Task2 {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-         int N = Integer.parseInt(scanner.nextLine());
+        int N = Integer.parseInt(scanner.nextLine());
         String[] InputArr = new String[N];
 
-        for (int i = 0; i < N; i++) InputArr[i] = String.valueOf(scanner.nextLine());
+        for (int i = 0; i < N; i++) {
+            InputArr[i] = String.valueOf(scanner.nextLine());
+        }
         Comparator<String> comparator = (o1,o2) -> o1.length() - o2.length();
 
 
