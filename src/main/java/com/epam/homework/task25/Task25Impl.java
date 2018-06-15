@@ -12,6 +12,10 @@ public class Task25Impl implements Task25 {
         Map<Character, Character> map = new HashMap<>();
         for (char c : string.toCharArray()) {
             switch (c) {
+                case '<':
+                    brackets.addFirst('<');
+                    map.put('>', '<');
+                    break;
                 case '(':
                     brackets.addFirst('(');
                     map.put(')', '(');
@@ -23,6 +27,11 @@ public class Task25Impl implements Task25 {
                 case '[':
                     brackets.addFirst('[');
                     map.put(']', '[');
+                    break;
+                case '>':
+                    if (brackets.poll() != map.get('>')){
+                        return false;
+                    }
                     break;
                 case ')':
                     if (brackets.poll() != map.get(')')){
