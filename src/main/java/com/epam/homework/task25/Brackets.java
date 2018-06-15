@@ -18,9 +18,7 @@ public class Brackets implements Task25 {
                 continue;
             }
             if (closeBrackets.contains(symbol)){
-                if (!usedOpenBrackets.empty() && openBrackets.indexOf(usedOpenBrackets.peek()) == closeBrackets.indexOf(symbol)){
-                    usedOpenBrackets.pop();
-                } else {
+                if (usedOpenBrackets.empty() || openBrackets.indexOf(usedOpenBrackets.pop()) != closeBrackets.indexOf(symbol)){
                     return false;
                 }
             }
