@@ -34,9 +34,8 @@ public class Task1 {
             }
         }
 
-
-      System.out.println("MAX (" + maxLength + "): " + maxString);
-      System.out.println("MIN (" + minLength + "): " + minString);
+        System.out.println("MIN (" + minLength + "): " + minString);
+        System.out.println("MAX (" + maxLength + "): " + maxString);
 
     }
 }
