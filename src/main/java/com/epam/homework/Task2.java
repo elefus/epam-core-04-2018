@@ -1,7 +1,6 @@
 package com.epam.homework;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class Task2 {
@@ -49,10 +48,9 @@ public class Task2 {
         String[] InputArr = new String[N];
 
         for (int i = 0; i < N; i++) InputArr[i] = String.valueOf(scanner.nextLine());
-        Comparator<String> comparator = Comparator.comparingInt(String::length);
 
+        Arrays.sort( InputArr, Task2::compare );
 
-        Arrays.sort(InputArr, comparator);
         for(String current : InputArr){
             System.out.println("(" + current.length() + "): " + current);
 
@@ -60,5 +58,9 @@ public class Task2 {
     }
       //  foreach($current : $result) {
      //   System.out.println("(" + current.length() + "): " + current);
-
+      private static int compare(String s1, String s2) {
+          if (s1.length() == s2.length())
+              return s1.compareTo(s2);
+          return Integer.compare(s1.length(), s2.length());
+      }
 }
