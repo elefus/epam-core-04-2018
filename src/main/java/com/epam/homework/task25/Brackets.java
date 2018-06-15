@@ -1,8 +1,8 @@
 package com.epam.homework.task25;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class Brackets implements Task25 {
     @Override
@@ -10,21 +10,21 @@ public class Brackets implements Task25 {
         String[] strAr = string.split("");
         List<String> openBrackets = Arrays.asList("(", "{", "[", "<");
         List<String> closeBrackets = Arrays.asList(")", "}", "]", ">");
-        List<String> usedOpenBrackets = new ArrayList<>();
+        Stack<String> usedOpenBrackets = new Stack<>();
 
         for (String symbol : strAr) {
             if (openBrackets.contains(symbol)){
-                usedOpenBrackets.add(0, symbol);
+                usedOpenBrackets.push(symbol);
                 continue;
             }
             if (closeBrackets.contains(symbol)){
-                if (!usedOpenBrackets.isEmpty() && openBrackets.indexOf(usedOpenBrackets.get(0)) == closeBrackets.indexOf(symbol)){
-                    usedOpenBrackets.remove(0);
+                if (!usedOpenBrackets.empty() && openBrackets.indexOf(usedOpenBrackets.peek()) == closeBrackets.indexOf(symbol)){
+                    usedOpenBrackets.pop();
                 } else {
                     return false;
                 }
             }
         }
-        return usedOpenBrackets.isEmpty();
+        return usedOpenBrackets.empty();
     }
 }
