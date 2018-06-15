@@ -52,9 +52,6 @@ public class Task25Impl implements Task25 {
         }
         return brackets.isEmpty();
     }
-
-
-
 }
 
 
