@@ -56,8 +56,7 @@ public class Task2 {
 
         }
     }
-      //  foreach($current : $result) {
-     //   System.out.println("(" + current.length() + "): " + current);
+
       private static int compare(String s1, String s2) {
           if (s1.length() == s2.length())
               return s1.compareTo(s2);
