@@ -43,7 +43,7 @@ public class Task2 {
      * (33): В царстве вечернем зеленой весны.
      */
     public static void main(String[] args) {
-        // TODO реализация
+
         Scanner scanner = new Scanner(System.in);
          int N = Integer.parseInt(scanner.nextLine());
         String[] InputArr = new String[N];
@@ -52,7 +52,7 @@ public class Task2 {
         Comparator<String> comparator = (o1,o2) -> o1.length() - o2.length();
 
 
-        Arrays.sort(InputArr, comparator); // применяем сортировку
+        Arrays.sort(InputArr, comparator);
         for(String current : InputArr){
             System.out.println("(" + current.length() + "): " + current);
 
