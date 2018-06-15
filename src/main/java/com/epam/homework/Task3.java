@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task3 {
 
     /**
@@ -38,10 +40,21 @@ public class Task3 {
      */
     public static void main(String[] args) {
         // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int N = Integer.parseInt(scanner.nextLine());
+        String[] InputArr = new String[N];
+        int Summ = 0;
 
-        // TODO System.out.println("AVERAGE (" + averageLength + ")");
-        // TODO foreach($current : $result) {
-        // TODO     System.out.println("(" + current.length() + "): " + current);
-        // TODO }
+        for (int i = 0; i < N; i++) {
+            InputArr[i] = String.valueOf(scanner.nextLine());
+            Summ += InputArr[i].length();
+
+        }
+        int averageLength = Summ/N;
+
+        System.out.println("AVERAGE (" + averageLength + ")");
+        for(String current  : InputArr) {
+        if (current.length()<averageLength) System.out.println("(" + current.length() + "): " + current);
+        }
     }
 }
