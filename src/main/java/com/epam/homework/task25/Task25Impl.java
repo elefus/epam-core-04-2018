@@ -17,25 +17,24 @@ public class Task25Impl implements Task25 {
     public boolean isNormalBrackets(String string) {
 
         Deque<Character> brackets = new ArrayDeque<>();
-        char[] chars = string.toCharArray();
 
         char lastBracket = 0;
         for (int i = 0; i < string.length(); i++) {
 
-            switch (chars[i]) {
+            switch (string.charAt(i)) {
                 case '(':
                 case '[':
                 case '{':
                     if (lastBracket != 0) {
                         brackets.add(lastBracket);
                     }
-                    lastBracket = chars[i];
+                    lastBracket = string.charAt(i);
                     break;
 
                 case ')':
                 case ']':
                 case '}':
-                    if (lastBracket == getOpeningBracket(chars[i])) {
+                    if (lastBracket == getOpeningBracket(string.charAt(i))) {
                         lastBracket = brackets.isEmpty() ? 0 : brackets.pollLast();
                     } else {
                         return false;
