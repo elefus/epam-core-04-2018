@@ -12,7 +12,6 @@ public class Task25Impl implements Task25 {
         brackets.put('(', ')');
         brackets.put('{', '}');
         brackets.put('[', ']');
-        brackets.put('<', '>');
 
         for (int i = 0; i < string.length(); i++) {
                 if (brackets.containsKey(string.charAt(i))){
@@ -22,6 +21,8 @@ public class Task25Impl implements Task25 {
 
                 if(!bracketState.empty() && brackets.get(bracketState.peek()).equals(string.charAt(i))){
                     bracketState.pop();
+                } else if(bracketState.empty() && brackets.containsValue(string.charAt(i))){
+                    return false;
                 }
         }
         return bracketState.empty();
