@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task4 {
 
     /**
@@ -27,7 +29,35 @@ public class Task4 {
      */
     public static void main(String[] args) {
         // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int N = Integer.parseInt(scanner.nextLine());
+        String[] InputArr = new String[N];
+        for (int i = 0; i < N; i++) {
+            InputArr[i] = String.valueOf(scanner.next());
+        }
 
-        // TODO System.out.println(wordWithMinimalNumDiffLetters);
+        int uniqueChars = 0;
+        int mincount = countUniqueCharacters(InputArr[0]);
+        String wordWithMinimalNumDiffLetters = InputArr[0];
+
+
+       for (int i = 0; i < InputArr.length; i++) {
+            if(countUniqueCharacters(InputArr[i])< mincount) {
+                wordWithMinimalNumDiffLetters = InputArr[i];
+                mincount = countUniqueCharacters(InputArr[i]);
+            }
+        }
+        System.out.println(wordWithMinimalNumDiffLetters);
+        System.out.println(mincount);
+    }
+    public static int countUniqueCharacters(String s) {
+        char characters[] = s.toCharArray();
+        int countOfUniqueChars = s.length();
+        for (int i = 0; i < characters.length; i++) {
+            if (i != s.indexOf(characters[i])) {
+                countOfUniqueChars--;
+            }
+        }
+        return countOfUniqueChars;
     }
 }
