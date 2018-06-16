@@ -35,7 +35,6 @@ public class Task4 {
         for (int i = 0; i < N; i++) {
             InputArr[i] = String.valueOf(scanner.next());
         }
-
         int uniqueChars = 0;
         int mincount = countUniqueCharacters(InputArr[0]);
         String wordWithMinimalNumDiffLetters = InputArr[0];
