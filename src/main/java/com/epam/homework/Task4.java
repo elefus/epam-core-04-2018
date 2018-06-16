@@ -48,7 +48,6 @@ public class Task4 {
             }
         }
         System.out.println(wordWithMinimalNumDiffLetters);
-        System.out.println(mincount);
     }
     public static int countUniqueCharacters(String s) {
         char characters[] = s.toCharArray();
