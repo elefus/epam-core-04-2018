@@ -54,7 +54,7 @@ public class Task25Impl implements Task25 {
             case '}':
                 return '{';
             default:
-                throw new IllegalArgumentException("Argument is not a bracket");
+                throw new IllegalArgumentException("Argument is not a closing bracket");
         }
     }
 }
