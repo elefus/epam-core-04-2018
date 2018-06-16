@@ -15,18 +15,14 @@ public class Task25Impl implements Task25 {
         brackets.put('<', '>');
 
         for (int i = 0; i < string.length(); i++) {
-            if (brackets.containsKey(string.charAt(i))) {
-                bracketState.push(string.charAt(i));
-                continue;
-            }
+                if (brackets.containsKey(string.charAt(i))){
+                    bracketState.push(string.charAt(i));
+                    continue;
+                }
 
-            if (brackets.containsValue(string.charAt(i)) && !bracketState.empty()) {
-                if (brackets.get(bracketState.peek()).equals(string.charAt(i))) {
+                if(!bracketState.empty() && brackets.get(bracketState.peek()).equals(string.charAt(i))){
                     bracketState.pop();
                 }
-            } else {
-                return false;
-            }
         }
         return bracketState.empty();
     }
