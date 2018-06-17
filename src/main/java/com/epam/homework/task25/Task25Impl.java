@@ -19,11 +19,20 @@ public class Task25Impl implements Task25 {
 
         Deque<Character> deque = new ArrayDeque<>();
 
-        for (char ch: string.toCharArray()){
-            if (ch == '{' || ch == '[' || ch == '('){
-                deque.add(ch);
-                continue;
+        INNER: for (char ch: string.toCharArray()){
+
+            switch (ch){
+                case '{':
+                    deque.add('}');
+                    continue INNER;
+                case '[':
+                    deque.add(']');
+                    continue INNER;
+                case '(':
+                    deque.add(')');
+                    continue INNER;
             }
+            
             if (!deque.isEmpty()){
                 if (deque.getLast() == ch){
                     deque.removeLast();
