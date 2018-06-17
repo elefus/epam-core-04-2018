@@ -1,7 +1,6 @@
 package com.epam.homework.task25;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
 
 public class Task25Impl implements Task25 {
@@ -18,24 +17,24 @@ public class Task25Impl implements Task25 {
     public boolean isNormalBrackets(String string) {
 
         Deque<Character> deque = new ArrayDeque<>();
+        
+        Set<Character> set1 = new HashSet<>(Arrays.asList('(','{','['));
+        Set<Character> set2 = new HashSet<>(Arrays.asList(')','}',']'));
 
-        INNER:
+        Map<Character, Character> map = new HashMap<>();
+        map.put('{','}');
+        map.put('[',']');
+        map.put('(',')');
+
+
         for (char ch : string.toCharArray()) {
 
-            switch (ch) {
-                case '{':
-                    deque.add('}');
-                    continue INNER;
-                case '[':
-                    deque.add(']');
-                    continue INNER;
-                case '(':
-                    deque.add(')');
-                    continue INNER;
+            if (set1.contains(ch)){
+                deque.add(map.get(ch));
+                continue;
             }
 
-
-            if (ch == '}' || ch == ')' || ch == ']') {
+            if (set2.contains(ch)) {
                 if (!deque.isEmpty() && deque.getLast() == ch) {
                     deque.removeLast();
                 } else {
