@@ -13,6 +13,9 @@ public class Task25class implements Task25 {
         List<Character> brackets = new ArrayList<>();
         for (int i = 0; i<string.length(); i++) {
             if (string.charAt(i) == ')' || string.charAt(i) == '}' || string.charAt(i) == ']') {
+                if (brackets.isEmpty()) {
+                    return false;
+                }
                 if (bracketsMap.get(string.charAt(i)) == brackets.get(brackets.size()-1)) {
                     brackets.remove(brackets.size()-1);
                 }
