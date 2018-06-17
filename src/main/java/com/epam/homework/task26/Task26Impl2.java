@@ -178,10 +178,11 @@ public class Task26Impl2 implements Task26 {
         TreeSet<I2DPoint> values = new TreeSet<>((o1, o2) -> (int) (o1.getX() - o2.getX() == 0 ?
                 o1.getY() - o2.getY() : o1.getX() - o2.getX()));
 
-        values.addAll((Collection<? extends I2DPoint>) map.values());
-
+        for (Set<I2DPoint> set : map.values()){
+            values.addAll(set);
+        }
 //        Находим наименьшее значение в мапе, отсортированное по X
-        I2DPoint point = values.first();
+            I2DPoint point = values.first();
 
         Set<I2DPoint> result = new TreeSet<>();
 
