@@ -19,9 +19,10 @@ public class Task25Impl implements Task25 {
 
         Deque<Character> deque = new ArrayDeque<>();
 
-        INNER: for (char ch: string.toCharArray()){
+        INNER:
+        for (char ch : string.toCharArray()) {
 
-            switch (ch){
+            switch (ch) {
                 case '{':
                     deque.add('}');
                     continue INNER;
@@ -32,10 +33,13 @@ public class Task25Impl implements Task25 {
                     deque.add(')');
                     continue INNER;
             }
-            
-            if (!deque.isEmpty()){
-                if (deque.getLast() == ch){
+
+
+            if (ch == '}' || ch == ')' || ch == ']') {
+                if (!deque.isEmpty() && deque.getLast() == ch) {
                     deque.removeLast();
+                } else {
+                    return false;
                 }
             }
         }
