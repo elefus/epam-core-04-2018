@@ -18,6 +18,8 @@ public class Task25Impl implements Task25 {
                     } else {
                         stack.add(ch);
                     }
+                } else {
+                    stack.add(ch);
                 }
             }
         }
