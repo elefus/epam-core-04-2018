@@ -20,13 +20,18 @@ public class Task26Impl implements Task26 {
         for (int i = 0; i < segmentsList.size(); i++) {
             for (int j = i + 1; j < segmentsList.size(); j++) {
 
+
             }
         }
         return null;
     }
 
     public static void main(String[] args) {
-
+        Task26.I2DPoint expectedPoint = new Point(4, 2);
+        Line line1 = Line.getLineFromSegment(new Segment(new Point(-2, -1), new Point(2, 1)));
+        Line line2 = Line.getLineFromSegment(new Segment(new Point(3, 3), new Point(1, 5)));
+        Task26.I2DPoint actualPoint = line1.getIntersectionPoint(line2);
+        System.out.println(actualPoint);
     }
 }
 
@@ -42,6 +47,19 @@ class Matrix {
         columnsCount = data[0].length;
     }
 
+    public Matrix(Line line1, Line line2) {
+        data = new double[][]{
+                {line1.getA(), line1.getB()},
+                {line2.getA(), line2.getB()}
+        };
+        rowsCount = data.length;
+        columnsCount = data[0].length;
+    }
+
+    public double[][] getData() {
+        return data;
+    }
+
     public Matrix replaceColumn(int index, double[] newColumn) {
 
         double[][] newData = new double[rowsCount][columnsCount];
@@ -53,7 +71,7 @@ class Matrix {
         return new Matrix(newData);
     }
 
-    private static double getDeterminant(double[][] matrix) {
+    public static double getDeterminant(double[][] matrix) {
 
         if (matrix.length == 1) {
             return matrix[0][0];
@@ -110,23 +128,38 @@ class Matrix {
 }
 
 /**
- * Линия вида kx + y = b
+ * Линия вида Ax + By + C = 0
  */
 class Line {
 
-    private double k;
+    private double a;
     private double b;
+    private double c;
 
-    public Line(double k, double b) {
-        this.k = k;
+    public Line(double a, double b, double c) {
+        this.a = a;
         this.b = b;
+        this.c = c;
+    }
+
+    public double getA() {
+        return a;
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public double getC() {
+        return c;
     }
 
     @Override
     public String toString() {
         return "Line{" +
-                "k=" + k +
+                "a=" + a +
                 ", b=" + b +
+                ", c=" + c +
                 '}';
     }
 
@@ -135,43 +168,24 @@ class Line {
      */
     public static Line getLineFromSegment(Task26.ISegment segment) {
 
-        // Коэффициенты для уравнения прямой вида Ax + By + C = 0
-        double coeffA = segment.second().getY() - segment.first().getY();
-        double coeffB = segment.second().getX() - segment.first().getX();
-        double coeffC = segment.second().getX() * segment.first().getY() - segment.first().getX() * segment.second().getY();
+        double a = segment.first().getY() - segment.second().getY(); // y1 - y2
+        double b = segment.second().getX() - segment.first().getX(); // x2 - x1
+        double c = segment.first().getX() * segment.second().getY()
+                - segment.second().getX() * segment.first().getY(); // x1y2 - x2y1
 
-        // Коэффициенты для уравнения прямой вида y = kx + b
-        double k = coeffA / coeffB;
-        double b = coeffC / coeffB;
-
-        return new Line(k, b);
+        return new Line(a, b, c);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Line line = (Line) o;
-
-        if (Double.compare(line.k, k) != 0) return false;
-        return Double.compare(line.b, b) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        temp = Double.doubleToLongBits(k);
-        result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(b);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
-    }
-/*
     Task26.I2DPoint getIntersectionPoint(Line otherLine) {
 
-    }*/
+        double det = Matrix.getDeterminant(new Matrix(this, otherLine).getData());
+        double detX = Matrix.getDeterminant(new Matrix(this, otherLine).replaceColumn(0, new double[]{-c, -otherLine.getC()}).getData());
+        double detY = Matrix.getDeterminant(new Matrix(this, otherLine).replaceColumn(1, new double[]{-c, -otherLine.getC()}).getData());
+
+        Task26.I2DPoint point = new Point(detX / det, detY / det);
+
+        return point;
+    }
 }
 
 /**
@@ -226,6 +240,14 @@ class Point implements Task26.I2DPoint {
     public Point(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 
     @Override
