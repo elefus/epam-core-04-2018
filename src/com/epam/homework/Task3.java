@@ -52,7 +52,7 @@ public class Task3 {
 
         }
 
-        int avgr = Math.round(sum/count);
+        int avgr = (int)Math.floor(sum/count);
 
         System.out.println("AVERAGE ("+ avgr +")");
         for (int i = 0; i < count; i++){
