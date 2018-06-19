@@ -22,7 +22,7 @@ public class Task28Impl implements Task28 {
                 Car carTwo = carList.get(j);
                 int timeTwo = raceDistance / carTwo.getSpeed();
                 int differenceBetweenCars =
-                        (raceDistance - Math.max(carOne.getSpeed(), carTwo.getSpeed()) * Math.min(timeOne, timeTwo));
+                        (raceDistance - Math.min(carOne.getSpeed(), carTwo.getSpeed()) * Math.min(timeOne, timeTwo));
                 overtaking += Math.abs(differenceBetweenCars / lengthLap);
 
                 if (carOne.getStartPosition() < carTwo.getStartPosition()) {
