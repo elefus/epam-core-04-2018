@@ -16,7 +16,7 @@ public class Task28Impl implements Task28 {
         ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         ArrayList<Car> listOfCar = new ArrayList<>(cars);
 
-        List<Callable<Integer>> tasks = new ArrayList<>();
+        List<Callable<Object>> tasks = new ArrayList<>();
 
         for (int i = 0; i < listOfCar.size(); i++) {
             for (int j = i; j < listOfCar.size(); j++) {
@@ -25,7 +25,7 @@ public class Task28Impl implements Task28 {
                 }
             }
         }
-        List<Future<Integer>> futures = new ArrayList<>();
+        List<Future<Object>> futures = new ArrayList<>();
         try {
             futures = service.invokeAll(tasks);
         } catch (InterruptedException e) {
@@ -35,7 +35,7 @@ public class Task28Impl implements Task28 {
         boolean isFinished;
         do{
             isFinished = true;
-            for (Future<Integer> future: futures) {
+            for (Future<Object> future: futures) {
                 if(!future.isDone()){
                     isFinished = false;
                 }
@@ -61,7 +61,7 @@ public class Task28Impl implements Task28 {
         }
 
         @Override
-        public Integer call() {
+        public Object call() {
             int numOfOvertakes = 0;
             if(A.getSpeed()>B.getSpeed()){
                 if (A.getStartPosition()>B.getStartPosition()){
@@ -74,7 +74,7 @@ public class Task28Impl implements Task28 {
                 }
 
             }
-            return numOfOvertakes;
+            return new Object();
         }
 
     }
