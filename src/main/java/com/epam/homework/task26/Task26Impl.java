@@ -1,81 +1,79 @@
 package com.epam.homework.task26;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
+import java.util.*;
 
 public class Task26Impl implements Task26 {
+    private static double EPS = 0.00001;
+
+    TreeSet<I2DPoint> T = new TreeSet<>(new Point());
 
     @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
-        Set<I2DPoint> resultSet = new HashSet<>();
-        ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        ArrayList<ISegment> listOfSegments = new ArrayList<>(segments);
-        List<Callable<I2DPoint>> tasks = new ArrayList<>();
-        for (int i = 0; i < listOfSegments.size(); i++) {
-            for (int j = i; j < listOfSegments.size(); j++) {
-                if (i != j) {
-                    tasks.add(new Cross(listOfSegments.get(i), listOfSegments.get(j)));
-                }
-            }
+        Set<I2DPoint> result = new HashSet<>();
+        TreeSet<I2DPoint> Q = segmentsIntersections(segments);
+        while (!Q.isEmpty()) {
+            processPoint(Q.first());
         }
 
-        List<Future<I2DPoint>> futures = new ArrayList<>();
-        try {
-            futures = service.invokeAll(tasks);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        boolean isFinished;
-        do {
-            isFinished = true;
-            for (Future<I2DPoint> future : futures) {
-                if (!future.isDone()) {
-                    isFinished = false;
-                }
-            }
-        } while (!isFinished);
-
-        service.shutdown();
-        return null;
+        return result;
     }
+
+    private TreeSet<I2DPoint> segmentsIntersections(Set<ISegment> segments) {
+        TreeSet<I2DPoint> res = new TreeSet<>(new Point());
+        for (ISegment segment:segments) {
+            res.add(segment.first());
+            res.add(segment.second());
+        }
+        return res;
+    }
+
+    private I2DPoint processPoint(I2DPoint q) {
+        return new Point(0, 0);
+    }
+
 
     @AllArgsConstructor
-    private class Cross implements Callable {
-        private ISegment A;
-        private ISegment B;
+    @NoArgsConstructor
+    class Point implements Task26.I2DPoint, Comparator<I2DPoint>, Comparable<I2DPoint> {
+        private double x;
+        private double y;
 
         @Override
-        public I2DPoint call() throws Exception {
-
-            return new Point(0, 0);
+        public double getX() {
+            return x;
         }
-    }
-}
 
-@AllArgsConstructor
-@EqualsAndHashCode
-class Point implements Task26.I2DPoint {
-    private double x;
-    private double y;
+        @Override
+        public double getY() {
+            return y;
+        }
 
-    @Override
-    public double getX() {
-        return this.x;
-    }
+        @Override
+        public int compare(I2DPoint o1, I2DPoint o2) {
+            if (o1.getX() - o2.getY() < EPS && o1.getY() - o2.getY() < EPS) {
+                return 0;
+            }
+            if (o1.getX() - o2.getX() < EPS) {
+                if (o1.getY() > o2.getY()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            } else {
+                if (o1.getX() > o2.getX()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        }
 
-    @Override
-    public double getY() {
-        return this.y;
+        @Override
+        public int compareTo(I2DPoint o) {
+            return compare(this,o);
+        }
     }
 }
