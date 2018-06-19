@@ -1,5 +1,10 @@
 package com.epam.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
 public class Task8 {
 
     /**
@@ -27,7 +32,25 @@ public class Task8 {
      * Выходные данные:
      * 22
      */
-    public static void main(String[] args) {
-        // TODO реализация
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            int n = Integer.parseInt(br.readLine());
+            List<String> wordList = new ArrayList<>(Arrays.asList(br.readLine().split("\\s")).subList(0, n));
+            String result = "NOT FOUND";
+            boolean isPalindromeFound = false;
+            for (String word : wordList){
+                if (word.matches("[0-9]+")){
+                    if(word.equals(new StringBuilder(word).reverse().toString())){
+                        if(isPalindromeFound){
+                            result = word;
+                            break;
+                        }
+                        result = word;
+                        isPalindromeFound = true;
+                    }
+                }
+            }
+            System.out.println(result);
+        }
     }
 }
