@@ -82,10 +82,10 @@ public class Task20 {
         matrix[rowDest] = matrix[rowPosOfMin];
         matrix[rowPosOfMin] = tempRow;
 
-        for (int row = 0; row < matrix.length; row++) {
-            int tempCol = matrix[row][colDest];
-            matrix[row][colDest] = matrix[row][colPosOfMin];
-            matrix[row][colPosOfMin] = tempCol;
+        for (int[] row : matrix) {
+            int tempCol = row[colDest];
+            row[colDest] = row[colPosOfMin];
+            row[colPosOfMin] = tempCol;
         }
     }
 
