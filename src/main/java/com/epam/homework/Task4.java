@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Task4 {
 
@@ -37,13 +38,13 @@ public class Task4 {
             String fitWord = "";
             int minNumberOfUniqueChars = Integer.MAX_VALUE;
             for (String word : wordList) {
-                HashSet<Character> uniqueChars = new HashSet<>();
+                Set<Character> uniqueChars = new HashSet<>();
                 for(Character curChar : word.toCharArray()){
                     uniqueChars.add(curChar);
                 }
                 if(uniqueChars.size() < minNumberOfUniqueChars){
                     minNumberOfUniqueChars = uniqueChars.size();
-                    fitWord = word;
+                    fitWord = word; 
                 }
             }
             bw.write(fitWord);
