@@ -90,7 +90,7 @@ public class Task19 {
                     System.out.print(matrix[i][j] + " ");
                     exist = true;
                 }
-            }
+            } 
             if (exist) {
                 System.out.println();
             }
