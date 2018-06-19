@@ -79,14 +79,13 @@ public class Task20 {
 
     private static void replaceRowColOfDestToMin(int[][] matrix, int rowPosOfMin, int colPosOfMin, int rowDest, int colDest){
         int[] tempRow = matrix[rowDest];
-        int tempCol = 0;
         matrix[rowDest] = matrix[rowPosOfMin];
         matrix[rowPosOfMin] = tempRow;
 
-        for (int[] row : matrix) {
-            tempCol = row[colDest];
-            row[colDest] = row[colPosOfMin];
-            row[colPosOfMin] = tempCol;
+        for (int row = 0; row < matrix.length; row++) {
+            int tempCol = matrix[row][colDest];
+            matrix[row][colDest] = matrix[row][colPosOfMin];
+            matrix[row][colPosOfMin] = tempCol;
         }
     }
 
