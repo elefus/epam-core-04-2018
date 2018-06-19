@@ -9,13 +9,11 @@ public class Task28class implements Task28 {
      @Override
     public int getNumberOvertaking(Set<Car> cars, int lengthLap, int numberLaps) {
         int numberOvertaking = 0;
-        System.out.println(cars);
         List<MyCar> carsList = new ArrayList<>();
         for (Car car : cars) {
             carsList.add((MyCar) car);
         }
         Collections.sort(carsList);
-        System.out.println(carsList);
         for (int i = 0; i < carsList.size() - 1; i++) {
             for (int j = i + 1; j < carsList.size(); j++) {
                 numberOvertaking += pairNumberOvertaking(carsList.get(i), carsList.get(j), lengthLap, numberLaps);
@@ -25,7 +23,6 @@ public class Task28class implements Task28 {
     }
 
     public static int pairNumberOvertaking(Car car1, Car car2, int lengthLap, int numberLaps) {
-        System.out.println("вошел в пару: car1 = " + car1.getSpeed() + " car2 = " + car2.getSpeed());
         int pairNumberOvertaking = 0;
         double l1 = car1.getStartPosition() < car2.getStartPosition() ? 0.0000000001 : 0;
         double l2 = 0;
@@ -41,7 +38,6 @@ public class Task28class implements Task28 {
                 pairNumberOvertaking++;
             }
         }
-        System.out.println(pairNumberOvertaking);
         return pairNumberOvertaking;
     }
 
