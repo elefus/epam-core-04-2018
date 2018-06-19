@@ -30,6 +30,11 @@ public class Task28Impl implements Task28 {
                         overtaking += 1;
                     }
                 }
+                if (carOne.getStartPosition() > carTwo.getStartPosition()) {
+                    if (carTwo.getSpeed() < carOne.getSpeed()) {
+                        overtaking += 1;
+                    }
+                }
             }
         }
         return overtaking;
