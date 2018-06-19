@@ -92,7 +92,7 @@ public class Task20 {
         for (int i = 0; i<N; i++) {
 
             for (int j = 0; j<N; j++){
-                if (min > matrix[i][j]){
+                if (min  > matrix[i][j]){
                     min = matrix[i][j];
                     minColumn = j;
                     minRow = i;
