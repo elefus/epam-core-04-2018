@@ -175,7 +175,7 @@ class Line {
         double detX = Matrix.getDeterminant(matrixX.getData());
         double detY = Matrix.getDeterminant(matrixY.getData());
 
-        return new Point(detX / det, detY / det);
+        return new Point(detX / det + 0, detY / det + 0);
     }
 }
 
