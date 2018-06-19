@@ -56,7 +56,7 @@ public class Task3 {
 
         System.out.println("AVERAGE ("+ avgr +")");
         for (int i = 0; i < count; i++){
-            if (array[i].length() <avgr ){
+            if  (array[i].length() <avgr ){
                 System.out.println("(" + array[i].length()+ "): " + array[i]);
             }
         }
