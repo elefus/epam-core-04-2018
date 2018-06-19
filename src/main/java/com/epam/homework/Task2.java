@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Task2 {
@@ -54,15 +56,12 @@ public class Task2 {
             arrayOfStrings[i] = in.nextLine();
         }
 
-        Arrays.sort(arrayOfStrings, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                if (o1.length() == o2.length()) {
-                    return o1.compareTo(o2);
-                }
-
-                return Integer.compare(o1.length(), o2.length());
+        Arrays.sort(arrayOfStrings, (o1, o2) -> {
+            if (o1.length() == o2.length()) {
+                return o1.compareTo(o2);
             }
+
+            return Integer.compare(o1.length(), o2.length());
         });
 
         for (String current : arrayOfStrings){
