@@ -47,9 +47,9 @@ public class Task14 {
                 if (cur > prev) {
                     curLength++;
                 } else {
-                    maxLength = Math.max(maxLength, curLength);
                     curLength = 0;
                 }
+                maxLength = Math.max(maxLength, curLength);
                 prev = cur;
             }
         }
