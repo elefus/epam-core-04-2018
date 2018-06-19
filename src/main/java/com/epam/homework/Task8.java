@@ -46,9 +46,9 @@ public class Task8 {
                                 result = word;
                                 break;
                             }
+                            result = word;
+                            isPalindromeFound = true;
                         }
-                        result = word;
-                        isPalindromeFound = true;
                     }
                 }
             }
