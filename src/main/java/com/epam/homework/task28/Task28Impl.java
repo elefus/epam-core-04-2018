@@ -49,10 +49,10 @@ public class Task28Impl implements Task28 {
     }
 
     private class Race implements Callable {
-        Car A;
-        Car B;
-        int lengthLap;
-        int numberLaps;
+        private Car A;
+        private Car B;
+        private int lengthLap;
+        private int numberLaps;
 
         Race(Car a, Car b, int lengthLap, int numberLaps) {
             A = a;
