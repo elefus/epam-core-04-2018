@@ -91,7 +91,6 @@ public class Task20 {
 
     private static void writeMatrix(int[][] matrix){
         System.out.println(matrix.length);
-        System.out.println(matrix[0].length);
 
         for (int[] row : matrix) {
             StringBuilder builder = new StringBuilder();
