@@ -48,6 +48,13 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -65,6 +72,11 @@
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
             <version>0.9.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.lostforstupid</groupId>
+            <artifactId>epam-core-04-2018</artifactId>
+            <version>2.0</version>
         </dependency>
     </dependencies>
 </project>
