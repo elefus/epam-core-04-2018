@@ -1,8 +1,6 @@
 package com.epam.homework;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Task19 {
 
@@ -40,60 +38,60 @@ public class Task19 {
      * -3  1
      */
 
-    private static Map<Integer, Integer> rowMap = new HashMap<>();
-    private static Map<Integer, Integer> colMap = new HashMap<>();
-    private static int countZeroRow;
-    private static int countZeroCol;
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int[][] matrix = readMatrixAndSearchZero(scanner);
-        int[][] newMatrix = removeZeroRowCol(matrix);
-        writeMatrix(newMatrix);
+        int[][] matrix = readMatrix(scanner);
+        Set<Integer> zeroRows = new HashSet<>();
+        Set<Integer> zeroColumns = new HashSet<>();
+        SearchZeroRowCol(matrix, zeroRows, zeroColumns);
+        matrix = removeZeroRowCol(matrix, zeroRows, zeroColumns);
+        writeMatrix(matrix);
     }
 
-    private static int[][] readMatrixAndSearchZero(Scanner scanner) {
+    private static int[][] readMatrix(Scanner scanner) {
         int dimension = scanner.nextInt();
         int[][] matrix = new int[dimension][dimension];
-
         for (int row = 0; row < dimension; row++) {
-            rowMap.put(row, 0);
             for (int col = 0; col < dimension; col++) {
                 matrix[row][col] = scanner.nextInt();
-
-                if (row == 0){
-                    colMap.put(col, 0);
-                }
-                if (matrix[row][col] == 0) {
-                    rowMap.put(row, rowMap.get(row) + 1);
-                    colMap.put(col, colMap.get(col) + 1);
-                }
-                if (row == dimension - 1){
-                    countZeroCol = colMap.get(col) == dimension ? ++countZeroCol : countZeroCol;
-                }
             }
-            countZeroRow = rowMap.get(row) == dimension ? ++countZeroRow : countZeroRow;
         }
         return matrix;
     }
 
-    private static int[][] removeZeroRowCol(int[][] matrix){
-        int[][] newMatrix = new int[matrix.length - countZeroRow][matrix.length - countZeroCol];
-        int countRow = 0;
-        int countCol = 0;
-
+    private static void SearchZeroRowCol(int[][] matrix, Set<Integer> zeroRows, Set<Integer> zeroColumns) {
         for (int row = 0; row < matrix.length; row++) {
-            if (!(rowMap.get(row) == matrix.length)){
-                for (int col = 0; col < matrix.length; col++) {
-                    if (!(colMap.get(col) == matrix.length)){
-                        newMatrix[countRow][countCol++] = matrix[row][col];
-                    }
+            zeroRows.add(row);
+        }
+        for (int i = 0; i < matrix.length; i++) {
+            boolean isColZero = true;
+            for (int j = 0; j < matrix.length; j++) {
+                if (matrix[j][i] != 0) {
+                    isColZero = false;
+                    zeroRows.remove(j);
                 }
-                countRow++;
-                countCol = 0;
+            }
+            if (isColZero) {
+                zeroColumns.add(i);
             }
         }
-        return newMatrix;
+    }
+
+    private static int[][] removeZeroRowCol(int[][] matrix, Set<Integer> zeroRows, Set<Integer> zeroColumns) {
+        int[][] resultMatrix = new int[matrix.length - zeroRows.size()][matrix.length - zeroColumns.size()];
+        int row = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            int col = 0;
+            if (!zeroRows.contains(i)) {
+                for (int j = 0; j < matrix.length; j++) {
+                    if (!zeroColumns.contains(j)) {
+                        resultMatrix[row][col++] = matrix[i][j];
+                    }
+                }
+                row++;
+            }
+        }
+        return resultMatrix;
     }
 
     private static void writeMatrix(int[][] matrix){
