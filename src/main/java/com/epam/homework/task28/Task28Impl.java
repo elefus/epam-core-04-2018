@@ -1,41 +1,53 @@
 package com.epam.homework.task28;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class Task28Impl implements Task28 {
-    private int numOfOvertakes = 0;
-
-    synchronized private void increaseNumOfOvertakes() {
-        numOfOvertakes++;
+    private int numberOfOvertaking;
+    synchronized private void increaseNumberOfOvertaking(){
+        numberOfOvertaking++;
     }
 
     @Override
     public int getNumberOvertaking(Set<Car> cars, int lengthLap, int numberLaps) {
-        numOfOvertakes = 0;
         ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         ArrayList<Car> listOfCar = new ArrayList<>(cars);
+
+        List<Callable<Integer>> tasks = new ArrayList<>();
+
         for (int i = 0; i < listOfCar.size(); i++) {
             for (int j = i; j < listOfCar.size(); j++) {
                 if (i != j) {
-                    service.submit(new Race(listOfCar.get(i), listOfCar.get(j), lengthLap, numberLaps));
+                    tasks.add(new Race(listOfCar.get(i), listOfCar.get(j), lengthLap, numberLaps));
                 }
             }
         }
-        service.shutdown();
-        if (!service.isTerminated()){
-            try {
-                wait(1000L);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        List<Future<Integer>> futures = new ArrayList<>();
+        try {
+            futures = service.invokeAll(tasks);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        return numOfOvertakes;
+
+        boolean isFinished;
+        do{
+            isFinished = true;
+            for (Future<Integer> future: futures) {
+                if(!future.isDone()){
+                    isFinished = false;
+                }
+            }
+        }while (!isFinished);
+
+        service.shutdown();
+
+        return numberOfOvertaking;
     }
 
-    private class Race implements Runnable {
+    private class Race implements Callable {
         Car A;
         Car B;
         int lengthLap;
@@ -49,18 +61,20 @@ public class Task28Impl implements Task28 {
         }
 
         @Override
-        public void run() {
+        public Integer call() {
+            int numOfOvertakes = 0;
             if(A.getSpeed()>B.getSpeed()){
                 if (A.getStartPosition()>B.getStartPosition()){
-                    increaseNumOfOvertakes();
+                    increaseNumberOfOvertaking();
                 }
-                
+
             }else {
                 if (B.getStartPosition()>A.getStartPosition()){
-                    increaseNumOfOvertakes();
+                    increaseNumberOfOvertaking();
                 }
 
             }
+            return numOfOvertakes;
         }
 
     }
