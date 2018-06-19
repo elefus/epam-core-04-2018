@@ -11,7 +11,7 @@ public class Task27Imlp implements Task27 {
 
         private int[][] matrix;
 
-        private Graph(int numberNodes) {
+        public Graph(int numberNodes) {
             super(numberNodes);
             matrix = new int[NUMBER_NODES][NUMBER_NODES];
 
@@ -20,6 +20,7 @@ public class Task27Imlp implements Task27 {
         @Override
         public void addEdge(int first, int second) {
             matrix[first][second] = 1;
+            matrix[second][first] = 1;
 
         }
 
