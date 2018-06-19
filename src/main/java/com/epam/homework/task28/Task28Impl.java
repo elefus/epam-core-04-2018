@@ -7,7 +7,8 @@ import java.util.concurrent.*;
 
 public class Task28Impl implements Task28 {
     private int numberOfOvertaking;
-    synchronized private void increaseNumberOfOvertaking(){
+
+    synchronized private void increaseNumberOfOvertaking() {
         numberOfOvertaking++;
     }
 
@@ -33,14 +34,14 @@ public class Task28Impl implements Task28 {
         }
 
         boolean isFinished;
-        do{
+        do {
             isFinished = true;
-            for (Future<Object> future: futures) {
-                if(!future.isDone()){
+            for (Future<Object> future : futures) {
+                if (!future.isDone()) {
                     isFinished = false;
                 }
             }
-        }while (!isFinished);
+        } while (!isFinished);
 
         service.shutdown();
 
@@ -62,17 +63,27 @@ public class Task28Impl implements Task28 {
 
         @Override
         public Object call() {
-            int numOfOvertakes = 0;
-            if(A.getSpeed()>B.getSpeed()){
-                if (A.getStartPosition()>B.getStartPosition()){
+            int distance = lengthLap*numberLaps;
+
+            if (A.getSpeed() > B.getSpeed()) {
+                if (A.getStartPosition() > B.getStartPosition()) {
                     increaseNumberOfOvertaking();
                 }
 
-            }else {
-                if (B.getStartPosition()>A.getStartPosition()){
+                if(((distance / A.getSpeed())/(distance / B.getSpeed()))>0){
+                    for (int i = 0; i < ((distance / A.getSpeed())/(distance / B.getSpeed())); i++) {
+                        increaseNumberOfOvertaking();
+                    }
+                }
+            } else {
+                if (B.getStartPosition() > A.getStartPosition()) {
                     increaseNumberOfOvertaking();
                 }
-
+                if(((distance / B.getSpeed())/(distance / A.getSpeed()))>0){
+                    for (int i = 0; i < ((distance / B.getSpeed())/(distance / A.getSpeed())); i++) {
+                        increaseNumberOfOvertaking();
+                    }
+                }
             }
             return new Object();
         }
