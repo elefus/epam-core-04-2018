@@ -33,7 +33,7 @@ public class Task7 {
     public static void main(String[] args) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             int n = Integer.parseInt(br.readLine());
-            Set<String> wordSet = new LinkedHashSet<>(Arrays.asList(br.readLine().split("\\s")).subList(0, n));
+            Set<String> wordSet = new LinkedHashSet<>(Arrays.asList(br.readLine().toLowerCase().split("\\s")).subList(0, n));
             StringBuilder result = new StringBuilder();
             label:
             for (String word : wordSet) {
