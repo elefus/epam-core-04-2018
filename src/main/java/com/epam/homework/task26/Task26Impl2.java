@@ -41,7 +41,7 @@ public class Task26Impl2 implements Task26 {
             y2 = new BigDecimal(y2).setScale(8, RoundingMode.HALF_UP).doubleValue();
 
 //            Переходим ко второму сегменту и производим все вычисления.
-            for (int j = i + 1; j < segmentList.size() - 1; j++) {
+            for (int j = i + 1; j < segmentList.size(); j++) {
                 ISegment secondSegment = segmentList.get(j);
                 I2DPoint firstPointOfSecondSegment = secondSegment.first();
                 I2DPoint secondPointOfSecondSegment = secondSegment.second();
