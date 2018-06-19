@@ -20,7 +20,6 @@ public class Task27Imlp implements Task27 {
         @Override
         public void addEdge(int first, int second) {
             matrix[first][second] = 1;
-            matrix[second][first] = 1;
 
         }
 
