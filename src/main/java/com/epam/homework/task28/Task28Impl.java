@@ -63,27 +63,33 @@ public class Task28Impl implements Task28 {
 
         @Override
         public Object call() {
-            int distance = lengthLap*numberLaps;
+            int distance = lengthLap * numberLaps;
+            double timeA = distance / A.getSpeed();
+            double timeB = distance / B.getSpeed();
 
             if (A.getSpeed() > B.getSpeed()) {
                 if (A.getStartPosition() > B.getStartPosition()) {
                     increaseNumberOfOvertaking();
                 }
 
-                if(((distance / A.getSpeed())/(distance / B.getSpeed()))>0){
-                    for (int i = 0; i < ((distance / A.getSpeed())/(distance / B.getSpeed())); i++) {
+                int v = (int) (distance - B.getSpeed() * timeA) / lengthLap;
+                if (v > 0) {
+                    for (int i = 0; i < v; i++) {
                         increaseNumberOfOvertaking();
                     }
                 }
+
             } else {
                 if (B.getStartPosition() > A.getStartPosition()) {
                     increaseNumberOfOvertaking();
                 }
-                if(((distance / B.getSpeed())/(distance / A.getSpeed()))>0){
-                    for (int i = 0; i < ((distance / B.getSpeed())/(distance / A.getSpeed())); i++) {
+                int v = (int) (distance - A.getSpeed() * timeB) / lengthLap;
+                if (v > 0) {
+                    for (int i = 0; i < v; i++) {
                         increaseNumberOfOvertaking();
                     }
                 }
+
             }
             return new Object();
         }
