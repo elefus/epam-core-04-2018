@@ -31,14 +31,14 @@ public class Task5 {
 
             Scanner scanner = new Scanner(System.in);
             int N = Integer.parseInt(scanner.nextLine());
+            int countWordsWithSameNumVowelsAndConsonants = 0;
+        String[] InputArr = new String[N];
+        for (int i = 0; i < N; i++) {
+            InputArr[i] = scanner.next();
             int vowels = 0;
             int consonants = 0;
-            int countWordsWithSameNumVowelsAndConsonants = 0;
-            String[] InputArr = new String[N];
-            for (int i = 0; i < N; i++) {
-                InputArr[i] = String.valueOf(scanner.next());
 
-                if (InputArr[i].matches("[a-zA-Z]+")) {
+            if (InputArr[i].matches("[a-zA-Z]+")) {
 
                     for (int j=0; j<InputArr[i].length(); j++) {
                        if ("AEIOUYaeiouy".indexOf(InputArr[i].charAt(j)) != -1) vowels++;
