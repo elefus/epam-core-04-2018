@@ -59,9 +59,8 @@ public class Task26Impl implements Task26 {
                     .stream()
                     .map(Task26Impl::getLine)
                     .collect(Collectors.toSet()));
-            double min = result.stream().mapToInt(item -> item.getY()).min();
-            result.stream().filter(item -> item.getX() == min);
-            return result;
+            double min = result.stream().mapToDouble(item -> item.getX()).min().orElse(Double.MAX_VALUE);
+            return result.stream().filter(item -> Math.abs(item.getX() - min) <= 0.000001).collect(Collectors.toSet());
         }
         return null;
     }
@@ -114,16 +113,17 @@ public class Task26Impl implements Task26 {
     }
 
     private static I2DPoint getLineCrossingPoint(Line l1, Line l2) {
-        double x = (l2.getB() - l1.getB()) / (l2.getK() - l1.getK());
-        double y = (l1.getK() * l2.getB() - l2.getK() * l1.getB()) / (l2.getK() - l1.getK());
-        return new I2DPointImpl(x, y);
+        double x = (l2.getB() - l1.getB()) / (l1.getK() - l2.getK());
+        double y = (l1.getK() * l2.getB() - l2.getK() * l1.getB()) / (l1.getK() - l2.getK());
+        return new Point(x, y);
     }
 
-    static class ISegmentImpl implements ISegment {
+
+    static class SegmentImpl implements ISegment {
         private final I2DPoint first;
         private final I2DPoint second;
 
-        public ISegmentImpl(I2DPoint first, I2DPoint second) {
+        public SegmentImpl(I2DPoint first, I2DPoint second) {
             this.first = first;
             this.second = second;
         }
@@ -138,21 +138,27 @@ public class Task26Impl implements Task26 {
             return second;
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            SegmentImpl segment = (SegmentImpl) o;
+            return Objects.equals(first, segment.first) &&
+                    Objects.equals(second, segment.second);
+        }
 
         @Override
-        public String toString() {
-            return "{" +
-                    "first=" + first +
-                    ", second=" + second +
-                    '}';
+        public int hashCode() {
+
+            return Objects.hash(first, second);
         }
     }
 
-    static class I2DPointImpl implements I2DPoint {
+    static class Point implements I2DPoint {
         private final double x;
         private final double y;
 
-        public I2DPointImpl(double x, double y) {
+        public Point(double x, double y) {
             this.x = x;
             this.y = y;
         }
@@ -165,6 +171,21 @@ public class Task26Impl implements Task26 {
         @Override
         public double getY() {
             return y;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Point point = (Point) o;
+            return Double.compare(point.x, x) == 0 &&
+                    Double.compare(point.y, y) == 0;
+        }
+
+        @Override
+        public int hashCode() {
+
+            return Objects.hash(x, y);
         }
 
         @Override
@@ -191,13 +212,12 @@ public class Task26Impl implements Task26 {
 
     public static void main(String[] args) {
         Set<ISegment> segmentSet = new HashSet<>();
-        segmentSet.add(new ISegmentImpl(new I2DPointImpl(0, 0), new I2DPointImpl(1, 1)));
-        segmentSet.add(new ISegmentImpl(new I2DPointImpl(0, 0), new I2DPointImpl(3, 3)));
-        segmentSet.add(new ISegmentImpl(new I2DPointImpl(0, 3), new I2DPointImpl(3, 0)));
-        segmentSet.add(new ISegmentImpl(new I2DPointImpl(-1, -2), new I2DPointImpl(2, 2)));
-        segmentSet.add(new ISegmentImpl(new I2DPointImpl(4, 3), new I2DPointImpl(11, 9)));
-        segmentSet.add(new ISegmentImpl(new I2DPointImpl(2, 3), new I2DPointImpl(11, 9)));
-        segmentSet.add(new ISegmentImpl(new I2DPointImpl(100, 1), new I2DPointImpl(105, 4)));
+        segmentSet.add(new SegmentImpl(new Point(0, 0), new Point(3, 3)));
+        segmentSet.add(new SegmentImpl(new Point(0, 3), new Point(3, 0)));
+        segmentSet.add(new SegmentImpl(new Point(-1, -2), new Point(2, 2)));
+        segmentSet.add(new SegmentImpl(new Point(4, 3), new Point(11, 9)));
+        segmentSet.add(new SegmentImpl(new Point(2, 3), new Point(11, 9)));
+        segmentSet.add(new SegmentImpl(new Point(100, 1), new Point(105, 4)));
         new Task26Impl().analyze(segmentSet);
     }
 }
