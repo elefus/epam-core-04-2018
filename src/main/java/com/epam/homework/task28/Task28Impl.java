@@ -37,7 +37,7 @@ public class Task28Impl implements Task28 {
                 }
 
                 // Время, в течение которого возможен обгон между парой машин
-                double time = fastCar.getTime(raceTrackLength);
+                int time = fastCar.getTime(raceTrackLength);
 
                 // Количество обгонов между парой машин без учёта начальных положений
                 overtakingCount += (raceTrackLength - slowCar.getDistance(time)) / lengthLap;
@@ -94,11 +94,11 @@ public class Task28Impl implements Task28 {
             return speed;
         }
 
-        public double getTime(double distance) {
+        public int getTime(int distance) {
             return distance / speed;
         }
 
-        public double getDistance(double time) {
+        public int getDistance(int time) {
             return time * speed;
         }
     }
