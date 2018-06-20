@@ -45,7 +45,7 @@ public class Task28class implements Task28 {
         int fastestTime = lengthLap * numberLaps / car1.getSpeed();
         int difference = lengthLap * numberLaps - car2.getSpeed() * fastestTime;
         pairNumberOvertaking += Math.abs(difference / lengthLap);
-         if ((car1.getStartPosition() > car2.getStartPosition())) {
+         if ((car1.getStartPosition() > car2.getStartPosition()) && (car2.getSpeed() < car1.getSpeed())) {
              pairNumberOvertaking += 1;
          }
         return pairNumberOvertaking;
