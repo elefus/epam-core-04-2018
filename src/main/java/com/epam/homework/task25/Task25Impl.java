@@ -17,19 +17,19 @@ public class Task25Impl implements Task25 {
                     brackets.push(character);
                     break;
                 case ')':
-                    if (!(brackets.peek() == '(')) {
+                    if (brackets.empty() || !(brackets.peek() == '(')) {
                         return false;
                     }
                     brackets.pop();
                     break;
                 case '}':
-                    if (!(brackets.peek() == '{')) {
+                    if (brackets.empty() || !(brackets.peek() == '{')) {
                         return false;
                     }
                     brackets.pop();
                     break;
                 case ']':
-                    if (!(brackets.peek() == '[')) {
+                    if (brackets.empty() || !(brackets.peek() == '[')) {
                         return false;
                     }
                     brackets.pop();
