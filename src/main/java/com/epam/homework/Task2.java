@@ -1,5 +1,7 @@
 package com.epam.homework;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Task2 {
@@ -42,12 +44,9 @@ public class Task2 {
      */
 
     public static void main(String[] args) {
-        int N;
         Scanner in = new Scanner(System.in);
-
-        N = in.nextInt();
-        in.nextLine();
-        
+        int N = in.nextInt();
+        in.nextLine();        
         String[] arrayOfStrings = new String[N];
 
         for (int i = 0; i < N; i++) {
