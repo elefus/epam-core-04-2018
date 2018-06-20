@@ -18,16 +18,23 @@ class Graph extends Task27.AbstractGraph {
 
     @Override
     public void addEdge(int first, int second) {
-        edgesMatrix[first][second] = 1;
+        if (first >=0 && first <= NUMBER_NODES && second >= 0 && second <= NUMBER_NODES) {
+            edgesMatrix[first][second] = 1;
+            edgesMatrix[second][first] = 1;
+        }
     }
 
     @Override
     public void removeEdge(int first, int second) {
-        edgesMatrix[first][second] = 0;
+        if (first >=0 && first <= NUMBER_NODES && second >= 0 && second <= NUMBER_NODES) {
+            edgesMatrix[first][second] = 0;
+            edgesMatrix[second][first] = 0;
+        }
     }
 
     @Override
     public boolean isEdgeExists(int first, int second) {
-        return edgesMatrix[first][second] == 1;
+        return (first >= 0 && first <= NUMBER_NODES && second >= 0 && second <= NUMBER_NODES)
+                && edgesMatrix[first][second] == 1;
     }
 }
