@@ -4,14 +4,14 @@ public class Task27Impl implements Task27{
 
     @Override
     public AbstractGraph createGraph(int numberNodes) {
-        return null;
+        return new AbstractGraphImpl(numberNodes);
     }
 
-    public class AbstractGrapImpl extends AbstractGraph {
+    public class AbstractGraphImpl extends AbstractGraph {
 
         boolean[][] matrix;
 
-        public AbstractGrapImpl(int numberNodes) {
+        public AbstractGraphImpl(int numberNodes) {
             super(numberNodes);
             matrix = new boolean[numberNodes][numberNodes];
         }
@@ -34,4 +34,7 @@ public class Task27Impl implements Task27{
         }
     }
 
+    public static void main(String[] args) {
+
+    }
 }
