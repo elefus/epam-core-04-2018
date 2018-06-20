@@ -1,7 +1,6 @@
 package com.epam.homework.task27;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public class Task27Impl implements Task27 {
@@ -22,17 +21,26 @@ class Graph extends Task27.AbstractGraph {
     @Override
     public void addEdge(int first, int second) {
         edges.add(new Edge(first, second));
-        edges.add(new Edge(second, first));
     }
 
     @Override
     public void removeEdge(int first, int second) {
-        edges.remove(new Edge(first, second));
+        for (Edge edge : edges) {
+            if ((edge.first == first && edge.second == second) || (edge.second == first && edge.first == second)) {
+                edges.remove(edge);
+            }
+        }
     }
 
     @Override
     public boolean isEdgeExists(int first, int second) {
-        return (edges.contains(new Edge(first, second)));
+        for (Edge edge : edges) {
+            if ((edge.first == first && edge.second == second) || (edge.second == first && edge.first == second)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     class Edge {
@@ -42,28 +50,6 @@ class Graph extends Task27.AbstractGraph {
         Edge(int first, int second) {
             this.first = first;
             this.second = second;
-        }
-
-        int getFirst() {
-            return first;
-        }
-
-        int getSecond() {
-            return second;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Edge edge = (Edge) o;
-            return first == edge.first &&
-                    second == edge.second;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(first, second);
         }
     }
 }
