@@ -55,10 +55,12 @@ public class Task6 {
                 for (int j = 0; j < inLowerCase.length() - 1; j++) {
                     if (inLowerCase.charAt(j) >= inLowerCase.charAt(j + 1)) {
                         isAscendingOrder = false;
+                        break;
                     }
                 }
                 if (isAscendingOrder) {
                     result = currentWord;
+                    break;
                 }
             }
         }
