@@ -8,33 +8,33 @@ import java.util.*;
 
 public class Task26class implements Task26 {
 
-
      @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
-        List<I2DPoint> intersections = new ArrayList<>();
+        TreeMap<Double, Set<I2DPoint>> intersections = new TreeMap<>();
         List<Segment> segmentsList = new ArrayList<>(segments.size());
         for (ISegment segment : segments) {
             segmentsList.add(new Segment(segment.first(), segment.second()));
         }
         for (int i = 0; i < segmentsList.size() - 1; i++) {
-            for (int j = i+1; j < segmentsList.size(); j++) {
-                Point inter = xPoint(segmentsList.get(i), segmentsList.get(j));
+            for (int j = i + 1; j < segmentsList.size(); j++) {
+                I2DPoint inter = xPoint(segmentsList.get(i), segmentsList.get(j));
                 if (inter != null) {
-                    if (intersections.isEmpty() || inter.getX() == intersections.get(intersections.size() - 1).getX()) {
-                        intersections.add(inter);
-                    } else {
-                        if (inter.getX() < intersections.get(intersections.size() - 1).getX()) {
-                            intersections.clear();
-                            intersections.add(inter);
-                        }
+                    Set<I2DPoint> newInter = new HashSet<>();
+                    newInter.add(inter);
+                    if (intersections.containsKey(inter.getX())) {
+                        newInter.addAll(intersections.get(inter.getX()));
                     }
+                    intersections.put(inter.getX(), newInter);
                 }
             }
         }
-        return new HashSet<>(intersections);
-    }
 
-    public static Point xPoint(Segment segment1, Segment segment2) {
+         return intersections.firstEntry().getValue();
+        }
+
+
+
+    public static I2DPoint xPoint(Segment segment1, Segment segment2) {
         boolean xDefinated = false;
         boolean yDefinated = false;
         double xX = 0;
