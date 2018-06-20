@@ -61,8 +61,8 @@ public class Task26Impl implements Task26 {
                 break;
             }
 
-            nextStepSegments.removeAll(nextStepSegments.stream().filter(item -> doubleGt(item.second().getX(), entry.getKey())).collect(Collectors.toList()));
-            nextStepSegments.addAll(entry.getValue().stream().filter(item -> doubleLt(item.first().getX(), entry.getKey())).collect(Collectors.toList()));
+            nextStepSegments.removeAll(nextStepSegments.stream().filter(item -> item.second().getX() >= entry.getKey()).collect(Collectors.toList()));
+            nextStepSegments.addAll(entry.getValue().stream().filter(item -> item.first().getX() >= entry.getKey()).collect(Collectors.toList()));
 
             prevSegmentList = getSegmentsSortedByY(nextStepSegments, entry);
         }
@@ -82,20 +82,20 @@ public class Task26Impl implements Task26 {
 
     private static Set<I2DPoint> getMinI2DPoints(Set<I2DPoint> result) {
         double min = result.stream().mapToDouble(item -> item.getX()).min().orElse(Double.MAX_VALUE);
-        return result.stream().filter(item -> doubleEquals(item.getX(), min)).collect(Collectors.toSet());
+        return result.stream().filter(item -> item.getX() == min).collect(Collectors.toSet());
     }
 
-    private static boolean doubleEquals (double d1, double d2) {
-        return Math.abs(d1 - d2) <= 0.000001;
-    }
-
-    private static boolean doubleLt (double d1, double d2) {
-        return Math.abs(d1 - d2) <= 0.000001 || d1 < d2;
-    }
-
-    private static boolean doubleGt (double d1, double d2) {
-        return Math.abs(d1 - d2) <= 0.000001 || d1 > d2;
-    }
+//    private static boolean doubleEquals (double d1, double d2) {
+//        return Math.abs(d1 - d2) <= 0.000001;
+//    }
+//
+//    private static boolean doubleLt (double d1, double d2) {
+//        return Math.abs(d1 - d2) <= 0.000001 || d1 < d2;
+//    }
+//
+//    private static boolean doubleGt (double d1, double d2) {
+//        return Math.abs(d1 - d2) <= 0.000001 || d1 > d2;
+//    }
 
     private static Set<ISegment> getCrossingSegments(List<ISegment> prevSegmentList, List<ISegment> currentSegmentList) {
         Set<ISegment> crossSegments = new HashSet<>();
@@ -254,8 +254,8 @@ public class Task26Impl implements Task26 {
         segmentSet.add(new SegmentImpl(new Point(-4, -2), new Point(-2, 2)));
 //        segmentSet.add(new SegmentImpl(new Point(-1, -2), new Point(2, 2)));
 //        segmentSet.add(new SegmentImpl(new Point(-1, -2), new Point(-1, -2)));
-        segmentSet.add(new SegmentImpl(new Point(4, 3), new Point(11, 9)));
-        segmentSet.add(new SegmentImpl(new Point(2, 3), new Point(11, 9)));
+//        segmentSet.add(new SegmentImpl(new Point(4, 3), new Point(11, 9)));
+//        segmentSet.add(new SegmentImpl(new Point(2, 3), new Point(11, 9)));
         segmentSet.add(new SegmentImpl(new Point(100, 1), new Point(105, 4)));
         System.out.println(new Task26Impl().analyze(segmentSet));
     }
