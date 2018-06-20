@@ -137,19 +137,24 @@ public class Task26Impl implements Task26 {
 
     private static Set<I2DPoint> checkLineCrossingSet(Set<Line> lines) {
         Set<I2DPoint> i2DPoints = new HashSet<>();
-        lines.forEach(l1 -> lines.forEach(l2 ->  {
-            if (l1 != l2)
-                i2DPoints.add(getLineCrossingPoint(l1, l2));
-        }));
+        List<Line> lineList = new ArrayList<>(lines);
+        for (int i = 0; i < lineList.size(); i++) {
+            for (int j = i + 1; j < lineList.size(); j++) {
+                i2DPoints.add(getLineCrossingPoint(lineList.get(i), lineList.get(j)));
+            }
+        }
         return i2DPoints;
     }
 
-    private static I2DPoint getLineCrossingPoint(Line l1, Line l2) {
-        double x = (l2.getB() - l1.getB()) / (l1.getK() - l2.getK());
-        double y = (l1.getK() * l2.getB() - l2.getK() * l1.getB()) / (l1.getK() - l2.getK());
-        return new Point(x, y);
+    private static double doubleRound(double value) {
+        return (double)Math.round(value * 100000d) / 100000d;
     }
 
+    private static I2DPoint getLineCrossingPoint(Line l1, Line l2) {
+        double x = doubleRound((l2.getB() - l1.getB()) / (l1.getK() - l2.getK()));
+        double y = doubleRound((l1.getK() * l2.getB() - l2.getK() * l1.getB()) / (l1.getK() - l2.getK()));
+        return new Point(x, y);
+    }
 
     static class SegmentImpl implements ISegment {
         private final I2DPoint first;
@@ -244,11 +249,11 @@ public class Task26Impl implements Task26 {
 
     public static void main(String[] args) {
         Set<ISegment> segmentSet = new HashSet<>();
-        segmentSet.add(new SegmentImpl(new Point(0, 0), new Point(3, 3)));
-        segmentSet.add(new SegmentImpl(new Point(0, 3), new Point(3, 0)));
+//        segmentSet.add(new SegmentImpl(new Point(0, 0), new Point(3, 3)));
+//        segmentSet.add(new SegmentImpl(new Point(0, 3), new Point(3, 0)));
         segmentSet.add(new SegmentImpl(new Point(-4, -2), new Point(-2, 2)));
-        segmentSet.add(new SegmentImpl(new Point(-1, -2), new Point(2, 2)));
-        segmentSet.add(new SegmentImpl(new Point(-1, -2), new Point(-1, -2)));
+//        segmentSet.add(new SegmentImpl(new Point(-1, -2), new Point(2, 2)));
+//        segmentSet.add(new SegmentImpl(new Point(-1, -2), new Point(-1, -2)));
         segmentSet.add(new SegmentImpl(new Point(4, 3), new Point(11, 9)));
         segmentSet.add(new SegmentImpl(new Point(2, 3), new Point(11, 9)));
         segmentSet.add(new SegmentImpl(new Point(100, 1), new Point(105, 4)));
