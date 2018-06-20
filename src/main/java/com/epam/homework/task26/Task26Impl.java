@@ -25,7 +25,10 @@ public class Task26Impl implements Task26 {
             pointCounter.merge(item.first(), 1, (a, b) -> a + b);
             pointCounter.merge(item.second(), 1, (a, b) -> a + b);
         });
-        return pointCounter.entrySet().stream().filter(entry -> entry.getValue() > 1).map(entry -> entry.getKey()).collect(Collectors.toSet());
+        return pointCounter.entrySet()
+                .stream().filter(entry -> entry.getValue() > 1)
+                .map(entry -> entry.getKey())
+                .collect(Collectors.toSet());
     }
 
     private static TreeMap<Double, List<ISegment>> getStopPoints(Set<ISegment> segments) {
@@ -61,8 +64,12 @@ public class Task26Impl implements Task26 {
                 break;
             }
 
-            nextStepSegments.removeAll(nextStepSegments.stream().filter(item -> item.second().getX() >= entry.getKey()).collect(Collectors.toList()));
-            nextStepSegments.addAll(entry.getValue().stream().filter(item -> item.first().getX() >= entry.getKey()).collect(Collectors.toList()));
+            nextStepSegments.removeAll(nextStepSegments.stream()
+                    .filter(item -> item.second().getX() >= entry.getKey())
+                    .collect(Collectors.toList()));
+            nextStepSegments.addAll(entry.getValue().stream()
+                    .filter(item -> item.first().getX() >= entry.getKey())
+                    .collect(Collectors.toList()));
 
             prevSegmentList = getSegmentsSortedByY(nextStepSegments, entry);
         }
@@ -84,18 +91,6 @@ public class Task26Impl implements Task26 {
         double min = result.stream().mapToDouble(item -> item.getX()).min().orElse(Double.MAX_VALUE);
         return result.stream().filter(item -> item.getX() == min).collect(Collectors.toSet());
     }
-
-//    private static boolean doubleEquals (double d1, double d2) {
-//        return Math.abs(d1 - d2) <= 0.000001;
-//    }
-//
-//    private static boolean doubleLt (double d1, double d2) {
-//        return Math.abs(d1 - d2) <= 0.000001 || d1 < d2;
-//    }
-//
-//    private static boolean doubleGt (double d1, double d2) {
-//        return Math.abs(d1 - d2) <= 0.000001 || d1 > d2;
-//    }
 
     private static Set<ISegment> getCrossingSegments(List<ISegment> prevSegmentList, List<ISegment> currentSegmentList) {
         Set<ISegment> crossSegments = new HashSet<>();
