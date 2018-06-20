@@ -1,6 +1,7 @@
 package com.epam.homework.task27;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Task27Impl implements Task27 {
@@ -13,6 +14,7 @@ public class Task27Impl implements Task27 {
 class Graph extends Task27.AbstractGraph {
 
     private Set<Edge> edges = new HashSet<>();
+
     Graph(int numberNodes) {
         super(numberNodes);
     }
@@ -51,11 +53,17 @@ class Graph extends Task27.AbstractGraph {
         }
 
         @Override
-        public boolean equals(Object edge) {
-            if (!edge.getClass().isInstance(this)) {
-                return false;
-            }
-            return (this.first == ((Edge) edge).getFirst()) && (this.second == ((Edge) edge).getSecond());
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Edge edge = (Edge) o;
+            return first == edge.first &&
+                    second == edge.second;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(first, second);
         }
     }
 }
