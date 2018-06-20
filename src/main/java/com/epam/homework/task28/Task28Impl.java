@@ -27,9 +27,8 @@ public class Task28Impl implements Task28 {
                 CarImpl fastCar;
                 CarImpl slowCar;
 
-                // Сравнение времени, за которое i-я и j-я машины преодолеют свой путь
-                if ((raceTrackLength + carsList.get(i).getStartPosition()) / carsList.get(i).getSpeed() <=
-                        (raceTrackLength + carsList.get(j).getStartPosition()) / carsList.get(j).getSpeed()) {
+                // Выбор быстрой и медленной машины в паре
+                if (carsList.get(i).getSpeed() >= carsList.get(j).getSpeed()) {
                     fastCar = (CarImpl) carsList.get(i);
                     slowCar = (CarImpl) carsList.get(j);
                 } else {
