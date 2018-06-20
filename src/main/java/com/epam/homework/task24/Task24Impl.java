@@ -16,7 +16,7 @@ public class Task24Impl implements Task24 {
             if (!first.containsKey(key)) {
                 polynomialsAdditionResult.put(key, second.get(key));
             } else {
-                polynomialsAdditionResult.put(key, first.get(key));
+                polynomialsAdditionResult.put(key, second.get(key));
             }
         }
 
