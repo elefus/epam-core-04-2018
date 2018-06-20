@@ -2,6 +2,7 @@ package com.epam.homework.task26;
 
 import lombok.Getter;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -17,7 +18,6 @@ public class Task26Impl implements Task26 {
     });
 
     private Point firstIntersectionPoint = null;
-
 
     @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
@@ -68,6 +68,7 @@ public class Task26Impl implements Task26 {
             } else {
                 result = new HashSet<>();
                 Set<I2DPoint> sweepLineIntersectionPoints = new HashSet<>();
+                usingSegments.addAll(currentEventEntry.getValue());
                 for (ISegment segment : usingSegments) {
                     I2DPoint point = intersectionOfLines(segment, sweepLine).get();
                     if (!sweepLineIntersectionPoints.add(point)) {
@@ -150,8 +151,9 @@ public class Task26Impl implements Task26 {
         //put in result homogeneous coordinates of an intersection point of two lines passing through segment's
         Vector result = crossVector(firstLine, secondLine);
 
-        if (result.getZ() != 0.0) { //if lines are not parallel
-            return Optional.of(new Point(result.getX() / result.getZ(), result.getY() / result.getZ()));
+        if (!result.getZ().equals(BigDecimal.valueOf(0.0))) { //if lines are not parallel
+            return Optional.of(new Point(result.getX().divide(result.getZ(), 3, BigDecimal.ROUND_HALF_UP).doubleValue(),
+                                        result.getY().divide(result.getZ(), 3, BigDecimal.ROUND_HALF_UP).doubleValue()));
         } else { //lines are parallel
             return Optional.empty();
         }
@@ -159,21 +161,21 @@ public class Task26Impl implements Task26 {
 
     private static Vector crossVector(Vector firstVector, Vector secondVector) {
         return new Vector(
-                (firstVector.getY() * secondVector.getZ()) - (firstVector.getZ() * secondVector.getY()),
-                (firstVector.getZ() * secondVector.getX()) - (firstVector.getX() * secondVector.getZ()),
-                (firstVector.getX() * secondVector.getY()) - (firstVector.getY() * secondVector.getX()));
+                ((firstVector.getY().multiply(secondVector.getZ())).subtract((firstVector.getZ().multiply(secondVector.getY())))).doubleValue(),
+                ((firstVector.getZ().multiply(secondVector.getX())).subtract((firstVector.getX().multiply(secondVector.getZ())))).doubleValue(),
+                ((firstVector.getX().multiply(secondVector.getY())).subtract((firstVector.getY().multiply(secondVector.getX())))).doubleValue());
     }
 
     @Getter
     private static class Vector {
-        private double x;
-        private double y;
-        private double z;
+        private BigDecimal x;
+        private BigDecimal y;
+        private BigDecimal z;
 
         Vector(double x, double y, double z) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
+            this.x = BigDecimal.valueOf(x);
+            this.y = BigDecimal.valueOf(y);
+            this.z = BigDecimal.valueOf(z);
         }
     }
 }
