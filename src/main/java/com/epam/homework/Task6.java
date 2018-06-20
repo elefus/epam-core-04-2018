@@ -41,6 +41,7 @@ public class Task6 {
         Scanner scanner = new Scanner(System.in);
             int N = Integer.parseInt(scanner.nextLine());
         String[] InputArr = new String[N];
+        boolean found = false;
             next:  for (int i = 0; i < N; i++) {
                     InputArr[i] = scanner.next().toLowerCase();
                     if (InputArr[i].length() == 1) continue next;
@@ -55,15 +56,13 @@ public class Task6 {
                                         }
                                 }
                             if (InputArr[i].length()-1 == counter) {
-                                    System.out.println(InputArr[i]);
-                                    break;
-                                }
-                                else {
-                                System.out.println("NOT FOUND");
+                                System.out.println(InputArr[i]);
+                                found = true;
                                 break;
-                            }
-                        }
-                }
+                                }
 
-               }
+                }
+            }
+            if (!found) System.out.println("NOT FOUND");
+    }
 }
