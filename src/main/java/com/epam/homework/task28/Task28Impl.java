@@ -21,8 +21,8 @@ public class Task28Impl implements Task28 {
                 double timeCar2 = raceLength / car1.getSpeed();
                 numOfOvertakes += (int) (raceLength - (Math.min(car1.getSpeed(), car2.getSpeed()) * (Math.min(timeCar1, timeCar2)))) / lengthLap;
 
-                if (car1.getStartPosition() < car2.getStartPosition() && car1.getSpeed() < car2.getSpeed()
-                        || car1.getStartPosition() > car2.getStartPosition() && car1.getSpeed() > car2.getSpeed()) {
+                if ((car1.getStartPosition() < car2.getStartPosition() && car1.getSpeed() < car2.getSpeed())
+                        || (car1.getStartPosition() > car2.getStartPosition() && car1.getSpeed() > car2.getSpeed())) {
                     numOfOvertakes++;
                 }
             }
