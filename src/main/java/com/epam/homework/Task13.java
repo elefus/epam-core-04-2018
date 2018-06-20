@@ -1,5 +1,9 @@
 package com.epam.homework;
 
+import com.kindet27.matrix.*;
+
+import java.util.Scanner;
+
 public class Task13 {
 
     /**
@@ -50,6 +54,14 @@ public class Task13 {
      * 0  -1   2
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        Matrix<Integer> matrix = new Matrix<>(scanner, Scanner::nextInt);
+        int cycleSize = scanner.nextInt();
+        int target = (0 + cycleSize) % matrix.getRows();
+        for (int i = 0; i < cycleSize - 1 ; i++) {
+           matrix.swapTwoRows(0, target);
+           target = (target + cycleSize) % matrix.getRows();
+        }
+        matrix.matrixSout();
     }
 }
