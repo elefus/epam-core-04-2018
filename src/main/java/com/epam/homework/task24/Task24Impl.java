@@ -15,6 +15,8 @@ public class Task24Impl implements Task24 {
         for (Integer key : second.keySet()) {
             if (!first.containsKey(key)) {
                 polynomialsAdditionResult.put(key, second.get(key));
+            } else {
+                polynomialsAdditionResult.put(key, first.get(key));
             }
         }
 
