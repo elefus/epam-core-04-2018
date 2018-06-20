@@ -6,14 +6,14 @@ import java.util.Set;
 public class Task27Impl implements Task27 {
     @Override
     public AbstractGraph createGraph(int numberNodes) {
-        return null;
+        return new Graph(numberNodes);
     }
 }
 
 class Graph extends Task27.AbstractGraph {
 
     private Set<Edge> edges = new HashSet<>();
-    public Graph(int numberNodes) {
+    Graph(int numberNodes) {
         super(numberNodes);
     }
 
