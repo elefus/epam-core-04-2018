@@ -3,12 +3,12 @@ package com.epam.homework.task28;
 import java.util.*;
 
 public class Task28Impl implements Task28 {
-    public int getNumberOvertaking(Set<Task28.Car> cars, int lengthLap, int numberLaps) {
+    public int getNumberOvertaking(Set<Car> cars, int lengthLap, int numberLaps) {
         int numberOvertaking = 0;
         int lengthOfRace = lengthLap * numberLaps;
 
-        List<Task28.Car> carList = new ArrayList<>(cars);
-        Collections.sort(carList, Comparator.comparing(Task28.Car::getSpeed));
+        List<Car> carList = new ArrayList<>(cars);
+        Collections.sort(carList, Comparator.comparing(Car::getSpeed));
         Collections.reverse(carList);
 
         for (int i = 0; i < carList.size(); i++) {
@@ -34,6 +34,27 @@ public class Task28Impl implements Task28 {
             }
             numberOvertaking += numberOvertaking;
         }
+
         return numberOvertaking;
+    }
+
+    public class SportCar implements Car {
+        private int startPosition;
+        private int speed;
+
+        public SportCar(int startPosition, int speed) {
+            this.startPosition = startPosition;
+            this.speed = speed;
+        }
+
+        @Override
+        public int getStartPosition() {
+            return startPosition;
+        }
+
+        @Override
+        public int getSpeed() {
+            return speed;
+        }
     }
 }
