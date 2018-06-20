@@ -173,8 +173,8 @@ public class Task26Impl implements Task26 {
         Vector result = crossVector(firstLine, secondLine);
 
         if (!result.getZ().equals(BigDecimal.valueOf(0.0))) { //if lines are not parallel
-            return Optional.of(new Point(result.getX().divide(result.getZ(), 3, BigDecimal.ROUND_HALF_UP).doubleValue(),
-                    result.getY().divide(result.getZ(), 3, BigDecimal.ROUND_HALF_UP).doubleValue()));
+            return Optional.of(new Point(result.getX().divide(result.getZ(), 6, BigDecimal.ROUND_HALF_UP).doubleValue(),
+                    result.getY().divide(result.getZ(), 6, BigDecimal.ROUND_HALF_UP).doubleValue()));
         } else { //lines are parallel
             return Optional.empty();
         }
