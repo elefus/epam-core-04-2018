@@ -10,20 +10,30 @@ public class Task25Impl implements Task25 {
 
         for (int i = 0; i < string.length(); i++) {
             Character character = string.charAt(i);
-            if (character == '(' || character == '{' || character == '[') {
-                brackets.push(character);
-            } else if (character == ')') {
-                if (brackets.peek() == '(') {
+            switch (character) {
+                case '(':
+                case '{':
+                case '[':
+                    brackets.push(character);
+                    break;
+                case ')':
+                    if (!(brackets.peek() == '(')) {
+                        return false;
+                    }
                     brackets.pop();
-                }
-            } else if (character == '}') {
-                if (brackets.peek() == '{') {
+                    break;
+                case '}':
+                    if (!(brackets.peek() == '{')) {
+                        return false;
+                    }
                     brackets.pop();
-                }
-            } else if (character == ']') {
-                if (brackets.peek() == '[') {
+                    break;
+                case ']':
+                    if (!(brackets.peek() == '[')) {
+                        return false;
+                    }
                     brackets.pop();
-                }
+                    break;
             }
         }
 
