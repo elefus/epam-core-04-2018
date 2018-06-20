@@ -20,7 +20,9 @@ class Graph extends Task27.AbstractGraph {
 
     @Override
     public void addEdge(int first, int second) {
-        edges.add(new Edge(first, second));
+        if (!isEdgeExists(first, second)) {
+            edges.add(new Edge(first, second));
+        }
     }
 
     @Override
