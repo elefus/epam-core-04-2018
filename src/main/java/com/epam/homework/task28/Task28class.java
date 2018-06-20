@@ -16,7 +16,7 @@ public class Task28class implements Task28 {
         Collections.sort(carsList);
         for (int i = 0; i < carsList.size() - 1; i++) {
             for (int j = i + 1; j < carsList.size(); j++) {
-                numberOvertaking += pairNumberOvertaking(carsList.get(i), carsList.get(j), lengthLap, numberLaps);
+                if (carsList.get(i).getSpeed() != carsList.get(j).getSpeed())numberOvertaking += pairNumberOvertaking(carsList.get(i), carsList.get(j), lengthLap, numberLaps);
             }
         }
         return numberOvertaking;
