@@ -13,8 +13,7 @@ public class Task26Impl implements Task26 {
 
     @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
-        System.out.println(iterateOverStopPoints(getStopPoints(segments)));
-        return null;
+        return iterateOverStopPoints(getStopPoints(segments));
     }
 
     private static TreeMap<Double, List<ISegment>> getStopPoints(Set<ISegment> segments) {
@@ -212,7 +211,9 @@ public class Task26Impl implements Task26 {
 
     public static void main(String[] args) {
         Set<ISegment> segmentSet = new HashSet<>();
-        segmentSet.add(new SegmentImpl(new Point(0, 0), new Point(3, 3)));
+        segmentSet.add(new SegmentImpl(new Point(-1, -1), new Point(1, 1)));
+        segmentSet.add(new SegmentImpl(new Point(-1, 1), new Point(1, -1)));
+        segmentSet.add(new SegmentImpl(new Point(3, 0), new Point(3, 3)));
         segmentSet.add(new SegmentImpl(new Point(0, 3), new Point(3, 0)));
         segmentSet.add(new SegmentImpl(new Point(-1, -2), new Point(2, 2)));
         segmentSet.add(new SegmentImpl(new Point(4, 3), new Point(11, 9)));
