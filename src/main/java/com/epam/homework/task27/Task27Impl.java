@@ -30,7 +30,7 @@ public class Task27Impl implements Task27{
 
         @Override
         public boolean isEdgeExists(int first, int second) {
-            return !matrix[second][first] && !matrix[first][second];
+            return matrix[second][first] && matrix[first][second];
         }
     }
 
