@@ -24,7 +24,7 @@ public class Task26Impl implements Task26 {
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
         addEventPoints(segments);
 
-        Set<I2DPoint> result = null;
+        Set<I2DPoint> result = new HashSet<>();
         Set<ISegment> usingSegments = new HashSet<>();
         boolean intersectionPointsFound = false;
         while (!intersectionPointsFound && !eventPoints.isEmpty()) {
@@ -71,7 +71,6 @@ public class Task26Impl implements Task26 {
                 }
 
             } else {
-                result = new HashSet<>();
                 Set<I2DPoint> sweepLineIntersectionPoints = new HashSet<>();
                 usingSegments.addAll(currentEventEntry.getValue());
 
