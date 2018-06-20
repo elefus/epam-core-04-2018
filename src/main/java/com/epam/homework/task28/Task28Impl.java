@@ -8,24 +8,31 @@ public class Task28Impl implements Task28 {
     @Override
     public int getNumberOvertaking(Set<Car> cars, int lengthLap, int numberLaps) {
         int overallLength = lengthLap * numberLaps;
-        int numberOvertaking = 0;
+        int numberOfOvertakes = 0;
         List<Car> carList = new ArrayList<>(cars);
 
         for (int i = 0; i < carList.size(); i++) {
-            int speedCurrCar = carList.get(i).getSpeed();
-            int positionCurrCar = carList.get(i).getStartPosition();
-            int lapTimeCurrCar = (overallLength + positionCurrCar - 1) / speedCurrCar;
+            Car currCar = carList.get(i);
+            int currCarPosition = currCar.getStartPosition();
+            int currCarSpeed = currCar.getSpeed();
+            int raceTimeCurrCar = overallLength / currCarSpeed;
 
             for (int j = i + 1; j < carList.size(); j++) {
-                int speedNextCar = carList.get(j).getSpeed();
-                int positionNextCar = carList.get(j).getStartPosition();
-                int lapTimeNextCar = (overallLength + positionNextCar - 1) / speedNextCar;
+                Car nextCar = carList.get(j);
+                int nextCarPosition = nextCar.getStartPosition();
+                int nextCarSpeed = nextCar.getSpeed();
+                int raceTimeNextCar = overallLength / nextCarSpeed;
 
-                int possibleOvertakes = Math.max(lapTimeCurrCar, lapTimeNextCar) / Math.min(lapTimeCurrCar,
-                        lapTimeNextCar);
-                numberOvertaking += possibleOvertakes;
+                int slowerCarSpeed = Math.min(currCarSpeed, nextCarSpeed) * Math.min(raceTimeCurrCar, raceTimeNextCar);
+
+                numberOfOvertakes += (overallLength - slowerCarSpeed) / lengthLap;
+
+                if ((currCarPosition < nextCarPosition) && (nextCarSpeed > currCarSpeed)
+                        || (currCarPosition > nextCarPosition) && (nextCarSpeed < currCarSpeed)) {
+                    numberOfOvertakes++;
+                }
             }
         }
-        return numberOvertaking;
+        return numberOfOvertakes;
     }
 }
