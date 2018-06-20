@@ -16,10 +16,6 @@ public class Task28Impl implements Task28{
             Car car1 = carsL.get(i);
             for (int j = i + 1; j < carsL.size(); j++) {
                 Car car2 = carsL.get(j);
-                if ((car1.getStartPosition() < car2.getStartPosition() && car1.getSpeed() < car2.getSpeed())
-                        || (car1.getStartPosition() > car2.getStartPosition() && car1.getSpeed() > car2.getSpeed())) {
-                    sumOfOvertaking++;
-                }
 
                 if (car1.getSpeed() > car2.getSpeed()) {
                     Car temp;
