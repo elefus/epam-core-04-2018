@@ -4,25 +4,6 @@ import lombok.Data;
 import java.util.*;
 
 public class Task28class implements Task28 {
-    public static void main(String[] args) {
-        Task28class o = new Task28class();
-        Set<Car> ass = new HashSet<>();
-        MyCar car1 = new MyCar();
-        car1.setSpeed(1);
-        car1.setStartPosition(1);
-        MyCar car2 = new MyCar();
-        car2.setSpeed(2);
-        car2.setStartPosition(2);
-        MyCar car3 = new MyCar();
-        car3.setSpeed(3);
-        car3.setStartPosition(3);
-        ass.add(car1);
-        ass.add(car2);
-        ass.add(car3);
-        System.out.println(ass);
-        System.out.println(o.getNumberOvertaking(ass, 4, 1));
-
-    }
 
     @Override
     public int getNumberOvertaking(Set<Car> cars, int lengthLap, int numberLaps) {
