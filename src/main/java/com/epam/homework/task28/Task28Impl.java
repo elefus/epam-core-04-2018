@@ -37,4 +37,24 @@ public class Task28Impl implements Task28 {
 
         return numberOvertaking;
     }
+
+    public class SportCar implements Car {
+        private int startPosition;
+        private int speed;
+
+        public SportCar(int startPosition, int speed) {
+            this.startPosition = startPosition;
+            this.speed = speed;
+        }
+
+        @Override
+        public int getStartPosition() {
+            return startPosition;
+        }
+
+        @Override
+        public int getSpeed() {
+            return speed;
+        }
+    }
 }
