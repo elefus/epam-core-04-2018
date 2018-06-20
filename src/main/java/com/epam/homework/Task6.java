@@ -1,11 +1,12 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+
 public class Task6 {
 
     /**
      * Ввести N слов с консоли.
-     * Найти слово, буквы в котором идут в строгом порядке возрастания их кодов: word.charAt(i) < word.charAt(i + 1).
-     * Если таких слов несколько, найти первое из них.
+     * Найти слово, буквы в котором идут в строгом порядке возрастания их кодов: InputArr[i].charAt(i) < InputArr[i].charAt(i   * Если таких слов несколько, найти первое из них.
      * Слова состоящие из одного символа не учитывать.
      *
      * Формат входных данных:
@@ -37,5 +38,32 @@ public class Task6 {
      */
     public static void main(String[] args) {
         // TODO реализация
-    }
+        Scanner scanner = new Scanner(System.in);
+            int N = Integer.parseInt(scanner.nextLine());
+        String[] InputArr = new String[N];
+            next:  for (int i = 0; i < N; i++) {
+                    InputArr[i] = scanner.next().toLowerCase();
+                    if (InputArr[i].length() == 1) continue next;
+                else {
+                            int counter = 0;
+                            for (int j = 0; j < InputArr[i].length()-1; j++) {
+                                    if (InputArr[i].charAt(j) >= InputArr[i].charAt(j+1)) {
+                                            continue next;
+                                        }
+                                    else {
+                                            counter++;
+                                        }
+                                }
+                            if (InputArr[i].length()-1 == counter) {
+                                    System.out.println(InputArr[i]);
+                                    break;
+                                }
+                                else {
+                                System.out.println("NOT FOUND");
+                                break;
+                            }
+                        }
+                }
+
+               }
 }
