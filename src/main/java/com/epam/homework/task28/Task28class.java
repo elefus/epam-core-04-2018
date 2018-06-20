@@ -1,5 +1,6 @@
 package com.epam.homework.task28;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.*;
 
@@ -10,7 +11,7 @@ public class Task28class implements Task28 {
         int numberOvertaking = 0;
         List<MyCar> carsList = new ArrayList<>();
         for (Car car : cars) {
-            carsList.add((MyCar) car);
+            carsList.add(new MyCar(car.getStartPosition(), car.getSpeed()));
         }
         Collections.sort(carsList);
         for (int i = 0; i < carsList.size() - 1; i++) {
@@ -33,6 +34,7 @@ public class Task28class implements Task28 {
     }
 
     @Data
+    @AllArgsConstructor
     static class MyCar implements Car, Comparable<MyCar> {
         int startPosition;
         int speed;
