@@ -1,5 +1,8 @@
 package com.epam.homework;
 
+import java.util.Comparator;
+import java.util.Scanner;
+
 public class Task12 {
 
     /**
@@ -37,6 +40,10 @@ public class Task12 {
      * 0    2    3    4    5
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        Matrix<Integer> matrix = new Matrix<>(scanner, Scanner::nextInt);
+        int k = scanner.nextInt();
+        matrix.matrixRowsSort(Comparator.comparingInt(o -> (Integer) o[k]));
+        matrix.matrixSout();
     }
 }
