@@ -40,7 +40,7 @@ public class Task28Impl implements Task28 {
                 int time = fastCar.getTime(raceTrackLength);
 
                 // Количество обгонов между парой машин без учёта начальных положений
-                overtakingCount += (raceTrackLength - slowCar.getDistance(time)) / lengthLap;
+                overtakingCount += Math.abs((raceTrackLength - slowCar.getDistance(time)) / lengthLap);
 
                 // Учёт начального положения
                 if (fastCar.getStartPosition() > slowCar.getStartPosition() && fastCar.getSpeed() != slowCar.getSpeed()) {
