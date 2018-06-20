@@ -1,5 +1,6 @@
 package com.epam.homework.task26;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
@@ -7,12 +8,13 @@ import java.util.*;
 
 public class Task26class implements Task26 {
 
+
      @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
         List<I2DPoint> intersections = new ArrayList<>();
         List<Segment> segmentsList = new ArrayList<>(segments.size());
         for (ISegment segment : segments) {
-            segmentsList.add((Segment) segment);
+            segmentsList.add(new Segment(segment.first(), segment.second()));
         }
         for (int i = 0; i < segmentsList.size() - 1; i++) {
             for (int j = i+1; j < segmentsList.size(); j++) {
@@ -106,9 +108,11 @@ public class Task26class implements Task26 {
         return true;
     }
 
+    @AllArgsConstructor
+    @Data
     static class Segment implements ISegment {
-        Point first;
-        Point second;
+        I2DPoint first;
+        I2DPoint second;
 
         @Override
         public I2DPoint first() {
