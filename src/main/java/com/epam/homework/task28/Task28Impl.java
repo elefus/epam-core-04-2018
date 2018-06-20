@@ -12,12 +12,12 @@ public class Task28Impl implements Task28 {
         Collections.reverse(carList);
 
         for (int i = 0; i < carList.size(); i++) {
-            Task28.Car firstCar = carList.get(i);
+            Car firstCar = carList.get(i);
             int speedOfTheFirstCar = firstCar.getSpeed();
             int startPositionOfTheFirstCar = firstCar.getStartPosition();
 
             for (int j = i + 1; j < carList.size(); j++) {
-                Task28.Car secondCar = carList.get(j);
+                Car secondCar = carList.get(j);
                 int speedOfTheSecondCar = secondCar.getSpeed();
                 int startPositionOfTheSecondCar = secondCar.getStartPosition();
                 if (speedOfTheFirstCar == speedOfTheSecondCar) {
@@ -36,5 +36,25 @@ public class Task28Impl implements Task28 {
         }
 
         return numberOvertaking;
+    }
+
+    public class SportCar implements Car {
+        private int startPosition;
+        private int speed;
+
+        public SportCar(int startPosition, int speed) {
+            this.startPosition = startPosition;
+            this.speed = speed;
+        }
+
+        @Override
+        public int getStartPosition() {
+            return startPosition;
+        }
+
+        @Override
+        public int getSpeed() {
+            return speed;
+        }
     }
 }
