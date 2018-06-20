@@ -4,13 +4,14 @@ import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Using sweeping line method to find intersectionOfSegments segments
  */
 public class Task26Impl implements Task26 {
     private TreeMap<I2DPoint, List<ISegment>> eventPoints = new TreeMap<>((point1, point2) -> {
-        if (Double.compare(point1.getX(), point2.getX()) != 0 ) {
+        if (Double.compare(point1.getX(), point2.getX()) != 0) {
             return Double.compare(point1.getX(), point2.getX());
         } else {
             return Double.compare(point1.getY(), point2.getY());
@@ -32,14 +33,18 @@ public class Task26Impl implements Task26 {
             Point currentEventPoint = new Point(currentEventEntry.getKey());
             Segment sweepLine = new Segment(currentEventPoint, new Point(currentEventPoint.getX(), currentEventPoint.getY() + 1));
 
-            if (currentEventEntry.getValue().size() > 1) {
+            if (currentEventEntry.getValue().size() != 1) {
                 firstIntersectionPoint = currentEventPoint;
             }
 
             TreeMap<Double, ISegment> sweepLineStatus = new TreeMap<>();
             for (ISegment segment : usingSegments) {
-                Double sweepLineIntersectionAtY = intersectionOfLines(segment, sweepLine).get().getY();
-                sweepLineStatus.put(sweepLineIntersectionAtY, segment);
+                if (Double.compare(sweepLine.first().getX(), sweepLine.second().getX()) != 0) {
+                    Double sweepLineIntersectionAtY = intersectionOfLines(segment, sweepLine).get().getY();
+                    sweepLineStatus.put(sweepLineIntersectionAtY, segment);
+                } else {
+                    sweepLineStatus.put(segment.first().getY(), segment);
+                }
             }
 
             if (!currentEventPoint.equals(firstIntersectionPoint)) {
@@ -69,9 +74,26 @@ public class Task26Impl implements Task26 {
                 result = new HashSet<>();
                 Set<I2DPoint> sweepLineIntersectionPoints = new HashSet<>();
                 usingSegments.addAll(currentEventEntry.getValue());
+
+                Set<ISegment> verticalSegments = usingSegments.stream()
+                        .filter(s -> Double.compare(s.first().getX(), s.second().getX()) == 0)
+                        .collect(Collectors.toSet());
+                usingSegments.removeAll(verticalSegments);
+
                 for (ISegment segment : usingSegments) {
                     I2DPoint point = intersectionOfLines(segment, sweepLine).get();
-                    if (!sweepLineIntersectionPoints.add(point)) {
+
+                    boolean isIntersectWithVerticalSegment = false;
+                    for (ISegment verticalSegment : verticalSegments) {
+                        double minYvalue = verticalSegment.first().getY() < verticalSegment.second().getY() ?
+                                verticalSegment.first().getY() : verticalSegment.second().getY();
+                        double maxYvalue = verticalSegment.first().getY() > verticalSegment.second().getY() ?
+                                verticalSegment.first().getY() : verticalSegment.second().getY();
+                        if (Double.compare(point.getY(), minYvalue) >= 0 && Double.compare(point.getY(), maxYvalue) <= 0) {
+                            isIntersectWithVerticalSegment = true;
+                        }
+                    }
+                    if (!sweepLineIntersectionPoints.add(point) || isIntersectWithVerticalSegment) {
                         result.add(point);
                     }
                 }
@@ -102,8 +124,8 @@ public class Task26Impl implements Task26 {
     }
 
     private void addIntersectionPoint(I2DPoint point) {
-       eventPoints.put(point, new ArrayList<>());
-        if (firstIntersectionPoint == null || point.getX() < firstIntersectionPoint.getX()) {
+        eventPoints.put(point, new ArrayList<>());
+        if (firstIntersectionPoint == null || point.getX() <= firstIntersectionPoint.getX()) {
             firstIntersectionPoint = new Point(point);
         }
     }
@@ -127,7 +149,7 @@ public class Task26Impl implements Task26 {
         if (!((Double.compare(x2, x3) >= 0)
                 && (Double.compare(x4, x1) >= 0)
                 && (Double.compare(y2, y3) >= 0)
-                && (Double.compare(y4, y1) >=0))) {
+                && (Double.compare(y4, y1) >= 0))) {
             return Optional.empty();
         }
 
@@ -153,7 +175,7 @@ public class Task26Impl implements Task26 {
 
         if (!result.getZ().equals(BigDecimal.valueOf(0.0))) { //if lines are not parallel
             return Optional.of(new Point(result.getX().divide(result.getZ(), 3, BigDecimal.ROUND_HALF_UP).doubleValue(),
-                                        result.getY().divide(result.getZ(), 3, BigDecimal.ROUND_HALF_UP).doubleValue()));
+                    result.getY().divide(result.getZ(), 3, BigDecimal.ROUND_HALF_UP).doubleValue()));
         } else { //lines are parallel
             return Optional.empty();
         }
