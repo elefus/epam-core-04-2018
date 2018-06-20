@@ -1,20 +1,7 @@
 package com.epam.homework.task24;
 
-import java.security.Key;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-
-/**
- * Осуществляет сложение двух многочленов.
- * Коэффициенты многочленов хранятся в объекте Map.
- * Степень элемента многочлена – ключ, коэффициент элемента многочлена – значение.
- * Коэффициенты многочлена, ключи для которых отсутствуют в карте, равны нулю.
- * first Первый многочлен.
- * second Второй многочлен.
- * Многочлен, полученный в результате сложения.
- */
 
 public class Task24Impl implements Task24 {
     @Override
