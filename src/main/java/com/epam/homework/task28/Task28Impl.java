@@ -10,10 +10,10 @@ public class Task28Impl implements Task28 {
 
         List<Car> carsL = new ArrayList<>(cars);
         int numOfOvertakes = 0;
+        int raceLength = lengthLap * numberLaps;
 
         for (int i = 0; i < carsL.size(); i++) {
             Car car1 = carsL.get(i);
-            int raceLength = lengthLap * numberLaps;
             double timeCar1 = raceLength / car1.getSpeed();
 
             for (int j = i + 1; j < carsL.size(); j++) {
@@ -21,8 +21,8 @@ public class Task28Impl implements Task28 {
                 double timeCar2 = raceLength / car1.getSpeed();
                 numOfOvertakes += (int) (raceLength - (Math.min(car1.getSpeed(), car2.getSpeed()) * (Math.min(timeCar1, timeCar2)))) / lengthLap;
 
-                if (car1.getStartPosition() < car2.getStartPosition() && car1.getSpeed() > car2.getSpeed()
-                        || car1.getStartPosition() > car2.getStartPosition() && car1.getSpeed() < car2.getSpeed()) {
+                if (car1.getStartPosition() < car2.getStartPosition() && car1.getSpeed() < car2.getSpeed()
+                        || car1.getStartPosition() > car2.getStartPosition() && car1.getSpeed() > car2.getSpeed()) {
                     numOfOvertakes++;
                 }
             }
