@@ -28,6 +28,7 @@ class Graph extends Task27.AbstractGraph {
         for (Edge edge : edges) {
             if ((edge.first == first && edge.second == second) || (edge.second == first && edge.first == second)) {
                 edges.remove(edge);
+                break;
             }
         }
     }
