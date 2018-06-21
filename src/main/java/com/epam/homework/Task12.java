@@ -70,7 +70,7 @@ public class Task12 {
         }
     }
 
-    private static int[][] sortMatrix(int[][] matrix, Integer k){
+    private static int[][] sortMatrix(int[][] matrix, int k){
         Comparator<int[]> rowsComparator = new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
