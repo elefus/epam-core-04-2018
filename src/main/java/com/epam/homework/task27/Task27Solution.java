@@ -1,5 +1,7 @@
 package com.epam.homework.task27;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import java.util.HashSet;
 import java.util.Set;
 
