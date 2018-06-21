@@ -60,7 +60,7 @@ public class Task12 {
         int k = Integer.parseInt(reader.readLine());
 
         matrix = sortMatrix(matrix, k);
-
+        System.out.println(N);
         for (int i = 0; i<N; i++) {
 
             for (int j = 0; j<N; j++){
