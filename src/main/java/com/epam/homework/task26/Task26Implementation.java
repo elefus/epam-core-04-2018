@@ -4,20 +4,12 @@ import java.util.*;
 
 public class Task26Implementation implements Task26 {
 
-    private Map<ISegment, List<Double>> linesMap;
-
     @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
 
         Set<I2DPoint> resultSet = new HashSet<>();
-        linesMap = new TreeMap<>();
-
+        Map<ISegment, List<Double>> linesMap = new TreeMap<>();
         double minAbsc = Double.MAX_VALUE;
-
-        for (ISegment segment : segments) {
-            getLineFromTheCoordinates(segment);
-        }
-
         Iterator<ISegment> iterator = linesMap.keySet().iterator();
         while (iterator.hasNext()) {
             ISegment firstLineCoordinates = iterator.next();
@@ -37,7 +29,7 @@ public class Task26Implementation implements Task26 {
         return resultSet;
     }
 
-    private I2DPoint getIntersectionPoint(ISegment first, ISegment second) {
+    I2DPoint getIntersectionPoint(ISegment first, ISegment second) {
         double x;
         double y;
 
@@ -60,21 +52,6 @@ public class Task26Implementation implements Task26 {
         }
     }
 
-    /**
-     * line = Ax + By + C = 0
-     * lineCoordinates list[0] - A
-     * lineCoordinates list[1] - B
-     * lineCoordinates list[2] - C
-     * @param segment started set
-     */
-    private void getLineFromTheCoordinates(ISegment segment) {
-        List<Double> lineCoordinates = new ArrayList<>();
-        lineCoordinates.add(segment.first().getY() - segment.second().getY());
-        lineCoordinates.add(segment.second().getX() - segment.first().getX());
-        lineCoordinates.add((segment.first().getX() * segment.second().getY()) - (segment.first().getY() * segment.second().getX()));
-        linesMap.put(segment, lineCoordinates);
-    }
-
     private class IntersectionPoint implements I2DPoint {
 
         private double x;
@@ -95,4 +72,6 @@ public class Task26Implementation implements Task26 {
             return 0;
         }
     }
+
+
 }
