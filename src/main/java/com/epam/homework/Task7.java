@@ -1,5 +1,13 @@
 package com.epam.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class Task7 {
 
     /**
@@ -27,7 +35,43 @@ public class Task7 {
      * Выходные данные:
      * The is a
      */
-    public static void main(String[] args) {
-        // TODO реализация
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int count = Integer.parseInt(reader.readLine());
+        String[] array = reader.readLine().trim().split(" ");
+
+        int sum = 0;
+        Set<Character> letters = new HashSet<Character>();
+        Set<String> words = new HashSet<String>();
+
+
+        boolean found = true;
+        for (int i = 0; i < count; i++){
+            found = true;
+            letters.clear();
+            String currient = array[i].toLowerCase();
+            for (int j = 0; j < array[i].length()-1; j++) {
+                if (letters.contains(currient.charAt(j))){found = false;}
+                else{
+                    letters.add(currient.charAt(j));
+                }
+            }
+
+            if (array[i].length()==1){found = false;}
+            if (found){
+                if (!words.contains(currient)){
+                    words.add(currient);
+                }
+            }
+
+        }
+        if (!words.isEmpty()){
+            System.out.println(String.join(" ", words));
+        }
+        else{
+            System.out.println("NOT FOUND");
+        }
+
     }
 }
