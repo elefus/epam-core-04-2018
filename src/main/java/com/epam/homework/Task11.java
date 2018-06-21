@@ -1,5 +1,10 @@
 package com.epam.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
 public class Task11 {
 
     /**
@@ -28,7 +33,25 @@ public class Task11 {
      * Выходные данные:
      * 5
      */
-    public static void main(String[] args) {
-        // TODO реализация
+
+    static int order = 1;
+
+    static int answer = 0;
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int vslue = Math.abs(Integer.parseInt(reader.readLine()));
+        recursion(vslue);
+        System.out.println(answer);
     }
+
+
+    private static void recursion(int value) {
+        answer += Math.round(value % (order *10) / (order));
+
+        order*=10;
+        if (value>order){
+            recursion(value);
+        }
+    }
+
 }
