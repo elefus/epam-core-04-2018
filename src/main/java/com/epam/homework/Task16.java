@@ -78,6 +78,9 @@ public class Task16 {
             case 3:
                 rotate270(matrix).matrixSout();
                 break;
+            case 0:
+                matrix.matrixSout();
+                break;
         }
     }
     private static Matrix rotate90(Matrix<Integer> matrix) {
