@@ -72,7 +72,8 @@ public class Task9 {
             System.out.printf(decimalFormat.format(x1) + ", " + decimalFormat.format(x2));
 
         } else if (discriminant == 0) {
-            System.out.println(decimalFormat.format(-b / 2 / a));
+            double x = (-b - Math.sqrt(discriminant)) / 2 / a;
+            System.out.println(decimalFormat.format(x));
 
         } else {
             System.out.println("NO ROOTS");
