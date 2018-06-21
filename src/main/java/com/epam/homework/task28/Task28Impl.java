@@ -22,25 +22,30 @@ public class Task28Impl implements Task28 {
         List<Car> carsList = new ArrayList<>(cars);
 
         for (int i = 0; i < carsList.size(); i++) {
+
+            CarImpl car1 = (CarImpl) carsList.get(i);
+            
             for (int j = i + 1; j < carsList.size(); j++) {
 
-                CarImpl fastCar;
-                CarImpl slowCar;
-
-                // Выбор быстрой и медленной машины в паре
-                if (carsList.get(i).getSpeed() >= carsList.get(j).getSpeed()) {
-                    fastCar = (CarImpl) carsList.get(i);
-                    slowCar = (CarImpl) carsList.get(j);
-                } else {
-                    fastCar = (CarImpl) carsList.get(j);
-                    slowCar = (CarImpl) carsList.get(i);
-                }
+                CarImpl car2 = (CarImpl) carsList.get(j);
 
                 // Время, в течение которого возможен обгон между парой машин
-                int time = fastCar.getTime(raceTrackLength);
+                int availableTime = Math.min(car1.getTime(raceTrackLength), car2.getTime(raceTrackLength));
 
-                // Количество обгонов между парой машин
-                overtakingCount += (raceTrackLength - slowCar.getDistance(time)) / lengthLap;
+                // Расстояние, которое успеет проехать за это время более медленная машина
+                int minDistance = Math.min(car1.getSpeed(), car2.getSpeed()) * availableTime;
+
+                // Количество обгонов между парой машин без учёта начальных положений
+                overtakingCount += (raceTrackLength - minDistance) / lengthLap;
+
+                // Учёт начального положения
+                if (car1.getStartPosition() > car2.getStartPosition() && car1.getSpeed() > car2.getSpeed()) {
+                    overtakingCount++;
+                }
+
+                if (car1.getStartPosition() < car2.getStartPosition() && car1.getSpeed() < car2.getSpeed()) {
+                    overtakingCount++;
+                }
             }
         }
         return overtakingCount;
@@ -91,10 +96,6 @@ public class Task28Impl implements Task28 {
 
         public int getTime(int distance) {
             return distance / speed;
-        }
-
-        public int getDistance(int time) {
-            return time * speed;
         }
     }
 }
