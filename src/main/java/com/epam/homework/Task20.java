@@ -1,5 +1,8 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+import com.kindet27.matrix.*;
+
 public class Task20 {
 
     /**
@@ -36,6 +39,26 @@ public class Task20 {
      * -2  1  4 -1
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int targetRow = scanner.nextInt();
+        int targetColumn = scanner.nextInt();
+        Matrix<Integer> matrix = new Matrix<>(scanner, Scanner::nextInt);
+
+        int minElRow = -1;
+        int minElColumn = -1;
+        Integer minEl = Integer.MAX_VALUE;
+        for (int i = 0; i < matrix.getRows(); i++) {
+            for (int j = 0; j < matrix.getColumns(); j++) {
+                if(matrix.getElement(i, j) < minEl) {
+                    minEl = matrix.getElement(i, j);
+                    minElRow = i;
+                    minElColumn = j;
+                }
+            }
+        }
+
+        matrix.swapTwoRows(minElRow, targetRow);
+        matrix.swapTwoColumns(minElColumn, targetColumn);
+        matrix.matrixSout();
     }
 }
