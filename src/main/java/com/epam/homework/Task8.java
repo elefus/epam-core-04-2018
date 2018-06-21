@@ -1,5 +1,13 @@
 package com.epam.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class Task8 {
 
     /**
@@ -27,7 +35,48 @@ public class Task8 {
      * Выходные данные:
      * 22
      */
-    public static void main(String[] args) {
-        // TODO реализация
+
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int count = Integer.parseInt(reader.readLine());
+        String[] array = reader.readLine().trim().split(" ");
+
+        int ansCount = 0;
+        String answer = "";
+        for (int i = 0; i < count; i++){
+            if (isNumber(array[i]) & isPalinrom(array[i])){
+
+                ansCount++;
+                answer = array[i];
+                if (ansCount == 2){break;}
+            }
+
+        }
+        if (ansCount == 0){
+            System.out.println("NOT FOUND");
+        }else{
+            System.out.println(answer);
+        }
+
+    }
+
+
+    private static boolean isPalinrom(String word) {
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i)!=word.charAt(word.length()-1-i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isNumber(String word) {
+        for (int i = 0; i < word.length(); i++) {
+            if (!Character.isDigit(word.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
