@@ -52,7 +52,7 @@ public class Task19 {
                 matrix = matrix.deleteColumn(i);
             }
         }
-        matrix.matrixSout();
+        matrix.matrixSout2Dim();
     }
 
     private static boolean arrFullOfZeros(Integer[] arr) {
