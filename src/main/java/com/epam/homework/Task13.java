@@ -57,8 +57,8 @@ public class Task13 {
         Scanner scanner = new Scanner(System.in);
         Matrix<Integer> matrix = new Matrix<>(scanner, Scanner::nextInt);
         int cycleSize = scanner.nextInt();
-        int target = (cycleSize) % matrix.getRows();
-        for (int i = 0; i < cycleSize - 1 ; i++) {
+        int target = (((cycleSize) % matrix.getRows()) + matrix.getRows()) % matrix.getRows();
+        for (int i = 0; i < matrix.getRows() - 1 ; i++) {
            matrix.swapTwoRows(0, target);
            target = (target + cycleSize) % matrix.getRows();
         }
