@@ -39,34 +39,36 @@ public class Task14 {
      * 0
      */
 
-    static int order = 1;
 
-    static int answer = 0;
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(reader.readLine());
         int[] numbers = new int[N];
         String[] array = reader.readLine().trim().split(" ");
-        for (int i = 0; i<N; i++){
+        for (int i = 0; i < N; i++) {
             numbers[i] = Integer.parseInt(array[i]);
         }
 
         int ans = 0;
         int countOfRow = 0;
-        if (N>1) {
-            for (int i = 0; i < N-1; i++) {
-                if (numbers[i] < numbers[i+1]){
-                    if (countOfRow == 0){countOfRow=countOfRow+2;}
-                    else
-                    {countOfRow++;}
-                }else
-                {
-                    if (countOfRow>ans){
+        if (N > 1) {
+            for (int i = 0; i < N - 1; i++) {
+                if (numbers[i] < numbers[i + 1]) {
+                    if (countOfRow == 0) {
+                        countOfRow = countOfRow + 2;
+                    } else {
+                        countOfRow = countOfRow + 1;
+                    }
+                } else {
+                    if (countOfRow > ans) {
                         ans = countOfRow;
                     }
                     countOfRow = 0;
                 }
             }
+        }
+        if (countOfRow > ans) {
+            ans = countOfRow;
         }
         System.out.println(ans);
     }
