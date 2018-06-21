@@ -1,5 +1,10 @@
 package com.epam.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
 public class Task13 {
 
     /**
@@ -49,7 +54,36 @@ public class Task13 {
      * 1   0  -3
      * 0  -1   2
      */
-    public static void main(String[] args) {
-        // TODO реализация
+
+    static int order = 1;
+
+    static int answer = 0;
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(reader.readLine());
+        int[][] matrix = new int[N][N];
+        for (int i = 0; i<N; i++) {
+            String[] array = reader.readLine().trim().split(" ");
+            for (int j = 0; j<N; j++){
+                matrix[i][j] = Integer.parseInt(array[j]);
+            }
+        }
+        int k = Integer.parseInt(reader.readLine());
+
+        if (k<0){
+            k = Math.abs(k % N);
+        }else {
+            k = N - (k % N);
+        }
+
+        for (int i = 0; i<N; i++) {
+
+            for (int j = 0; j<N; j++){
+                System.out.print(matrix[(i + k) % N][j] + " ");
+            }
+            System.out.println();
+        }
     }
+
+
 }
