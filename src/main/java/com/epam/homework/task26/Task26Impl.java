@@ -1,15 +1,9 @@
 package com.epam.homework.task26;
 
-import com.akalji.SystemsOfLinearEquations.*;
-import com.akalji.SystemsOfLinearEquations.exceptions.LinearEquationIncompatibleException;
-import com.akalji.matrix.Matrix;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 import java.util.*;
 import java.util.concurrent.*;
-
-import static com.akalji.SystemsOfLinearEquations.PLUDecomposition.PLUC;
 
 public class Task26Impl implements Task26 {
     private static double EPS = 0.00001;
@@ -70,32 +64,55 @@ public class Task26Impl implements Task26 {
     }
 
     @AllArgsConstructor
-    private class Crosser implements Callable {
+    private class Crosser implements Callable<Map.Entry<Double, I2DPoint>> {
         private ISegment firstSegment;
         private ISegment secondSegment;
 
         @Override
-        public Map.Entry<Double, I2DPoint> call() throws Exception {
-            Matrix x;
-            Matrix A = new Matrix(2, 2);
-            Matrix b = new Matrix(2, 1);
+        public AbstractMap.SimpleEntry<Double, I2DPoint> call() throws Exception {
+            double x1A = firstSegment.first().getX();
+            double y1A = firstSegment.first().getY();
+            double x2A = firstSegment.second().getX();
+            double y2A = firstSegment.second().getY();
+            double x1B = secondSegment.first().getX();
+            double y1B = secondSegment.first().getY();
+            double x2B = secondSegment.second().getX();
+            double y2B = secondSegment.second().getY();
 
-            //Ax=b
-            A.set(0, 0, firstSegment.first().getY() - firstSegment.second().getY());
-            A.set(0, 1, firstSegment.first().getX() - firstSegment.second().getX());
-            A.set(1, 0, secondSegment.first().getY() - secondSegment.second().getY());
-            A.set(1, 1, secondSegment.first().getX() - secondSegment.second().getX());
 
-            b.set(0, 0, firstSegment.first().getX() * firstSegment.second().getY() - firstSegment.second().getX() * firstSegment.first().getY());
-            b.set(1, 0, secondSegment.first().getX() * secondSegment.second().getY() - secondSegment.second().getX() * secondSegment.first().getY());
+            double c = (y2B - y1B) * (x2A - x1A) - (x2B - x1B) * (y2A - y1A);
+            if (Math.abs(c) - 0 < 0.0000001) {
 
-            try {
-                Solution solution = PLUC(A);
-                x = SystemOfLinearEquation.SOLE(solution, b);
-            } catch (LinearEquationIncompatibleException e) {
+                if ((x2A == x2B || x2A == x1B) & (y2A == y2B || y2A == y1B)) {
+                    return new AbstractMap.SimpleEntry<>(x2A, new Point(x2A, y2A));
+                }
+                if ((x1A == x1B || x1A == x2B) & (y1A == y1B || y1A == y2B)) {
+                    return new AbstractMap.SimpleEntry<>(x1A, new Point(x1A, y1A));
+                }
                 return null;
             }
-            return new AbstractMap.SimpleEntry<Double, I2DPoint>(x.getElement(0, 0), new Point(x.getElement(0, 0), x.getElement(1, 0)));
+
+            //
+            double A1 = -(y2A - y1A);
+            double B1 = (x2A - x1A);
+            double C1 = -(A1 * x1A + B1 * y1A);
+
+            double A2 = -(y2B - y1B);
+            double B2 = x2B - x1B;
+            double C2 = -(A2 * x1B + B2 * y1B);
+
+            double segment1Start = A2 * x1A + B2 * y1A + C2;
+            double segment1End = A2 * x2A + B2 * y2A + C2;
+
+            double segment2Start = A1 * x1B + B1 * y1B + C1;
+            double segment2End = A1 * x2B + B1 * y2B + C1;
+
+            if (segment1Start * segment1End > 0 || segment2Start * segment2End > 0) {
+                return null;
+            }
+
+            double k = segment1Start / (segment1Start - segment1End);
+            return new AbstractMap.SimpleEntry<>(x1A + k * (x2A - x1A), new Point(x1A + k * (x2A - x1A), y1A + k * (y2A - y1A)));
         }
     }
 
@@ -165,18 +182,17 @@ public class Task26Impl implements Task26 {
             }
         }
 
-//        @Override
-//        public String toString() {
-//            return "Point{" +
-//                    "x=" + x +
-//                    ", y=" + y +
-//                    '}';
-//        }
+        @Override
+        public String toString() {
+            return "Point{" +
+                    "x=" + x +
+                    ", y=" + y +
+                    '}';
+        }
 
         @Override
         public int compareTo(I2DPoint o) {
             return compare(this, o);
         }
     }
-
 }
