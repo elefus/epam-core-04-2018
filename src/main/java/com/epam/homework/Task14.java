@@ -1,6 +1,9 @@
 package com.epam.homework;
 import java.util.Scanner;
 
+import java.util.Scanner;
+
+
 public class Task14 {
 
     /**
@@ -35,29 +38,28 @@ public class Task14 {
      * 0
      */
     public static void main(String[] args) {
-        public static void main (String[]args){
-            Scanner scanner = new Scanner(System.in);
-            int value = scanner.nextInt();
-            int[] seq = new int[value];
-            for (int i = 0; i < value; i++) {
-                seq[i] = scanner.nextInt();
-            }
-            System.out.println(lengthOfNessensarySeqiense(seq));
+        Scanner scanner = new Scanner(System.in);
+        int value = scanner.nextInt();
+        int[] seq = new int[value];
+        for (int i = 0; i < value; i++) {
+            seq[i] = scanner.nextInt();
         }
+        System.out.println(lengthOfNessensarySeqiense(seq));
+    }
 
-        public static int lengthOfNessensarySeqiense ( int[] seq){
-            int sequenceCounter = 1;
-            int max = 0;
-            for (int i = 1; i < seq.length; i++) {
-                if (seq[i] > seq[i - 1]) {
-                    if (++sequenceCounter > max) {
-                        max = sequenceCounter;
-                    }
-                } else {
-                    sequenceCounter = 1;
+    public static int lengthOfNessensarySeqiense(int[] seq) {
+        int sequenceCounter = 1;
+        int max = 0;
+        for (int i = 1; i < seq.length; i++) {
+            if (seq[i] > seq[i - 1]) {
+                if (++sequenceCounter > max) {
+                    max = sequenceCounter;
                 }
+            } else {
+                sequenceCounter = 1;
             }
-            return max;
         }
+        return max;
     }
 }
+
