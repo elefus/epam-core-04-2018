@@ -2,7 +2,6 @@ package com.epam.homework.task26;
 
 import lombok.Getter;
 
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,24 +27,14 @@ public class Task26Impl implements Task26 {
         Set<ISegment> usingSegments = new HashSet<>();
         boolean intersectionPointsFound = false;
         while (!intersectionPointsFound && !eventPoints.isEmpty()) {
-            Map.Entry<I2DPoint, List<ISegment>> currentEventEntry = eventPoints.pollFirstEntry();
 
+            Map.Entry<I2DPoint, List<ISegment>> currentEventEntry = eventPoints.pollFirstEntry();
             Point currentEventPoint = new Point(currentEventEntry.getKey());
             Segment sweepLine = new Segment(currentEventPoint, new Point(currentEventPoint.getX(), currentEventPoint.getY() + 1));
 
-            if (currentEventEntry.getValue().size() != 1) {
-                firstIntersectionPoint = currentEventPoint;
-            }
+            checkForIntersectionPoint(currentEventEntry, usingSegments);
 
-            TreeMap<Double, ISegment> sweepLineStatus = new TreeMap<>();
-            for (ISegment segment : usingSegments) {
-                if (Double.compare(sweepLine.first().getX(), sweepLine.second().getX()) != 0) {
-                    Double sweepLineIntersectionAtY = intersectionOfLines(segment, sweepLine).get().getY();
-                    sweepLineStatus.put(sweepLineIntersectionAtY, segment);
-                } else {
-                    sweepLineStatus.put(segment.first().getY(), segment);
-                }
-            }
+            TreeMap<Double, ISegment> sweepLineStatus = getSweepLineStatus(usingSegments, sweepLine);
 
             if (!currentEventPoint.equals(firstIntersectionPoint)) {
                 ISegment segment = currentEventEntry.getValue().get(0);
@@ -100,6 +89,45 @@ public class Task26Impl implements Task26 {
             }
         }
         return result;
+    }
+
+    private TreeMap<Double, ISegment> getSweepLineStatus(Set<ISegment> usingSegments, Segment sweepLine) {
+        TreeMap<Double, ISegment> sweepLineStatus = new TreeMap<>();
+        for (ISegment segment : usingSegments) {
+            if (Double.compare(sweepLine.first().getX(), sweepLine.second().getX()) != 0) {
+                Double sweepLineIntersectionAtY = intersectionOfLines(segment, sweepLine).get().getY();
+                sweepLineStatus.put(sweepLineIntersectionAtY, segment);
+            } else {
+                sweepLineStatus.put(segment.first().getY(), segment);
+            }
+        }
+        return sweepLineStatus;
+    }
+
+    private void checkForIntersectionPoint(Map.Entry<I2DPoint, List<ISegment>> currentEventEntry, Set<ISegment> usingSegments) {
+        if (currentEventEntry.getValue().size() != 1) {
+            firstIntersectionPoint = new Point(currentEventEntry.getKey());
+
+            Set<ISegment> verticalSegments = new HashSet<>();
+            if (currentEventEntry.getValue().size() > 1) {
+                verticalSegments = currentEventEntry.getValue().stream()
+                        .filter(s -> Double.compare(s.first().getX(), s.second().getX()) == 0)
+                        .collect(Collectors.toSet());
+            }
+
+            for (ISegment segment : verticalSegments) {
+                List<ISegment> firstPointSegments = eventPoints.get(segment.first());
+                List<ISegment> secondPointSegments = eventPoints.get(segment.second());
+
+                if (firstPointSegments != null) {
+                    usingSegments.addAll(firstPointSegments);
+                }
+
+                if (secondPointSegments != null) {
+                    usingSegments.addAll(secondPointSegments);
+                }
+            }
+        }
     }
 
     private void addEventPoints(Set<ISegment> segments) {
@@ -172,31 +200,46 @@ public class Task26Impl implements Task26 {
         //put in result homogeneous coordinates of an intersection point of two lines passing through segment's
         Vector result = crossVector(firstLine, secondLine);
 
-        if (!result.getZ().equals(BigDecimal.valueOf(0.0))) { //if lines are not parallel
-            return Optional.of(new Point(result.getX().divide(result.getZ(), 6, BigDecimal.ROUND_HALF_UP).doubleValue(),
-                    result.getY().divide(result.getZ(), 6, BigDecimal.ROUND_HALF_UP).doubleValue()));
-        } else { //lines are parallel
+        if (Double.compare(result.getZ(), 0.0) != 0.0) { //if lines are not parallel
+            return Optional.of(new Point(result.getX() / result.getZ(), result.getY() / result.getZ()));
+        } else {
             return Optional.empty();
         }
     }
 
     private static Vector crossVector(Vector firstVector, Vector secondVector) {
         return new Vector(
-                ((firstVector.getY().multiply(secondVector.getZ())).subtract((firstVector.getZ().multiply(secondVector.getY())))).doubleValue(),
-                ((firstVector.getZ().multiply(secondVector.getX())).subtract((firstVector.getX().multiply(secondVector.getZ())))).doubleValue(),
-                ((firstVector.getX().multiply(secondVector.getY())).subtract((firstVector.getY().multiply(secondVector.getX())))).doubleValue());
+                (firstVector.getY() * secondVector.getZ() - firstVector.getZ() * secondVector.getY()),
+                (firstVector.getZ() * secondVector.getX() - firstVector.getX() * secondVector.getZ()),
+                (firstVector.getX() * secondVector.getY() - firstVector.getY() * secondVector.getX()));
     }
 
     @Getter
     private static class Vector {
-        private BigDecimal x;
-        private BigDecimal y;
-        private BigDecimal z;
 
+        private double x;
+        private double y;
+        private double z;
         Vector(double x, double y, double z) {
-            this.x = BigDecimal.valueOf(x);
-            this.y = BigDecimal.valueOf(y);
-            this.z = BigDecimal.valueOf(z);
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Task26Impl task26 = new Task26Impl();
+        Set<ISegment> segments = new HashSet<>();
+
+        segments.add(new Segment(new Point(0.0,0.0), new Point(0.0, 3.0)));
+        segments.add(new Segment(new Point(0.0,3.0), new Point(3.0, 0.0)));
+        segments.add(new Segment(new Point(0.0,0.0), new Point(3.0, 3.0)));
+
+
+        Set<I2DPoint> analyze = task26.analyze(segments);
+        for (I2DPoint point : analyze) {
+            System.out.println("point x = " + point.getX() + ", y = " + point.getY());
         }
     }
 }
