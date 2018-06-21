@@ -16,7 +16,7 @@ public class Task26Impl implements Task26 {
                 }
             }
         }
-        return null;
+        return intersectionMap.firstEntry().getValue();
     }
 
     private I2DPoint intersectionDot(ISegment segment1, ISegment segment2) {
