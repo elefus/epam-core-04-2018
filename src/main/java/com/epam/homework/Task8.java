@@ -5,6 +5,8 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
+public class Task8 {
+
     /**
      * Ввести N слов с консоли.
      * Помимо обычных слов, во входной последовательности могут встречаться целые числа (в том числе большие чем Long.MAX_VALUE).
@@ -30,45 +32,41 @@ import java.util.ArrayList;
      * Выходные данные:
      * 22
      */
-    public class Task8 {
 
-        public static void main(String[] args) {
-            Scanner scanner = new Scanner(System.in);
-                int amountOfWords = Integer.parseInt(scanner.next());;
-                List<String> arr = new ArrayList<>();
-                for (int i = 0; i < amountOfWords; i++) {
-                    String word = scanner.next();
-                    if (isDigit(word) && isPalyndrome(word)) {
-                            if (!arr.contains(word)) arr.add(word);
-                    }
-                }
-                if (arr.size() == 1) {
-                    System.out.println(arr.get(0));
-                } else if (arr.isEmpty()) {
-                    System.out.println("NOT FOUND");
-                } else {
-                    System.out.println(arr.get(1));
-                }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int amountOfWords = Integer.parseInt(scanner.next());
+        List<String> arr = new ArrayList<>();
+        for (int i = 0; i < amountOfWords; i++) {
+            String word = scanner.next();
+            if (isDigit(word) && isPalyndrome(word)) {
+                if (!arr.contains(word)) arr.add(word);
             }
-
-
-        public static boolean isDigit(String str) {
-                for (int i = 0; i < str.length(); i++) {
-                        if (!Character.isDigit(str.charAt(i))){
-                                return false;
-                            }
-                    }
-                return true;
-            }
-
-            public static boolean isPalyndrome(String str) {
-             if (str.length() == 1) {
-                   return true;
-                     } else {
-                 StringBuilder strBiuld = new StringBuilder(str);
-                 if (!strBiuld.toString().equals(strBiuld.reverse().toString()))  return false;
-             }
-             return true;
-         }
+        }
+        if (arr.size() == 1) {
+            System.out.println(arr.get(0));
+        } else if (arr.isEmpty()) {
+            System.out.println("NOT FOUND");
+        } else {
+            System.out.println(arr.get(1));
+        }
     }
+    public static boolean isDigit(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean isPalyndrome(String str) {
+        if (str.length() == 1) {
+            return true;
+        } else {
+            StringBuilder strBiuld = new StringBuilder(str);
+            if (!strBiuld.toString().equals(strBiuld.reverse().toString()))  return false;
+        }
+        return true;
+    }
+}
 
