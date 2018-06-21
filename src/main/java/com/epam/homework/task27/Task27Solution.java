@@ -43,13 +43,10 @@ public class Task27Solution implements Task27 {
         }
     }
 
+    @Data
+    @AllArgsConstructor
     final class Edge {
         int first;
         int second;
-
-        Edge(int first, int second) {
-            this.first = first;
-            this.second = second;
-        }
     }
 }
