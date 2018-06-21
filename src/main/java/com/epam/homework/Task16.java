@@ -80,19 +80,20 @@ public class Task16 {
                 break;
         }
     }
-    private static Matrix rotate90(Matrix matrix) {
+    private static Matrix rotate90(Matrix<Integer> matrix) {
         int size = matrix.getRows();
         Matrix<Integer> rotatedMatrix = new Matrix<>(size);
         for (int i = 0; i < size ; i++) {
             int k = size -1;
             for (int j = 0; j < size ; j++) {
+
                 rotatedMatrix.setElement(matrix.getElement(k--, i) ,i , j);
             }
         }
         return rotatedMatrix;
     }
 
-    private static Matrix rotate180(Matrix matrix){
+    private static Matrix rotate180(Matrix<Integer> matrix){
         int size = matrix.getRows();
         Matrix<Integer> rotatedMatrix = new Matrix<>(size);
         for (int i = 0; i < size; i++) {
@@ -102,7 +103,7 @@ public class Task16 {
         }
         return rotatedMatrix;
     }
-    private static Matrix rotate270(Matrix matrix){
+    private static Matrix rotate270(Matrix<Integer> matrix){
         int size = matrix.getRows();
         Matrix<Integer> rotatedMatrix = new Matrix<>(size);
         for (int i = 0; i < size; i++) {
