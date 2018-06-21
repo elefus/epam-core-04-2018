@@ -1,37 +1,100 @@
 package com.epam.homework.task26;
 
+import com.akalji.SystemsOfLinearEquations.*;
+import com.akalji.SystemsOfLinearEquations.exceptions.LinearEquationIncompatibleException;
+import com.akalji.matrix.Matrix;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.util.*;
+import java.util.concurrent.*;
+
+import static com.akalji.SystemsOfLinearEquations.PLUDecomposition.PLUC;
 
 public class Task26Impl implements Task26 {
     private static double EPS = 0.00001;
 
-    TreeSet<I2DPoint> T = new TreeSet<>(new Point());
+    TreeMap<Double, Set<I2DPoint>> intersections = new TreeMap<>();
 
     @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
-        Set<I2DPoint> result = new HashSet<>();
-        TreeSet<I2DPoint> Q = segmentsIntersections(segments);
-        while (!Q.isEmpty()) {
-            processPoint(Q.first());
+        ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ArrayList<ISegment> listOfSegments = new ArrayList<>(segments);
+        List<Callable<Map.Entry<Double, I2DPoint>>> tasks = new ArrayList<>();
+
+        for (int i = 0; i < listOfSegments.size(); i++) {
+            for (int j = i; j < listOfSegments.size(); j++) {
+                if (i != j) {
+                    tasks.add(new Crosser(listOfSegments.get(i), listOfSegments.get(j)));
+                }
+            }
         }
 
-        return result;
-    }
-
-    private TreeSet<I2DPoint> segmentsIntersections(Set<ISegment> segments) {
-        TreeSet<I2DPoint> res = new TreeSet<>(new Point());
-        for (ISegment segment:segments) {
-            res.add(segment.first());
-            res.add(segment.second());
+        List<Future<Map.Entry<Double, I2DPoint>>> futures = new ArrayList<>();
+        try {
+            futures = service.invokeAll(tasks);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        return res;
+
+        boolean isFinished;
+        do {
+            isFinished = true;
+            for (Future<Map.Entry<Double, I2DPoint>> future : futures) {
+                if (!future.isDone()) {
+                    isFinished = false;
+                }
+            }
+        } while (!isFinished);
+
+        for (Future<Map.Entry<Double, I2DPoint>> future : futures) {
+            try {
+                Map.Entry<Double, I2DPoint> entry = future.get();
+                if (entry != null) {
+                    if(intersections.containsKey(entry.getKey())){
+                        intersections.get(entry.getKey()).add(entry.getValue());
+                    } else {
+                        intersections.put(entry.getKey(),new HashSet<I2DPoint>());
+                        intersections.get(entry.getKey()).add(entry.getValue());
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        return intersections.firstEntry().getValue();
     }
 
-    private I2DPoint processPoint(I2DPoint q) {
-        return new Point(0, 0);
+    @AllArgsConstructor
+    private class Crosser implements Callable {
+        private ISegment firstSegment;
+        private ISegment secondSegment;
+
+        @Override
+        public Map.Entry<Double, I2DPoint> call() throws Exception {
+            Matrix x;
+            Matrix A = new Matrix(2, 2);
+            Matrix b = new Matrix(2, 1);
+
+            //Ax=b
+            A.set(0, 0, firstSegment.first().getY() - firstSegment.second().getY());
+            A.set(0, 1, firstSegment.first().getX() - firstSegment.second().getX());
+            A.set(1, 0, secondSegment.first().getY() - secondSegment.second().getY());
+            A.set(1, 1, secondSegment.first().getX() - secondSegment.second().getX());
+
+            b.set(0, 0, firstSegment.first().getX() * firstSegment.second().getY() - firstSegment.second().getX() * firstSegment.first().getY());
+            b.set(1, 0, secondSegment.first().getX() * secondSegment.second().getY() - secondSegment.second().getX() * secondSegment.first().getY());
+
+            try {
+                Solution solution = PLUC(A);
+                x = SystemOfLinearEquation.SOLE(solution, b);
+            } catch (LinearEquationIncompatibleException e) {
+                return null;
+            }
+            return new AbstractMap.SimpleEntry<Double, I2DPoint>(x.getElement(0, 0), new Point(x.getElement(0, 0), x.getElement(1, 0)));
+        }
     }
 
 
@@ -73,7 +136,7 @@ public class Task26Impl implements Task26 {
 
         @Override
         public int compareTo(I2DPoint o) {
-            return compare(this,o);
+            return compare(this, o);
         }
     }
 }
