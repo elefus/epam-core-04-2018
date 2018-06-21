@@ -24,7 +24,9 @@ public class CarRacing implements Task28{
         int countOvertakingWithTwoCars = 0;
 
         int firstCarTime = lengthLap * numberLaps / firstCar.getSpeed();
-        int difference = lengthLap * numberLaps - secondCar.getSpeed() * firstCarTime;
+        int secondCarTime = lengthLap * numberLaps / secondCar.getSpeed();
+
+        int difference = lengthLap * numberLaps - Math.min(firstCar.getSpeed(), secondCar.getSpeed()) * Math.min(firstCarTime, secondCarTime);
 
         countOvertakingWithTwoCars += Math.abs(difference / lengthLap);
 
