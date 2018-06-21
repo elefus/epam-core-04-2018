@@ -1,5 +1,10 @@
 package com.epam.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
 public class Task16 {
 
     /**
@@ -59,7 +64,76 @@ public class Task16 {
      * 4 2
      * 3 9
      */
-    public static void main(String[] args) {
-        // TODO реализация
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(reader.readLine());
+        int[][] matrix = new int[N][N];
+        for (int i = 0; i<N; i++) {
+            String[] array = reader.readLine().trim().split(" ");
+            for (int j = 0; j<N; j++){
+                matrix[i][j] = Integer.parseInt(array[j]);
+            }
+        }
+        int k = Integer.parseInt(reader.readLine());
+
+        if (k < 0){
+            k = k % 4;
+            if (k!=0) {k+=4;}
+        }else {k = k % 4;}
+
+        if (k == 0){
+            zero(matrix, N);
+        }
+        if (k == 1){
+            one(matrix, N);
+        }
+        if (k == 2){
+            two(matrix, N);
+        }
+        if (k == 3){
+            three(matrix, N);
+        }
+
+    }
+
+    private static void zero(int[][] matrix, int N){
+        for (int i = 0; i<N; i++) {
+
+            for (int j = 0; j<N; j++){
+                System.out.print(matrix[i][j]+ " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private static void one(int[][] matrix, int N){
+        for (int i = 0; i<N; i++) {
+
+            for (int j = 0; j<N; j++){
+                System.out.print(matrix[N-1-j][i] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private static void two(int[][] matrix, int N){
+        for (int i = 0; i<N; i++) {
+
+            for (int j = 0; j<N; j++){
+                System.out.print(matrix[N-1-i][N-1-j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    private static void three(int[][] matrix, int N){
+        for (int i = 0; i<N; i++) {
+
+
+            for (int j = 0; j<N; j++){
+                System.out.print(matrix[j][N-1-i]+ " ");
+            }
+            System.out.println();
+        }
     }
 }
