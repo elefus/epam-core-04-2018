@@ -1,5 +1,11 @@
 package com.epam.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Task6 {
 
     /**
@@ -35,7 +41,29 @@ public class Task6 {
      * Выходные данные:
      * NOT FOUND
      */
-    public static void main(String[] args) {
-        // TODO реализация
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int count = Integer.parseInt(reader.readLine());
+        String[] array = reader.readLine().trim().split(" ");
+
+        int sum = 0;
+
+
+        boolean found = true;
+        for (int i = 0; i < count; i++){
+            found = true;
+            for (int j = 0; j < array[i].length()-1; j++) {
+                if (array[i].charAt(j)>=array[i].charAt(j+1)){
+                    found = false;
+                }
+
+            }
+            if (array[i].length()==1){found = false;}
+            if (found){System.out.println(array[i]);break;}
+
+        }
+        if (!found){System.out.println("NOT FOUND");}
+
     }
 }
