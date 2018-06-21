@@ -59,7 +59,7 @@ public class Task14 {
                     countOfRow++;
                 }else
                 {
-                    if (countOfRow>=ans){
+                    if ((countOfRow>0)&(countOfRow+1>ans)){
                         ans = countOfRow+1;
                     }
                     countOfRow = 0;
