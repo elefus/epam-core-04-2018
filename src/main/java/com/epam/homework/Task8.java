@@ -45,7 +45,7 @@ public class Task8 {
         int ansCount = 0;
         String answer = "";
         for (int i = 0; i < count; i++){
-            if (isNumber(array[i]) & isPalinrom(array[i])){
+            if (!answer.equals(array[i]) & isNumber(array[i]) & isPalinrom(array[i])){
 
                 ansCount++;
                 answer = array[i];
