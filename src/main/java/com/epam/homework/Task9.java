@@ -1,4 +1,4 @@
-package main.java.com.epam.homework;
+package com.epam.homework;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
