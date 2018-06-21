@@ -1,4 +1,8 @@
 package com.epam.homework;
+import java.util.Scanner;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 
 public class Task7 {
 
@@ -28,6 +32,30 @@ public class Task7 {
      * The is a
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        int wordCounter = scanner.nextInt();
+        scanner.nextLine();
+
+        Set<String> wordsWithUniqueLetters = new LinkedHashSet<>();
+
+        for (int i = 0; i < wordCounter; i++) {
+            Set<Character> uniqueCharArrr = new LinkedHashSet<>();
+
+            String currentWord = scanner.next().toLowerCase();
+
+            for (int j = 0; j < currentWord.length(); j++) {
+                uniqueCharArrr.add(currentWord.charAt(j));
+            }
+
+            if (uniqueCharArrr.size() == currentWord.length()) {
+                wordsWithUniqueLetters.add(currentWord);
+            }
+        }
+
+        if (wordsWithUniqueLetters.isEmpty()) {
+            System.out.println("NOT FOUND");
+        } else {
+            System.out.println(String.join(" ", wordsWithUniqueLetters));
+        }
     }
 }
