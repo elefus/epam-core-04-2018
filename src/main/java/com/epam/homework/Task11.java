@@ -34,24 +34,26 @@ public class Task11 {
      * 5
      */
 
-    static int order = 1;
 
-    static int answer = 0;
     public static void main(String[] args) throws IOException {
+        int order = 1;
+
+        int answer = 0;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int vslue = Math.abs(Integer.parseInt(reader.readLine()));
-        recursion(vslue);
-        System.out.println(answer);
+
+        System.out.println(recursion(vslue, order, answer));
     }
 
 
-    private static void recursion(int value) {
+    private static int recursion(int value, int order, int answer) {
         answer += Math.round(value % (order *10) / (order));
 
         order*=10;
         if (value>order){
-            recursion(value);
+            answer = recursion( value, order, answer);
         }
+        return answer;
     }
 
 }
