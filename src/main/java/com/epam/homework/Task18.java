@@ -5,7 +5,6 @@ import com.kindet27.matrix.*;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class Task18 {
 
@@ -86,14 +85,5 @@ public class Task18 {
         }
 
         matrix.matrixSout2Dim();
-    }
-
-    private static int arrContains(Integer[] arr, int target) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == target) {
-                return i;
-            }
-        }
-        return -1;
     }
 }
