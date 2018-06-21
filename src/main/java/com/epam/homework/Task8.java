@@ -1,5 +1,5 @@
 package com.epam.homework;
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
+
 
 import java.util.Scanner;
 import java.util.List;
@@ -51,20 +51,22 @@ public class Task8 {
             System.out.println(arr.get(1));
         }
     }
+
     public static boolean isDigit(String str) {
         for (int i = 0; i < str.length(); i++) {
-            if (!Character.isDigit(str.charAt(i))){
+            if (!Character.isDigit(str.charAt(i))) {
                 return false;
             }
         }
         return true;
     }
+
     public static boolean isPalyndrome(String str) {
         if (str.length() == 1) {
             return true;
         } else {
             StringBuilder strBiuld = new StringBuilder(str);
-            if (!strBiuld.toString().equals(strBiuld.reverse().toString()))  return false;
+            if (!strBiuld.toString().equals(strBiuld.reverse().toString())) return false;
         }
         return true;
     }
