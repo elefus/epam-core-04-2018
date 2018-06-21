@@ -56,11 +56,13 @@ public class Task14 {
         if (N>1) {
             for (int i = 0; i < N-1; i++) {
                 if (numbers[i] < numbers[i+1]){
-                    countOfRow++;
+                    if (countOfRow == 0){countOfRow=countOfRow+2;}
+                    else
+                    {countOfRow++;}
                 }else
                 {
-                    if ((countOfRow>0)&(countOfRow+1>ans)){
-                        ans = countOfRow+1;
+                    if (countOfRow>ans){
+                        ans = countOfRow;
                     }
                     countOfRow = 0;
                 }
