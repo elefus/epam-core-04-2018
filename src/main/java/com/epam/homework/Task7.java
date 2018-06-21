@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Task7 {
-
+    private static Set<String> set;
     /**
      * Ввести N слов с консоли.
      * Найти слова, состоящие только из различных символов английского алфавита.
@@ -42,12 +42,12 @@ public class Task7 {
         for (int i = 0; i < N; i++) {
             InputArr[i] = String.valueOf(scanner.next());
         }
-        Set<String> set = new LinkedHashSet<>();
 
+        set = new LinkedHashSet<>();
 
         for (int i = 0; i < InputArr.length; i++) {
             if(wordIsUnique(InputArr[i].toLowerCase())) {
-            set.add(InputArr[i]);
+                if (addcondition(InputArr[i])) { set.add(InputArr[i]);}
             found = true;
             }
         }
@@ -59,6 +59,14 @@ public class Task7 {
                 System.out.print(word + " ");
             }
         }
+
+    }
+    private static boolean addcondition(String InputArr) {
+        for (String string : set) {
+            if (string.equalsIgnoreCase(InputArr))
+            return false;
+        }
+        return true;
     }
     private static boolean wordIsUnique(String s) {
         char characters[] = s.toCharArray();
@@ -70,4 +78,5 @@ public class Task7 {
         }
         return (countOfUniqueChars == s.length());
     }
+
 }
