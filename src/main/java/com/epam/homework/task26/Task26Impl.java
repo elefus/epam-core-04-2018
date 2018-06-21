@@ -35,7 +35,7 @@ public class Task26Impl implements Task26 {
                     } else {
                         Set<I2DPoint> i2DPoints = mapOfIntersections.get(key);
                         i2DPoints.add(point);
-                        mapOfIntersections.put(key,i2DPoints);
+                        mapOfIntersections.put(key, i2DPoints);
                     }
                 }
             }
@@ -46,29 +46,40 @@ public class Task26Impl implements Task26 {
 
     private I2DPoint getIntersectionPoint(ISegment segment1, ISegment segment2) {
 
-        I2DPoint dir1 = new Point(segment1.second().getX() - segment1.first().getX(), segment1.second().getY() - segment1.first().getY());
-        I2DPoint dir2 = new Point(segment2.second().getX() - segment2.first().getX(), segment2.second().getY() - segment2.first().getY());
+
+        double x1 = segment1.first().getX();
+        double x2 = segment1.second().getX();
+        double y1 = segment1.first().getY();
+        double y2 = segment1.second().getY();
+
+        double x3 = segment2.first().getX();
+        double y3 = segment2.first().getY();
+        double x4 = segment2.second().getX();
+        double y4 = segment2.second().getY();
+
+        I2DPoint dir1 = new Point(x2 - x1, y2 - y1);
+        I2DPoint dir2 = new Point(x4 - x3, y4 - y3);
 
         double a1 = -dir1.getY();
         double b1 = dir1.getX();
         double a2 = -dir2.getY();
         double b2 = dir2.getX();
 
-        double d1 = -(a1 * segment1.first().getX() + b1 * segment1.first().getY());
+        double d1 = -(a1 * x1 + b1 * y1);
 
-        double d2 = -(a2 * segment2.first().getX() + b2 * segment2.first().getY());
+        double d2 = -(a2 * x3 + b2 * y3);
 
-        double seg1_start = a2 * segment1.first().getX() + b2 * segment1.first().getY() + d2;
-        double seg1_end = a2 * segment1.second().getX() + b2 * segment1.second().getY() + d2;
+        double seg1_start = a2 * x1 + b2 * y1 + d2;
+        double seg1_end = a2 * x2 + b2 * y2 + d2;
 
-        double seg2_start = a1 * segment2.first().getX() + b1 * segment2.first().getY() + d1;
-        double seg2_end = a1 * segment2.second().getX() + b1 * segment2.second().getY() + d1;
+        double seg2_start = a1 * x3 + b1 * y3 + d1;
+        double seg2_end = a1 * x4 + b1 * y4 + d1;
 
         if (seg1_start * seg1_end > 0 || seg2_start * seg2_end > 0)
             return null;
 
         double u = seg1_start / (seg1_start - seg1_end);
-        return new Point(segment1.first().getX() + u * dir1.getX(), segment1.first().getY() + u * dir1.getY());
+        return new Point(x1 + u * b1, y1 + u * dir1.getY());
     }
 }
 
