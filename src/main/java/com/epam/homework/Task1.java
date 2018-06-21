@@ -41,15 +41,15 @@ public class Task1 {
      * MAX (35): Приятна мне твоя прощальная краса —
      */
     public static void main(String[] args) throws IOException {
-        
-        int N = parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int N = parseInt(reader.readLine());
         String maxString;
         String minString;
-        String test1 = new BufferedReader(new InputStreamReader(System.in)).readLine();
+        String test1 = reader.readLine();
         maxString=test1;
         minString=test1;
         for (int i=1; i<N;i++){
-            String test = new BufferedReader(new InputStreamReader(System.in)).readLine();
+            String test = reader.readLine();
             if (test.length()>=maxString.length()){
                 maxString=test;
             }
