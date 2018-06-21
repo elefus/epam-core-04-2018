@@ -14,17 +14,23 @@ public class Task28Solution implements Task28 {
         int totalLengthOfRace = lengthLap * numberLaps;
 
         for (int i = 0; i < allCars.size(); i++) {
-            Car car1 = allCars.get(i);
+            Car firstCar = allCars.get(i);
+            int timeFirst = totalLengthOfRace / firstCar.getSpeed();
             for (int j = i + 1; j < allCars.size(); j++) {
-                Car car2 = allCars.get(j);
+                Car secondCar = allCars.get(j);
 
-                if (car1.getSpeed() > car2.getSpeed()) {
-                    Car temp;
-                    temp = car1;
-                    car1 = car2;
-                    car2 = temp;
+                int timeSecond = totalLengthOfRace / secondCar.getSpeed();
+
+                int diffBetweenCars = (totalLengthOfRace - Math.min(firstCar.getSpeed(), secondCar.getSpeed()) * Math.min(timeFirst, timeSecond));
+
+                numOfOvertaking += Math.abs(diffBetweenCars / lengthLap);
+
+                if ((firstCar.getStartPosition() < secondCar.getStartPosition()) && (secondCar.getSpeed() > firstCar.getSpeed())) {
+                    numOfOvertaking++;
                 }
-                numOfOvertaking += (int)(totalLengthOfRace - (car1.getSpeed()) * (totalLengthOfRace / car2.getSpeed()) / lengthLap);
+                if ((firstCar.getStartPosition() > secondCar.getStartPosition()) && (secondCar.getSpeed() < firstCar.getSpeed())) {
+                    numOfOvertaking++;
+                }
             }
         }
         return numOfOvertaking;
