@@ -1,5 +1,10 @@
 package com.epam.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
 public class Task10 {
 
     /**
@@ -29,7 +34,19 @@ public class Task10 {
      * Выходные данные:
      * YES
      */
-    public static void main(String[] args) {
-        // TODO реализация
+
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int count = Integer.parseInt(reader.readLine());
+        System.out.println(isDegree(count));
+
     }
+
+
+    private static String isDegree(int count) {
+        if (((count & (count - 1)) == 0) && (count > 0)){return  "YES";}
+        else{return"NO";}
+    }
+
 }
