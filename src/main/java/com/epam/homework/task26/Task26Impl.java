@@ -66,7 +66,17 @@ public class Task26Impl implements Task26 {
         double y3 = segment2.first().getY();
         double x4 = segment2.second().getX();
         double y4 = segment2.second().getY();
-        
+
+        double c = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
+        if (Math.abs(c) - 0 < 0.0000001) {
+            if ((x2 == x4 || x2 == x3) & (y2 == y4 || y2 == y3)) {
+                return new Point(x2, y2);
+            }
+            if ((x1 == x3 || x1 == x4) & (y1 == y3 || y1 == y4)) {
+                return new Point(x1, y1);
+            }
+            return null;
+        }
 
 
         //нахождение координат векторов
