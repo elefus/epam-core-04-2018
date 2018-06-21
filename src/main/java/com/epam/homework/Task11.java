@@ -47,7 +47,7 @@ public class Task11 {
 
 
     private static int recursion(int value, int order, int answer) {
-        answer += Math.round(value % (order *10) / (order));
+        answer += Math.floor(value % (order *10) / (order));
 
         order*=10;
         if (value>order){
