@@ -1,5 +1,9 @@
 package com.epam.homework;
 
+import com.kindet27.matrix.*;
+
+import java.util.Scanner;
+
 public class Task17 {
 
     /**
@@ -37,6 +41,8 @@ public class Task17 {
      * -65
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        Matrix<Integer> matrix = new Matrix<>(scanner, Scanner::nextInt);
+        System.out.println(matrix.calculateDeterminant());
     }
 }
