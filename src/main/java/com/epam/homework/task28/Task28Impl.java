@@ -23,14 +23,14 @@ public class Task28Impl implements Task28 {
 
         for (int i = 0; i < carsList.size(); i++) {
 
-            CarImpl car1 = (CarImpl) carsList.get(i);
+            Car car1 = carsList.get(i);
             
             for (int j = i + 1; j < carsList.size(); j++) {
 
-                CarImpl car2 = (CarImpl) carsList.get(j);
+                Car car2 = carsList.get(j);
 
                 // Время, в течение которого возможен обгон между парой машин
-                int availableTime = Math.min(car1.getTime(raceTrackLength), car2.getTime(raceTrackLength));
+                int availableTime = raceTrackLength / Math.max(car1.getSpeed(), car2.getSpeed());
 
                 // Расстояние, которое успеет проехать за это время более медленная машина
                 int minDistance = Math.min(car1.getSpeed(), car2.getSpeed()) * availableTime;
@@ -38,7 +38,7 @@ public class Task28Impl implements Task28 {
                 // Количество обгонов между парой машин без учёта начальных положений
                 overtakingCount += (raceTrackLength - minDistance) / lengthLap;
 
-                // Учёт начального положения
+                // Учёт начальных положений
                 if (car1.getStartPosition() > car2.getStartPosition() && car1.getSpeed() > car2.getSpeed()) {
                     overtakingCount++;
                 }
