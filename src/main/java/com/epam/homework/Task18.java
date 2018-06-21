@@ -2,7 +2,10 @@ package com.epam.homework;
 
 import com.kindet27.matrix.*;
 
+import java.util.LinkedHashSet;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Task18 {
 
@@ -58,30 +61,39 @@ public class Task18 {
         Matrix<Integer> matrix = new Matrix<>(scanner, Scanner::nextInt);
 
         Integer maxEl = Integer.MIN_VALUE;
-        for (int i = 0; i < matrix.getRows(); i++) {
-            for (int j = 0; j < matrix.getColumns(); j++) {
-                maxEl = Math.max(maxEl, matrix.getElement(i, j));
+        Set<Integer> rowsToDelete= new LinkedHashSet<>();
+        Set<Integer> columnsToDelete= new LinkedHashSet<>();
+        for (int i = matrix.getRows() - 1; i>=0 ; i--) {
+            for (int j = matrix.getColumns() - 1; j>=0; j--) {
+                Integer cur = matrix.getElement(i, j);
+                if(cur > maxEl) {
+                    rowsToDelete= new LinkedHashSet<>();
+                    columnsToDelete= new LinkedHashSet<>();
+                    maxEl = cur;
+                }
+                if(cur.equals(maxEl)){
+                    rowsToDelete.add(i);
+                    columnsToDelete.add(j);
+                }
             }
         }
-        for (int i = matrix.getColumns(); i >= 0; i--) {
-            if (arrContains(matrix.getRowByInd(i), maxEl)) {
-                matrix = matrix.deleteRow(i);
-            }
+
+        for (Integer row: rowsToDelete) {
+            matrix = matrix.deleteRow(row);
         }
-        for (int i = matrix.getRows(); i >= 0; i--) {
-            if (arrContains(matrix.getColumnByInd(i), maxEl)) {
-                matrix = matrix.deleteColumn(i);
-            }
+        for (Integer column: columnsToDelete) {
+            matrix = matrix.deleteColumn(column);
         }
-        matrix.matrixSout();
+
+        matrix.matrixSout2Dim();
     }
 
-    private static boolean arrContains(int[] arr, int target) {
-        for (int anArr : arr) {
-            if (anArr == target) {
-                return true;
+    private static int arrContains(Integer[] arr, int target) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == target) {
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 }
