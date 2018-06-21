@@ -75,7 +75,7 @@ public class Task13 {
         }else {
             k = N - (k % N);
         }
-
+        System.out.println(N);
         for (int i = 0; i<N; i++) {
 
             for (int j = 0; j<N; j++){
