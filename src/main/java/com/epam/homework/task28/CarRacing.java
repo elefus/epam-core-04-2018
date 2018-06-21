@@ -28,8 +28,15 @@ public class CarRacing implements Task28{
 
         countOvertakingWithTwoCars += Math.abs(difference / lengthLap);
 
-        if ((firstCar.getStartPosition() > secondCar.getStartPosition()) && (secondCar.getSpeed() < firstCar.getSpeed())) {
-            ++countOvertakingWithTwoCars;
+        if (firstCar.getStartPosition() < secondCar.getStartPosition()) {
+            if (firstCar.getSpeed() < secondCar.getSpeed()) {
+                ++countOvertakingWithTwoCars;
+            }
+        }
+        if (firstCar.getStartPosition() > secondCar.getStartPosition()) {
+            if (firstCar.getSpeed() > secondCar.getSpeed()) {
+                ++countOvertakingWithTwoCars;
+            }
         }
         return countOvertakingWithTwoCars;
     }
