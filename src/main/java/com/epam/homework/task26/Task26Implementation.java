@@ -33,27 +33,41 @@ public class Task26Implementation implements Task26 {
         }
     }
 
-    private I2DPoint getIntersection(ISegment first, ISegment second) {
+    private I2DPoint getIntersection(ISegment firstSegment, ISegment secondSegment) {
 
-        // параметры отрезков
-       double a1 = first.first().getY() - first.second().getY();
-       double b1 = first.second().getX() - first.first().getX();
-       double a2 = second.first().getY() - second.second().getY();
-       double b2 = second.second().getX() - second.first().getX();
+        double x1 = firstSegment.first().getX();
+        double y1 = firstSegment.first().getY();
+        double x2 = firstSegment.second().getX();
+        double y2 = firstSegment.second().getY();
+        double x3 = secondSegment.first().getX();
+        double y3 = secondSegment.first().getY();
+        double x4 = secondSegment.second().getX();
+        double y4 = secondSegment.second().getY();
 
-        double d = a1 * b2 - a2 * b1;
+        double a1 = -(firstSegment.second().getY() - firstSegment.first().getY());
+        double b1 = (x2 - x1);
+        double c1 = -(a1 * x1 + b1 * y1);
 
-        if ( d != 0 ) {
+        double a2 = -(y4 - y3);
+        double b2 = x4 - x3;
+        double c2 = -(a2 * x3 + b2 * y3);
 
-            double c1 = first.second().getY() * first.first().getX() - first.second().getX() * first.first().getY();
-            double c2 = second.second().getY() * second.first().getX() - second.second().getX() * second.second().getY();
+        double line1left = a2 * x1 + b2 * y1 + c2;
+        double line1rigth = a2 * x2 + b2 * y2 + c2;
 
-            return new IntersectionPoint((b1 * c2 - b2 * c1) / d, (a2 * c1 - a1 * c2) / d);
-        }
-        else {
+        double line2left = a1 * x3 + b1 * y3 + c1;
+        double line2rigth = a1 * x4 + b1 * y4 + c1;
+
+        if (line1left * line1rigth > 0 || line2left * line2rigth > 0) {
             return null;
         }
+
+        double k = line1left / (line1left - line1rigth);
+        return new IntersectionPoint(x1 + k * (x2 - x1), y1 + k * (y2 - y1));
     }
+
+
+
 
     private class IntersectionPoint implements I2DPoint {
 
