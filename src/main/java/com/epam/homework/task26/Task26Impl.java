@@ -25,99 +25,50 @@ public class Task26Impl implements Task26 {
         for (int i = 0; i < segmentList.size(); i++) {
             for (int j = i + 1; j < segmentList.size(); j++) {
                 I2DPoint point = getIntersectionPoint(segmentList.get(i), segmentList.get(j));
+                // добавляем точку в дерево
                 if (point != null) {
-                    addIntersectionPoint(mapOfIntersections, point);
+                    double key = point.getX();
+                    if (!mapOfIntersections.containsKey(key)) {
+                        Set<I2DPoint> hashSet = new HashSet<>();
+                        hashSet.add(point);
+                        mapOfIntersections.put(key, hashSet);
+                    } else {
+                        Set<I2DPoint> i2DPoints = mapOfIntersections.get(key);
+                        i2DPoints.add(point);
+                        mapOfIntersections.put(key,i2DPoints);
+                    }
                 }
             }
         }
         return mapOfIntersections.firstEntry().getValue();
     }
 
-    private void addIntersectionPoint(TreeMap<Double, Set<I2DPoint>> mapOfIntersections, I2DPoint point) {
-
-        double key = point.getX();
-        if (!mapOfIntersections.containsKey(key)) {
-            Set<I2DPoint> hashSet = new HashSet<>();
-            hashSet.add(point);
-            mapOfIntersections.put(key, hashSet);
-        } else {
-            // если уже есть такой ключ, добавляем в Set точку
-            mapOfIntersections.merge(key, mapOfIntersections.get(key),
-                    (a, b) -> {
-                        // добавляем точку в Set
-                        mapOfIntersections.get(key).add(point);
-                        //возвращаем новый Set
-                        return mapOfIntersections.get(key);
-                    });
-        }
-    }
-
 
     private I2DPoint getIntersectionPoint(ISegment segment1, ISegment segment2) {
 
-        Point resultPoint = new Point();
+        I2DPoint dir1 = new Point(segment1.second().getX() - segment1.first().getX(), segment1.second().getY() - segment1.first().getY());
+        I2DPoint dir2 = new Point(segment2.second().getX() - segment2.first().getX(), segment2.second().getY() - segment2.first().getY());
 
-        double x1 = segment1.first().getX();
-        double y1 = segment1.first().getY();
-        double x2 = segment1.second().getX();
-        double y2 = segment1.second().getY();
+        double a1 = -dir1.getY();
+        double b1 = dir1.getX();
+        double a2 = -dir2.getY();
+        double b2 = dir2.getX();
 
-        double x3 = segment2.first().getX();
-        double y3 = segment2.first().getY();
-        double x4 = segment2.second().getX();
-        double y4 = segment2.second().getY();
+        double d1 = -(a1 * segment1.first().getX() + b1 * segment1.first().getY());
 
-        double c = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
-        if (Math.abs(c) - 0 < 0.0000001) {
-            if ((x2 == x4 || x2 == x3) & (y2 == y4 || y2 == y3)) {
-                return new Point(x2, y2);
-            }
-            if ((x1 == x3 || x1 == x4) & (y1 == y3 || y1 == y4)) {
-                return new Point(x1, y1);
-            }
+        double d2 = -(a2 * segment2.first().getX() + b2 * segment2.first().getY());
+
+        double seg1_start = a2 * segment1.first().getX() + b2 * segment1.first().getY() + d2;
+        double seg1_end = a2 * segment1.second().getX() + b2 * segment1.second().getY() + d2;
+
+        double seg2_start = a1 * segment2.first().getX() + b1 * segment2.first().getY() + d1;
+        double seg2_end = a1 * segment2.second().getX() + b1 * segment2.second().getY() + d1;
+
+        if (seg1_start * seg1_end > 0 || seg2_start * seg2_end > 0)
             return null;
-        }
 
-
-        //нахождение координат векторов
-        double xv12 = x2 - x1;
-        double xv13 = x3 - x1;
-        double xv14 = x4 - x1;
-        double yv12 = y2 - y1;
-        double yv13 = y3 - y1;
-        double yv14 = y4 - y1;
-
-        double xv31 = x1 - x3;
-        double xv32 = x2 - x3;
-        double xv34 = x4 - x3;
-        double yv31 = y1 - y3;
-        double yv32 = y2 - y3;
-        double yv34 = y4 - y3;
-        //построение векторов
-        double v1, v2, v3, v4;
-        v1 = xv34 * yv31 - yv34 * xv31;
-        v2 = xv34 * yv32 - yv34 * xv32;
-        v3 = xv12 * yv13 - yv12 * xv13;
-        v4 = xv12 * yv14 - yv12 * xv14;
-
-        if ((v1 * v2) < 0 && (v3 * v4) < 0) {
-            double a1 = y2 - y1;
-            double a2 = y4 - y3;
-            double b1 = x1 - x2;
-            double b2 = x3 - x4;
-            double c1 = (x1 * (y1 - y2) + y1 * (x2 - x1)) * (-1);
-            double c2 = (x3 * (y3 - y4) + y3 * (x4 - x3)) * (-1);
-
-
-            double d = (a1 * b2) - (b1 * a2);
-            double dx = (c1 * b2) - (b1 * c2);
-            double dy = (a1 * c2) - (c1 * a2);
-
-            if (d != 0) {
-                return new Point(dx / d, dy / d);
-            }
-        }
-        return null;
+        double u = seg1_start / (seg1_start - seg1_end);
+        return new Point(segment1.first().getX() + u * dir1.getX(), segment1.first().getY() + u * dir1.getY());
     }
 }
 
