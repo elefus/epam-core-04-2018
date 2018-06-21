@@ -18,18 +18,16 @@ public class Task26Implementation implements Task26 {
             getLineFromTheCoordinates(segment);
         }
 
-        Iterator<List<Double>> iterator = linesMap.values().iterator();
+        Iterator<ISegment> iterator = linesMap.keySet().iterator();
         while (iterator.hasNext()) {
-            List<Double> firstLineCoordinates = iterator.next();
+            ISegment firstLineCoordinates = iterator.next();
             if (iterator.hasNext()) {
-                List<Double> secondLineCoordinates = iterator.next();
-                if (!areParallel(firstLineCoordinates, secondLineCoordinates)) {
+                ISegment secondLineCoordinates = iterator.next();
                     I2DPoint intersectionPoint = getIntersectionPoint(firstLineCoordinates, secondLineCoordinates);
-                    if (Double.compare(minAbsc, intersectionPoint.getX()) > 0) {
+                    if (intersectionPoint != null && Double.compare(minAbsc, intersectionPoint.getX()) > 0) {
                         minAbsc = intersectionPoint.getX();
                     }
                     resultSet.add(intersectionPoint);
-                }
             }
         }
 
@@ -39,22 +37,27 @@ public class Task26Implementation implements Task26 {
         return resultSet;
     }
 
-    private I2DPoint getIntersectionPoint(List<Double> firstLineCoordinates, List<Double> secondLineCoordinates) {
+    private I2DPoint getIntersectionPoint(ISegment first, ISegment second) {
         double x;
         double y;
 
-        // выражаем
-        x = (firstLineCoordinates.get(1) + firstLineCoordinates.get(2)) / - firstLineCoordinates.get(0);
+        // параметры отрезков
+       double a1 = first.first().getY() - first.second().getY();
+       double b1 = first.second().getX() - first.first().getX();
+       double a2 = second.first().getY() - second.second().getY();
+       double b2 = second.second().getX() - second.first().getX();
 
-        // считаем
-        y = secondLineCoordinates.get(0)*x+secondLineCoordinates.get(2) / - secondLineCoordinates.get(1);
-        x = secondLineCoordinates.get(1)*y+secondLineCoordinates.get(2) / - secondLineCoordinates.get(0);
-
-        return new IntersectionPoint(x, y);
-    }
-
-    private boolean areParallel(List<Double> firstLineCoordinates, List<Double> secondLineCoordinates) {
-        return Double.compare(firstLineCoordinates.get(0), secondLineCoordinates.get(0)) == 0;
+        double d = a1 * b2 - a2 * b1;
+        if ( d != 0 ) {
+            double c1 = first.second().getY() * first.first().getX() - first.second().getX() * first.first().getY();
+            double c2 = second.second().getY() * second.first().getX() - second.second().getX() * second.second().getY();
+            x = (b1 * c2 - b2 * c1) / d;
+            y = (a2 * c1 - a1 * c2) / d;
+            return new IntersectionPoint(x, y);
+        }
+        else {
+            return null;
+        }
     }
 
     /**
