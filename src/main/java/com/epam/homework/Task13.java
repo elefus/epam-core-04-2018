@@ -57,7 +57,7 @@ public class Task13 {
             int[][] matrix = readMatrix(scanner);
             int k = scanner.nextInt();
 
-            printNewMartix(matrix,k);
+            printNewMartix(matrix, k);
         }
 
     }
