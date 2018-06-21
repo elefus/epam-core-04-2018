@@ -76,7 +76,7 @@ public class Task16 {
             }
         }
         int k = Integer.parseInt(reader.readLine());
-
+        System.out.println(N);
         if (k < 0){
             k = k % 4;
             if (k!=0) {k+=4;}
