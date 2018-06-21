@@ -1,5 +1,10 @@
 package com.epam.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
 public class Task18 {
 
     /**
@@ -49,7 +54,76 @@ public class Task18 {
      * -1  1
      *  0  3
      */
-    public static void main(String[] args) {
-        // TODO реализация
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(reader.readLine());
+        int[][] matrix = new int[N][N];
+        for (int i = 0; i<N; i++) {
+            String[] array = reader.readLine().trim().split(" ");
+            for (int j = 0; j<N; j++){
+                matrix[i][j] = Integer.parseInt(array[j]);
+            }
+        }
+
+        int max = findMax(matrix, N);
+        boolean[] rows = new boolean[N];
+        boolean[] colums = new boolean[N];
+
+        for (int i = 0; i<N; i++) {
+
+            for (int j = 0; j<N; j++){
+                if (max == matrix[i][j]){
+                    rows[i] = true;
+                    colums[j] = true;
+                }
+            }
+
+        }
+
+        int n = N;
+        int m = N;
+        for (int i = 0; i<N; i++) {
+
+            if (rows[i]){
+                n--;
+            }
+            if (colums[i]){
+                m--;
+            }
+
+        }
+        System.out.println(n);
+        System.out.println(m);
+
+
+
+        for (int i = 0; i<N; i++) {
+            boolean exist = false;
+            for (int j = 0; j<N; j++){
+                if (!rows[i] && !colums[j]){
+                    System.out.print(matrix[i][j] + " ");
+                    exist = true;
+                }
+            }
+            if (exist) {
+                System.out.println();
+            }
+        }
+
     }
+    private static int findMax(int[][] matrix, int N){
+        int max = matrix[0][0];
+        for (int i = 0; i<N; i++) {
+
+            for (int j = 0; j<N; j++){
+                if (max < matrix[i][j]){
+                    max = matrix[i][j];
+                }
+            }
+        }
+        return max;
+    }
+
+
 }
