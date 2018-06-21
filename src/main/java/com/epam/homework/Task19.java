@@ -1,5 +1,8 @@
 package com.epam.homework;
 
+import java.util.Scanner;
+import com.kindet27.matrix.*;
+
 public class Task19 {
 
     /**
@@ -36,6 +39,28 @@ public class Task19 {
      * -3  1
      */
     public static void main(String[] args) {
-        // TODO реализация
+        Scanner scanner = new Scanner(System.in);
+        Matrix<Integer> matrix = new Matrix<>(scanner, Scanner::nextInt);
+
+        for (int i = matrix.getColumns(); i >= 0; i--) {
+            if (arrFullOfZeros(matrix.getRowByInd(i))) {
+                matrix = matrix.deleteRow(i);
+            }
+        }
+        for (int i = matrix.getRows(); i >= 0; i--) {
+            if (arrFullOfZeros(matrix.getColumnByInd(i))) {
+                matrix = matrix.deleteColumn(i);
+            }
+        }
+        matrix.matrixSout();
+    }
+
+    private static boolean arrFullOfZeros(int[] arr) {
+        for (int anArr : arr) {
+            if (anArr != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
