@@ -60,13 +60,14 @@ public class Task2 {
             if (line1.length() == (line2.length())){
                 return line1.compareTo(line2);
             }
-            return  Integer.compare(line1.length(),line2.length());
+            return Integer.compare(line1.length(),line2.length());
 
         });
 
         for (int i = 0; i < count; i++){
-            System.out.println("(" + array[i].length() + "): " + array[i]);
+            System.out.println("(" + array[i].length() + "):" + array[i]);
         }
+
 
 
 
