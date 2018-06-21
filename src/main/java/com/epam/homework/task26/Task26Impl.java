@@ -55,12 +55,16 @@ public class Task26Impl implements Task26 {
 
     private void addIntersectionPoint(TreeMap<Double, Set<I2DPoint>> intersectionMap, I2DPoint point) {
         double key = point.getX();
-        if (intersectionMap.containsKey(key)) {
-            intersectionMap.get(key).add(point);
+        if (!intersectionMap.containsKey(key)) {
+            Set<I2DPoint> hashSet = new HashSet<>();
+            hashSet.add(point);
+            intersectionMap.put(key, hashSet);
         } else {
-            Set<I2DPoint> tempSet = new HashSet<>();
-            tempSet.add(point);
-            intersectionMap.put(key, tempSet);
+            intersectionMap.merge(key, intersectionMap.get(key),
+                    (a, b) -> {
+                        intersectionMap.get(key).add(point);
+                        return intersectionMap.get(key);
+                    });
         }
     }
 
