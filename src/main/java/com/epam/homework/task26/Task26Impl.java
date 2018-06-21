@@ -165,13 +165,13 @@ public class Task26Impl implements Task26 {
             }
         }
 
-        @Override
-        public String toString() {
-            return "Point{" +
-                    "x=" + x +
-                    ", y=" + y +
-                    '}';
-        }
+//        @Override
+//        public String toString() {
+//            return "Point{" +
+//                    "x=" + x +
+//                    ", y=" + y +
+//                    '}';
+//        }
 
         @Override
         public int compareTo(I2DPoint o) {
@@ -179,16 +179,4 @@ public class Task26Impl implements Task26 {
         }
     }
 
-    public static void main(String[] args) {
-        Set<ISegment> segmentSet = new HashSet<>();
-//        segmentSet.add(new SegmentImpl(new Point(0, 0), new Point(3, 3)));
-//        segmentSet.add(new SegmentImpl(new Point(0, 3), new Point(3, 0)));
-        segmentSet.add(new Segment(new Point(-4, -2), new Point(-2, 2)));
-//        segmentSet.add(new SegmentImpl(new Point(-1, -2), new Point(2, 2)));
-//        segmentSet.add(new SegmentImpl(new Point(-1, -2), new Point(-1, -2)));
-//        segmentSet.add(new SegmentImpl(new Point(4, 3), new Point(11, 9)));
-//        segmentSet.add(new SegmentImpl(new Point(2, 3), new Point(11, 9)));
-        segmentSet.add(new Segment(new Point(100, 1), new Point(105, 4)));
-        System.out.println(new Task26Impl().analyze(segmentSet));
-    }
 }
