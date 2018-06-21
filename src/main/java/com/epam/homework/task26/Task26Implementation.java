@@ -1,23 +1,36 @@
 package com.epam.homework.task26;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Task26Implementation implements Task26 {
 
     @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
-        TreeMap<Double, I2DPoint> map = new TreeMap<>(Double::compare);
+        TreeMap<Double, Set<I2DPoint>> map = new TreeMap<>(Double::compare);
         List<ISegment> iSegmentList = new ArrayList<>(segments);
         for (int i = 0; i < iSegmentList.size()-1; i++) {
             for (int y = i + 1; y < iSegmentList.size(); y++) {
                 I2DPoint intersectionPoint = getIntersection(iSegmentList.get(i), iSegmentList.get(y));
                 if (intersectionPoint != null) {
-                    map.put(intersectionPoint.getX(), intersectionPoint);
+                    addIntersectionPoint(map, intersectionPoint);
                 }
             }
         }
-        return map.keySet().stream().filter(key -> key.equals(map.firstKey())).map(map::get).collect(Collectors.toSet());
+        return map.firstEntry().getValue();
+    }
+
+    private void addIntersectionPoint(TreeMap<Double, Set<I2DPoint>> mapOfIntersectionPoints, I2DPoint point) {
+        double key = point.getX();
+        if (!mapOfIntersectionPoints.containsKey(key)) {
+            Set<I2DPoint> hashSet = new HashSet<>();
+            hashSet.add(point);
+            mapOfIntersectionPoints.put(key, hashSet);
+        } else {
+            mapOfIntersectionPoints.merge(key, mapOfIntersectionPoints.get(key), (point1, point2) -> {
+                mapOfIntersectionPoints.get(key).add(point);
+                        return mapOfIntersectionPoints.get(key);
+                    });
+        }
     }
 
     private I2DPoint getIntersection(ISegment first, ISegment second) {
