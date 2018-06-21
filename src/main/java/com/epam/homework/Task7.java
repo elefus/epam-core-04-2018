@@ -51,14 +51,14 @@ public class Task7 {
             found = true;
             letters.clear();
             String currient = array[i].toLowerCase();
-            for (int j = 0; j < array[i].length()-1; j++) {
+            for (int j = 0; j < array[i].length(); j++) {
                 if (letters.contains(currient.charAt(j))){found = false;}
                 else{
                     letters.add(currient.charAt(j));
                 }
             }
 
-            if (array[i].length()==1){found = false;}
+            if (array[i].length()==1){found = true;}
             if (found){
                 if (!words.contains(currient)){
                     words.add(currient);
