@@ -6,7 +6,7 @@ public class Task26Impl implements Task26 {
     @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
         List<ISegment> segmentsAsList = new ArrayList<>(segments);
-        TreeMap<Double, Set<I2DPoint>> intersectionMap = new TreeMap<>(Comparator.comparingDouble(Object::hashCode));
+        TreeMap<Double, Set<I2DPoint>> intersectionMap = new TreeMap<>();
 
         for (int i = 0; i < segmentsAsList.size(); i++) {
             for (int j = i + 1; j < segmentsAsList.size(); j++) {
