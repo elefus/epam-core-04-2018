@@ -42,16 +42,16 @@ public class Task11 {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int vslue = Math.abs(Integer.parseInt(reader.readLine()));
 
-        System.out.println(recursion(vslue, order, answer));
+        System.out.println(recursion(vslue,  answer));
     }
 
 
-    private static int recursion(int value, int order, int answer) {
-        answer += Math.floor(value % (order *10) / (order));
+    private static int recursion(int value, int answer) {
+        answer += value % (10) ;
+        value = value/10;
 
-        order*=10;
-        if (value>order){
-            answer = recursion( value, order, answer);
+        if (value>0){
+            answer = recursion( value, answer);
         }
         return answer;
     }
