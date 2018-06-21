@@ -24,7 +24,7 @@ public class Task28Solution implements Task28 {
                     car1 = car2;
                     car2 = temp;
                 }
-                numOfOvertaking += totalLengthOfRace - (car1.getSpeed()) * (totalLengthOfRace / car2.getSpeed()) / lengthLap;
+                numOfOvertaking += (int)(totalLengthOfRace - (car1.getSpeed()) * (totalLengthOfRace / car2.getSpeed()) / lengthLap);
             }
         }
         return numOfOvertaking;
