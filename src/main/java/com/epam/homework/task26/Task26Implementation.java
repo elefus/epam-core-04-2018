@@ -1,23 +1,26 @@
 package com.epam.homework.task26;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task26Implementation implements Task26 {
 
     @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
-        Set<I2DPoint> resultSet = new HashSet<>();
-        Iterator<ISegment> iterator = segments.iterator();
-        while (iterator.hasNext()) {
-            ISegment firstLineCoordinates = iterator.next();
-            if (iterator.hasNext()) {
-                resultSet.add(getIntersectionPoint(firstLineCoordinates, iterator.next()));
+        TreeMap<Double, I2DPoint> map = new TreeMap<>(Double::compare);
+        List<ISegment> iSegmentList = new ArrayList<>(segments);
+        for (int i = 0; i < iSegmentList.size()-1; i++) {
+            for (int y = i + 1; y < iSegmentList.size(); y++) {
+                I2DPoint intersectionPoint = getIntersection(iSegmentList.get(i), iSegmentList.get(y));
+                if (intersectionPoint != null) {
+                    map.put(intersectionPoint.getX(), intersectionPoint);
+                }
             }
         }
-        return resultSet;
+        return map.keySet().stream().filter(key -> key.equals(map.firstKey())).map(map::get).collect(Collectors.toSet());
     }
 
-    private I2DPoint getIntersectionPoint(ISegment first, ISegment second) {
+    private I2DPoint getIntersection(ISegment first, ISegment second) {
 
         // параметры отрезков
        double a1 = first.first().getY() - first.second().getY();
