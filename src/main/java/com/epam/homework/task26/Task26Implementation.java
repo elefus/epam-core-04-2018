@@ -6,32 +6,18 @@ public class Task26Implementation implements Task26 {
 
     @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
-
         Set<I2DPoint> resultSet = new HashSet<>();
-        Map<ISegment, List<Double>> linesMap = new TreeMap<>();
-        double minAbsc = Double.MAX_VALUE;
-        Iterator<ISegment> iterator = linesMap.keySet().iterator();
+        Iterator<ISegment> iterator = segments.iterator();
         while (iterator.hasNext()) {
             ISegment firstLineCoordinates = iterator.next();
             if (iterator.hasNext()) {
-                ISegment secondLineCoordinates = iterator.next();
-                    I2DPoint intersectionPoint = getIntersectionPoint(firstLineCoordinates, secondLineCoordinates);
-                    if (intersectionPoint != null && Double.compare(minAbsc, intersectionPoint.getX()) > 0) {
-                        minAbsc = intersectionPoint.getX();
-                    }
-                    resultSet.add(intersectionPoint);
+                resultSet.add(getIntersectionPoint(firstLineCoordinates, iterator.next()));
             }
         }
-
-        double min = minAbsc;
-        resultSet.removeIf(e -> e.getX() > min);
-
         return resultSet;
     }
 
-    I2DPoint getIntersectionPoint(ISegment first, ISegment second) {
-        double x;
-        double y;
+    private I2DPoint getIntersectionPoint(ISegment first, ISegment second) {
 
         // параметры отрезков
        double a1 = first.first().getY() - first.second().getY();
@@ -40,12 +26,13 @@ public class Task26Implementation implements Task26 {
        double b2 = second.second().getX() - second.first().getX();
 
         double d = a1 * b2 - a2 * b1;
+
         if ( d != 0 ) {
+
             double c1 = first.second().getY() * first.first().getX() - first.second().getX() * first.first().getY();
             double c2 = second.second().getY() * second.first().getX() - second.second().getX() * second.second().getY();
-            x = (b1 * c2 - b2 * c1) / d;
-            y = (a2 * c1 - a1 * c2) / d;
-            return new IntersectionPoint(x, y);
+
+            return new IntersectionPoint((b1 * c2 - b2 * c1) / d, (a2 * c1 - a1 * c2) / d);
         }
         else {
             return null;
@@ -64,14 +51,12 @@ public class Task26Implementation implements Task26 {
 
         @Override
         public double getX() {
-            return 0;
+            return x;
         }
 
         @Override
         public double getY() {
-            return 0;
+            return y;
         }
     }
-
-
 }
