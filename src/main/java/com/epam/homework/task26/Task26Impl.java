@@ -81,7 +81,7 @@ public class Task26Impl implements Task26 {
 
 
             double c = (y2B - y1B) * (x2A - x1A) - (x2B - x1B) * (y2A - y1A);
-            if (Math.abs(c) - 0 < 0.0000001) {
+            if (Math.abs(c) - 0 < EPS) {
 
                 if ((x2A == x2B || x2A == x1B) & (y2A == y2B || y2A == y1B)) {
                     return new AbstractMap.SimpleEntry<>(x2A, new Point(x2A, y2A));
