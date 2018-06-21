@@ -38,17 +38,19 @@ public class Task15 {
         boolean isFirstPositiveFound;
         for (int i = 0; i < matrix.getRows(); i++) {
             isFirstPositiveFound = false;
+            int curSum = 0;
             for (int j = 0; j < matrix.getRows(); j++) {
                 int cur = matrix.getElement(i, j);
                 if (cur > 0) {
                     if (isFirstPositiveFound) {
+                        sum += curSum;
                         break;
                     } else {
                         isFirstPositiveFound = true;
                     }
                 } else {
                     if (isFirstPositiveFound) {
-                        sum += cur;
+                        curSum += cur;
                     }
                 }
             }
