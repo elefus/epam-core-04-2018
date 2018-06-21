@@ -42,12 +42,12 @@ public class Task19 {
         Scanner scanner = new Scanner(System.in);
         Matrix<Integer> matrix = new Matrix<>(scanner, Scanner::nextInt);
 
-        for (int i = matrix.getColumns(); i >= 0; i--) {
+        for (int i = matrix.getColumns() - 1; i >= 0; i--) {
             if (arrFullOfZeros(matrix.getRowByInd(i))) {
                 matrix = matrix.deleteRow(i);
             }
         }
-        for (int i = matrix.getRows(); i >= 0; i--) {
+        for (int i = matrix.getRows() - 1; i >= 0; i--) {
             if (arrFullOfZeros(matrix.getColumnByInd(i))) {
                 matrix = matrix.deleteColumn(i);
             }
@@ -55,7 +55,7 @@ public class Task19 {
         matrix.matrixSout();
     }
 
-    private static boolean arrFullOfZeros(int[] arr) {
+    private static boolean arrFullOfZeros(Integer[] arr) {
         for (int anArr : arr) {
             if (anArr != 0) {
                 return false;
