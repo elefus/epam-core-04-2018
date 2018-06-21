@@ -47,14 +47,16 @@ public class Task26Impl implements Task26 {
             }
         } while (!isFinished);
 
+        service.shutdown();
+
         for (Future<Map.Entry<Double, I2DPoint>> future : futures) {
             try {
                 Map.Entry<Double, I2DPoint> entry = future.get();
                 if (entry != null) {
-                    if(intersections.containsKey(entry.getKey())){
+                    if (intersections.containsKey(entry.getKey())) {
                         intersections.get(entry.getKey()).add(entry.getValue());
                     } else {
-                        intersections.put(entry.getKey(),new HashSet<I2DPoint>());
+                        intersections.put(entry.getKey(), new HashSet<I2DPoint>());
                         intersections.get(entry.getKey()).add(entry.getValue());
                     }
                 }
@@ -97,10 +99,39 @@ public class Task26Impl implements Task26 {
         }
     }
 
+    @AllArgsConstructor
+    static class Segment implements ISegment {
+        private final I2DPoint first;
+        private final I2DPoint second;
+
+
+        @Override
+        public I2DPoint first() {
+            return first;
+        }
+
+        @Override
+        public I2DPoint second() {
+            return second;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Segment segment = (Segment) o;
+            return Objects.equals(first, segment.first) &&
+                    Objects.equals(second, segment.second);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(first, second);
+        }
+    }
 
     @AllArgsConstructor
-    @NoArgsConstructor
-    class Point implements Task26.I2DPoint, Comparator<I2DPoint>, Comparable<I2DPoint> {
+    static class Point implements Task26.I2DPoint, Comparator<I2DPoint>, Comparable<I2DPoint> {
         private double x;
         private double y;
 
@@ -135,8 +166,29 @@ public class Task26Impl implements Task26 {
         }
 
         @Override
+        public String toString() {
+            return "Point{" +
+                    "x=" + x +
+                    ", y=" + y +
+                    '}';
+        }
+
+        @Override
         public int compareTo(I2DPoint o) {
             return compare(this, o);
         }
+    }
+
+    public static void main(String[] args) {
+        Set<ISegment> segmentSet = new HashSet<>();
+//        segmentSet.add(new SegmentImpl(new Point(0, 0), new Point(3, 3)));
+//        segmentSet.add(new SegmentImpl(new Point(0, 3), new Point(3, 0)));
+        segmentSet.add(new Segment(new Point(-4, -2), new Point(-2, 2)));
+//        segmentSet.add(new SegmentImpl(new Point(-1, -2), new Point(2, 2)));
+//        segmentSet.add(new SegmentImpl(new Point(-1, -2), new Point(-1, -2)));
+//        segmentSet.add(new SegmentImpl(new Point(4, 3), new Point(11, 9)));
+//        segmentSet.add(new SegmentImpl(new Point(2, 3), new Point(11, 9)));
+        segmentSet.add(new Segment(new Point(100, 1), new Point(105, 4)));
+        System.out.println(new Task26Impl().analyze(segmentSet));
     }
 }
