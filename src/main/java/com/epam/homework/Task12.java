@@ -44,14 +44,14 @@ public class Task12 {
             int[][] matrix = readMatrix(scanner);
             int k = scanner.nextInt();
             if (k == 0) {
-                printMartix(matrix);
+                printMatrix(matrix);
             } else {
                 for (int i = 0; i < matrix.length; i++) {
                     for (int j = i; j > 0 && matrix[j][k] < matrix[j - 1][k]; j--) {
                         modify(matrix, j);
                     }
                 }
-                printMartix(matrix);
+                printMatrix(matrix);
             }
         }
     }
@@ -64,7 +64,7 @@ public class Task12 {
     }
 
 
-    private static void printMartix(int[][] matrix) {
+    private static void printMatrix(int[][] matrix) {
         System.out.println(matrix.length);
         for (int row = 0; row < matrix.length; ++row) {
             for (int col = 0; col < matrix.length; ++col) {
