@@ -13,24 +13,24 @@ public class CarRacing implements Task28{
 
         for (int numberCar1 = 0; numberCar1 < subCars.size(); numberCar1++) {
             for (int numberCar2 = numberCar1 + 1; numberCar2 < subCars.size(); numberCar2++) {
-                countOvertaking += getNumberOvertakingsWithTwoCars(
+                countOvertaking += getNumberOvertakingWithTwoCars(
                         subCars.get(numberCar1), subCars.get(numberCar2), lengthLap, numberLaps);
             }
         }
         return countOvertaking;
     }
 
-    private int getNumberOvertakingsWithTwoCars(Car firstCar, Car secondCar, int lengthLap, int numberLaps) {
-        int countOvertakingsWithTwoCars = 0;
+    private int getNumberOvertakingWithTwoCars(Car firstCar, Car secondCar, int lengthLap, int numberLaps) {
+        int countOvertakingWithTwoCars = 0;
 
         int firstCarTime = lengthLap * numberLaps / firstCar.getSpeed();
         int difference = lengthLap * numberLaps - secondCar.getSpeed() * firstCarTime;
 
-        countOvertakingsWithTwoCars += Math.abs(difference / lengthLap);
+        countOvertakingWithTwoCars += Math.abs(difference / lengthLap);
 
-        if ((firstCar.getStartPosition() > firstCar.getStartPosition()) && (secondCar.getSpeed() < firstCar.getSpeed())) {
-            ++countOvertakingsWithTwoCars;
+        if ((firstCar.getStartPosition() > secondCar.getStartPosition()) && (secondCar.getSpeed() < firstCar.getSpeed())) {
+            ++countOvertakingWithTwoCars;
         }
-        return countOvertakingsWithTwoCars;
+        return countOvertakingWithTwoCars;
     }
 }
