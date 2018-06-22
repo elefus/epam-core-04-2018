@@ -47,26 +47,26 @@ public class Task26Impl implements Task26 {
         double x4 = segment2.second().getX();
         double y4 = segment2.second().getY();
 
-        double a1 = y2 - y1;
-        double b1 = x1 - x2;
-        double c1 = -((x2 - x1) * y1 - a1 * x1);
+        double a1 = -(y2 - y1);
+        double b1 = x2 - x1;
+        double c1 = -(a1 * x1 + b1 * y1);
 
-        double a2 = y4 - y3;
-        double b2 = x3 - x4;
-        double c2 = -((x4 - x3) * y3 - a2 * x3);
+        double a2 = -(y4 - y3);
+        double b2 = x4 - x3;
+        double c2 = -(a2 * x3 + b2 * y3);
 
-        double d = a1 * b2 - b1 * a2;
-        double d1 = c1 * b2 - b1 * c2;
-        double d2 = a1 * c2 - c1 * a2;
+        double firstStart = a2 * x1 + b2 * y1 + c2;
+        double firstEnd = a2 * x2 + b2 * y2 + c2;
 
-        double x = d1 / d;
-        double y = d2 / d;
+        double secondStart = a1 * x3 + b2 * y3 + c1;
+        double secondEnd = a1 * x4 + b2 * y4 + c1;
 
-        if ((x - x1) / (x2 - x1) == (y - y1) / (y2 - y1) || ((x - x3) / (x4 - x3) == (y - y3) / (y4 - y3))) {
+        if (firstStart * firstEnd > 0 || secondStart * secondEnd > 0) {
             return null;
         }
 
-        return new Point2D(d1 / d, d2 / d);
+        double d = firstEnd / (firstStart - firstEnd);
+        return new Point2D(x1 + d * (x2 - x1), y1 + d * (y2 - y1));
     }
 
     static class Point2D implements I2DPoint {
