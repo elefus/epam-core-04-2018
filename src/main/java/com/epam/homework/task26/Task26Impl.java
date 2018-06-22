@@ -9,21 +9,26 @@ public class Task26Impl implements Task26 {
         List<ISegment> segmentList = new ArrayList<>(segments);
 
         for (int i = 0; i < segmentList.size(); i++) {
+            Set<I2DPoint> segmentIntersectionPoints = new HashSet<>();
             for (int j = i + 1; j < segmentList.size(); j++) {
                 Point2D intersectionPoint = getIntersectionPoint(segmentList.get(i), segmentList.get(j));
                 if (intersectionPoint != null) {
-                    addPointsByAbscissa(allIntersectionPoints, intersectionPoint);
+                    segmentIntersectionPoints.add(intersectionPoint);
                 }
             }
+
+            addPointsByAbscissa(allIntersectionPoints, segmentIntersectionPoints);
         }
 
         return allIntersectionPoints.firstEntry().getValue();
     }
 
-    private void addPointsByAbscissa(TreeMap<Double, Set<I2DPoint>> intersectionPoints, I2DPoint point) {
-        Set<I2DPoint> pointsByAbscissa = intersectionPoints.containsKey(point.getX()) ? intersectionPoints.get(point.getX()) : new HashSet<>();
-        pointsByAbscissa.add(point);
-        intersectionPoints.put(point.getX(), pointsByAbscissa);
+    private void addPointsByAbscissa(TreeMap<Double, Set<I2DPoint>> intersectionPoints, Set<I2DPoint> points) {
+        for (I2DPoint point : points) {
+            Set<I2DPoint> pointsByAbscissa = intersectionPoints.containsKey(point.getX()) ? intersectionPoints.get(point.getX()) : new HashSet<>();
+            pointsByAbscissa.add(point);
+            intersectionPoints.put(point.getX(), pointsByAbscissa);
+        }
     }
 
     private Point2D getIntersectionPoint(ISegment segment1, ISegment segment2) {
@@ -55,7 +60,7 @@ public class Task26Impl implements Task26 {
             return null;
         }
 
-        double d = firstEnd / (firstStart - firstEnd);
+        double d = firstStart / (firstStart - firstEnd);
         return new Point2D(x1 + d * (x2 - x1), y1 + d * (y2 - y1));
     }
 
