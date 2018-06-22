@@ -1,9 +1,6 @@
 package com.epam.homework.task28;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Task28Impl implements Task28 {
     @Override
@@ -22,8 +19,8 @@ public class Task28Impl implements Task28 {
 
     private int howManyTimesOvertakes(Car car1, Car car2, int length, int lengthLap, int numberLaps) {
         if (car1.getSpeed() > car2.getSpeed()) {
-            int car1FinishTime = (length - car1.getStartPosition()) / car1.getSpeed();
-            int lapsLeftForCar2 = (length - car2.getStartPosition()) - (car1FinishTime * car2.getSpeed());
+            int car1FinishTime = (length - (car1.getStartPosition() / lengthLap)) / car1.getSpeed();
+            int lapsLeftForCar2 = (length - (car2.getStartPosition() / lengthLap)) - (car1FinishTime * car2.getSpeed());
             return lapsLeftForCar2 / lengthLap;
         }
 
