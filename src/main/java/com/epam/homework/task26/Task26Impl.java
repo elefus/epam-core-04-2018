@@ -85,6 +85,11 @@ public class Task26Impl implements Task26 {
         I2DPoint first;
         I2DPoint second;
 
+        Segment(I2DPoint first, I2DPoint second) {
+            this.first = first;
+            this.second = second;
+        }
+
         @Override
         public I2DPoint first() {
             return first;
