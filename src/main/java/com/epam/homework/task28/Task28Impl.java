@@ -12,7 +12,6 @@ public class Task28Impl implements Task28 {
         for (Car car1 : cars) {
             for (Car car2 : cars) {
                 numberOvertaking += howManyTimesOvertakes(car1, car2, length, lengthLap, numberLaps);
-                System.out.println(car1.getStartPosition() + " " + car1.getSpeed() + "/" + car2.getStartPosition() + " " + car2.getSpeed() + " " + numberOvertaking);
             }
         }
 
