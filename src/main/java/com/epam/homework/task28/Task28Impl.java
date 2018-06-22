@@ -11,17 +11,17 @@ public class Task28Impl implements Task28 {
 
         for (Car car1 : cars) {
             for (Car car2 : cars) {
-                numberOvertaking += howManyTimesOvertakes(car1, car2, length, lengthLap, numberLaps);
+                numberOvertaking += howManyTimesOvertakes(car1, car2, length, lengthLap);
             }
         }
 
         return numberOvertaking;
     }
 
-    private int howManyTimesOvertakes(Car car1, Car car2, int length, int lengthLap, int numberLaps) {
+    private int howManyTimesOvertakes(Car car1, Car car2, int length, int lengthLap) {
         if (car1.getSpeed() > car2.getSpeed()) {
-            int whereIsCar2WhenCar1IsDone = car2.getSpeed() * numberLaps;
-            int numOvertakes = (length - whereIsCar2WhenCar1IsDone) / lengthLap;
+            int car2Time = length / car2.getSpeed();
+            int numOvertakes = (length - car2Time) / lengthLap;
             return car1.getStartPosition() > car2.getStartPosition() ? ++numOvertakes : numOvertakes;
         }
 
