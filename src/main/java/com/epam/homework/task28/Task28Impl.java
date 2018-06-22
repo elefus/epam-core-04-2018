@@ -22,7 +22,7 @@ public class Task28Impl implements Task28 {
         if (car1.getSpeed() >= car2.getSpeed()) {
             int car1FinishTime = (numberLaps - (car1.getStartPosition() % lengthLap)) / car1.getSpeed();
             int lapsLeftForCar2 = numberLaps - (car2.getStartPosition() % lengthLap) - (car1FinishTime * car2.getSpeed());
-            return (car1.getStartPosition() > car2.getStartPosition()) ? lapsLeftForCar2 / lengthLap + 1 : lapsLeftForCar2 / lengthLap;
+            return (car1.getStartPosition() > car2.getStartPosition() && car1.getSpeed() != car2.getSpeed()) ? lapsLeftForCar2 / lengthLap + 1 : lapsLeftForCar2 / lengthLap;
         }
 
         return 0;
