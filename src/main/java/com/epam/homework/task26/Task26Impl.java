@@ -60,8 +60,8 @@ public class Task26Impl implements Task26 {
     }
 
     static class Point2D implements I2DPoint {
-        double x;
-        double y;
+        private double x;
+        private double y;
 
         Point2D (double x, double y) {
             this.x = x;
