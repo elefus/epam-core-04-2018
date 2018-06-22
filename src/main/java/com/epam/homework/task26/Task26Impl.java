@@ -11,7 +11,7 @@ public class Task26Impl implements Task26 {
         for (int i = 0; i < segmentList.size(); i++) {
             Set<I2DPoint> segmentIntersectionPoints = new HashSet<>();
             for (int j = i + 1; j < segmentList.size(); j++) {
-                Point2D intersectionPoint = getIntersectionPoint((Segment)  segmentList.get(i), (Segment) segmentList.get(j));
+                Point2D intersectionPoint = getIntersectionPoint(segmentList.get(i), segmentList.get(j));
                 if (intersectionPoint != null) {
                     segmentIntersectionPoints.add(intersectionPoint);
                 }
@@ -36,19 +36,7 @@ public class Task26Impl implements Task26 {
         return intersectionPoints;
     }
 
-    private Point2D getIntersectionPoint(Segment segment1, Segment segment2) {
-        if (segment1.first().getX() >= segment1.second().getX()) {
-            I2DPoint temp = segment1.first();
-            segment1.setFirst(segment1.second());
-            segment1.setSecond(temp);
-        }
-
-        if (segment2.first().getX() >= segment2.second().getX()) {
-            I2DPoint temp = segment2.first();
-            segment2.setFirst(segment2.second());
-            segment2.setSecond(temp);
-        }
-
+    private Point2D getIntersectionPoint(ISegment segment1, ISegment segment2) {
         double x1 = segment1.first().getX();
         double y1 = segment1.first().getY();
         double x2 = segment1.second().getX();
@@ -58,6 +46,18 @@ public class Task26Impl implements Task26 {
         double y3 = segment2.first().getY();
         double x4 = segment2.second().getX();
         double y4 = segment2.second().getY();
+
+        if (x1 >= x2) {
+            double temp = x1;
+            x1 = x2;
+            x2 = temp;
+        }
+
+        if (x3 >= x4) {
+            double temp = x3;
+            x3 = x4;
+            x4 = temp;
+        }
 
         if (x2 < x3) {
             return null;
@@ -107,34 +107,6 @@ public class Task26Impl implements Task26 {
         double ya = a1 * xa + b1;
 
         return new Point2D(xa, ya);
-    }
-
-    static class Segment implements ISegment {
-        I2DPoint first;
-        I2DPoint second;
-
-        Segment(I2DPoint first, I2DPoint second) {
-            this.first = first;
-            this.second = second;
-        }
-
-        @Override
-        public I2DPoint first() {
-            return first;
-        }
-
-        @Override
-        public I2DPoint second() {
-            return second;
-        }
-
-        void setFirst(I2DPoint first) {
-            this.first = first;
-        }
-
-        void setSecond(I2DPoint second) {
-            this.second = second;
-        }
     }
 
     static class Point2D implements I2DPoint {
