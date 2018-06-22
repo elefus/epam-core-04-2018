@@ -16,19 +16,28 @@ public class Task26Impl implements Task26 {
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
 
         List<ISegment> segmentsList = new ArrayList<>(segments);
-        TreeSet<Point> intersectionPoints = new TreeSet<>();
+
+        // Все точки пересечения отрезков, упорядоченные по возрастанию значения абсциссы
+        TreeSet<I2DPoint> intersectionPoints = new TreeSet<>((o1, o2) -> {
+            int result = Double.compare(o1.getX(), o2.getX());
+            if (result != 0) {
+                return result;
+            }
+            result = Double.compare(o1.getY(), o2.getY());
+            return result;
+        });
 
         for (int i = 0; i < segmentsList.size(); i++) {
 
-            Segment segment = (Segment) segmentsList.get(i);
+            ISegment segment1 = segmentsList.get(i);
 
             for (int j = i + 1; j < segmentsList.size(); j++) {
 
-                Segment currentSegment = (Segment) segmentsList.get(j);
-                I2DPoint point = segment.getIntersectionPoint(currentSegment);
+                ISegment segment2 = segmentsList.get(j);
+                I2DPoint point = getIntersectionPoint(segment1, segment2);
 
                 if (point != null) {
-                    intersectionPoints.add((Point) point);
+                    intersectionPoints.add(point);
                 }
             }
         }
@@ -46,10 +55,47 @@ public class Task26Impl implements Task26 {
         return result;
     }
 
+    private I2DPoint getPointOfSegmentWithMinX(ISegment segment) {
+        return segment.first().getX() <= segment.second().getX() ? segment.first() : segment.second();
+    }
+
+    private I2DPoint getPointOfSegmentWithMaxX(ISegment segment) {
+        return segment.first().getX() >= segment.second().getX() ? segment.first() : segment.second();
+    }
+
+    private I2DPoint getPointOfSegmentWithMinY(ISegment segment) {
+        return segment.first().getY() <= segment.second().getY() ? segment.first() : segment.second();
+    }
+
+    private I2DPoint getPointOfSegmentWithMaxY(ISegment segment) {
+        return segment.first().getY() >= segment.second().getY() ? segment.first() : segment.second();
+    }
+
+    private boolean maySegmentContainPoint(ISegment segment, I2DPoint point) {
+        return point.getX() >= getPointOfSegmentWithMinX(segment).getX()
+                && point.getX() <= getPointOfSegmentWithMaxX(segment).getX()
+                && point.getY() >= getPointOfSegmentWithMinY(segment).getY()
+                && point.getY() <= getPointOfSegmentWithMaxY(segment).getY();
+    }
+
+    public I2DPoint getIntersectionPoint(ISegment segment1, ISegment segment2) {
+
+        I2DPoint intersectionOfLines = Line.getLineFromSegment(segment1)
+                .getIntersectionPoint(Line.getLineFromSegment(segment2));
+
+        if (intersectionOfLines != null
+                && maySegmentContainPoint(segment1, intersectionOfLines)
+                && maySegmentContainPoint(segment2, intersectionOfLines)) {
+            return intersectionOfLines;
+        }
+
+        return null;
+    }
+
     /**
      * Точка на двумерной плоскости.
      */
-    static class Point implements I2DPoint, Comparable {
+    static class Point implements I2DPoint {
 
         private double x;
         private double y;
@@ -75,19 +121,6 @@ public class Task26Impl implements Task26 {
                     "x=" + x +
                     ", y=" + y +
                     '}';
-        }
-
-        @Override
-        public int compareTo(Object o) {
-            Point otherPoint = (Point) o;
-
-            int result = Double.compare(x, otherPoint.x);
-            if (result != 0) {
-                return result;
-            }
-
-            result = Double.compare(y, otherPoint.y);
-            return result;
         }
 
         @Override
@@ -128,6 +161,14 @@ public class Task26Impl implements Task26 {
             this.c = c;
         }
 
+        public static Line getLineFromSegment(ISegment segment) {
+            double a = segment.first().getY() - segment.second().getY(); // y1 - y2
+            double b = segment.second().getX() - segment.first().getX(); // x2 - x1
+            double c = segment.first().getX() * segment.second().getY()
+                    - segment.second().getX() * segment.first().getY(); // x1y2 - x2y1
+            return new Line(a, b, c);
+        }
+
         public double getA() {
             return a;
         }
@@ -164,55 +205,24 @@ public class Task26Impl implements Task26 {
     /**
      * Отрезок.
      */
-    static class Segment extends Line implements ISegment {
+    static class Segment implements ISegment {
 
-        private TreeSet<Point> points = new TreeSet<>();
+        private I2DPoint firstPoint;
+        private I2DPoint secondPoint;
 
-        public Segment(Point firstPoint, Point secondPoint) {
-            super(
-                    firstPoint.getY() - secondPoint.getY(), // y1 - y2
-                    secondPoint.getX() - firstPoint.getX(), // x2 - x1
-                    firstPoint.getX() * secondPoint.getY() - secondPoint.getX() * firstPoint.getY() // x1y2 - x2y1
-            );
-            points.add(firstPoint);
-            points.add(secondPoint);
+        public Segment(I2DPoint firstPoint, I2DPoint secondPoint) {
+            this.firstPoint = firstPoint;
+            this.secondPoint = secondPoint;
         }
 
         @Override
         public I2DPoint first() {
-            return points.first();
+            return firstPoint;
         }
 
         @Override
         public I2DPoint second() {
-            return points.last();
-        }
-
-        private I2DPoint getPointWithMinY() {
-            return first().getY() <= second().getY() ? first() : second();
-        }
-
-        private I2DPoint getPointWithMaxY() {
-            return first().getY() >= second().getY() ? first() : second();
-        }
-
-        private boolean mayContainPoint(I2DPoint point) {
-            return point.getX() >= first().getX()
-                    && point.getX() <= second().getX()
-                    && point.getY() >= getPointWithMinY().getY()
-                    && point.getY() <= getPointWithMaxY().getY();
-        }
-
-        public I2DPoint getIntersectionPoint(Segment otherSegment) {
-            I2DPoint intersectionOfLines = super.getIntersectionPoint(otherSegment);
-
-            if (intersectionOfLines != null
-                    && mayContainPoint(intersectionOfLines)
-                    && otherSegment.mayContainPoint(intersectionOfLines)) {
-                return intersectionOfLines;
-            }
-
-            return null;
+            return secondPoint;
         }
     }
 
@@ -271,20 +281,20 @@ public class Task26Impl implements Task26 {
             for (int j = 0; j < matrix.length; j++) {
 
                 int sign = (j % 2 == 0) ? 1 : -1;
-                sum += sign * matrix[0][j] * getDeterminant(getMinor(matrix, 0, j));
+                sum += sign * matrix[0][j] * getDeterminant(getMinor(matrix, j));
             }
 
             return sum;
         }
 
-        private static double[][] getMinor(double[][] matrix, int rowToRemove, int columnToRemove) {
+        private static double[][] getMinor(double[][] matrix, int columnToRemove) {
 
             double[][] minor = new double[matrix.length - 1][matrix.length - 1];
 
             for (int i = 0; i < minor.length; i++) {
                 for (int j = 0; j < minor.length; j++) {
 
-                    int iInMatrix = (i >= rowToRemove) ? i + 1 : i;
+                    int iInMatrix = i + 1;
                     int jInMatrix = (j >= columnToRemove) ? j + 1 : j;
 
                     minor[i][j] = matrix[iInMatrix][jInMatrix];
