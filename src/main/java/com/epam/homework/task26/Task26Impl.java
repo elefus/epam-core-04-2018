@@ -10,10 +10,8 @@ public class Task26Impl implements Task26 {
 
         for (int i = 0; i < segmentList.size(); i++) {
             Set<I2DPoint> segmentIntersectionPoints = new HashSet<>();
-            ISegment segment1 = segmentList.get(i);
             for (int j = i + 1; j < segmentList.size(); j++) {
-                ISegment segment2 = segmentList.get(j);
-                Point2D intersectionPoint = getIntersectionPoint((Segment) segment1, (Segment) segment2);
+                Point2D intersectionPoint = getIntersectionPoint((Segment)  segmentList.get(i), (Segment) segmentList.get(j));
                 if (intersectionPoint != null) {
                     segmentIntersectionPoints.add(intersectionPoint);
                 }
@@ -81,7 +79,7 @@ public class Task26Impl implements Task26 {
         return new Point2D(x, y);
     }
 
-    class Segment implements ISegment {
+    static class Segment implements ISegment {
         I2DPoint first;
         I2DPoint second;
 
@@ -109,7 +107,7 @@ public class Task26Impl implements Task26 {
         }
     }
 
-    class Point2D implements I2DPoint {
+    static class Point2D implements I2DPoint {
         double x;
         double y;
 
