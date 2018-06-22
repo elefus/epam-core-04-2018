@@ -16,13 +16,15 @@ public class Task26Impl implements Task26 {
 
                 I2DPoint intersectionPoint = getIntersectionPoint(list.get(i), list.get(j));
 
-                if (intersectionPoint != null && !map.containsKey(intersectionPoint.getX())) {
-                    hashSet.add(intersectionPoint);
-                    map.put(intersectionPoint.getX(), hashSet);
-                } else {
-                    Set<I2DPoint> i2DPoints = map.get(intersectionPoint.getX());
-                    i2DPoints.add(intersectionPoint);
-                    map.put(intersectionPoint.getX(), i2DPoints);
+                if (intersectionPoint != null) {
+                    if (!map.containsKey(intersectionPoint.getX())) {
+                        hashSet.add(intersectionPoint);
+                        map.put(intersectionPoint.getX(), hashSet);
+                    } else {
+                        Set<I2DPoint> i2DPoints = map.get(intersectionPoint.getX());
+                        i2DPoints.add(intersectionPoint);
+                        map.put(intersectionPoint.getX(), i2DPoints);
+                    }
                 }
             }
         }
