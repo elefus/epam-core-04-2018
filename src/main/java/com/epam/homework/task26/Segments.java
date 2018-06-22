@@ -54,7 +54,15 @@ public class Segments implements Task26 {
         double c2 = -(a2 * x3 + b2 * y3);
 
         double segmentStart1 = a2 * x1 + b2 * y1 + c2;
+        double segmentEnd1 = a2 * x2 + b2 * y2 + c2;
+
+        double segmentStart2 = a1 * x3 + b1 * y3 + c1;
         double segmentEnd2 = a1 * x4 + b1 * y4 + c1;
+
+        if (segmentStart1 * segmentEnd1 > 0 || segmentStart2 * segmentEnd2 > 0) {
+            return null;
+        }
+
 
         double d = segmentStart1 / (segmentStart1 - segmentEnd2);
 
