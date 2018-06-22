@@ -47,11 +47,6 @@ public class Task26Impl implements Task26 {
         double x4 = segment2.second().getX();
         double y4 = segment2.second().getY();
 
-
-        if ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4) == 0) {
-            return null;
-        }
-
         double a1 = y2 - y1;
         double b1 = x1 - x2;
         double c1 = -((x2 - x1) * y1 - a1 * x1);
@@ -63,6 +58,13 @@ public class Task26Impl implements Task26 {
         double d = a1 * b2 - b1 * a2;
         double d1 = c1 * b2 - b1 * c2;
         double d2 = a1 * c2 - c1 * a2;
+
+        double x = d1 / d;
+        double y = d2 / d;
+
+        if ((x - x1) / (x2 - x1) == (y - y1) / (y2 - y1) || ((x - x3) / (x4 - x3) == (y - y3) / (y4 - y3))) {
+            return null;
+        }
 
         return new Point2D(d1 / d, d2 / d);
     }
