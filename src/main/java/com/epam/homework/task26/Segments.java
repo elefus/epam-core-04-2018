@@ -20,15 +20,15 @@ public class Segments implements Task26 {
 
                     double keyIntersectionsMap = point.getX();
 
-                    if (!intersectionsMap.containsKey(keyIntersectionsMap)) {
-                        Set<I2DPoint> hashSet = new HashSet<>();
-                        hashSet.add(point);
-                        intersectionsMap.put(keyIntersectionsMap, hashSet);
-
+                    if (intersectionsMap.containsKey(keyIntersectionsMap)) {
+                        intersectionsMap.merge(keyIntersectionsMap, intersectionsMap.get(keyIntersectionsMap), (point1, point2) -> {
+                            intersectionsMap.get(keyIntersectionsMap).add(point);
+                            return intersectionsMap.get(keyIntersectionsMap);
+                        });
                     } else {
-                        Set<I2DPoint> i2DPoints = intersectionsMap.get(keyIntersectionsMap);
-                        i2DPoints.add(point);
-                        intersectionsMap.put(keyIntersectionsMap, i2DPoints);
+                        Set<I2DPoint> points = new HashSet<>();
+                        points.add(point);
+                        intersectionsMap.put(keyIntersectionsMap, points);
                     }
                 }
             }
