@@ -1,6 +1,5 @@
 package com.epam.homework.task26;
 
-
 import java.util.*;
 
 public class Task26Impl implements Task26 {
@@ -8,8 +7,8 @@ public class Task26Impl implements Task26 {
     @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
         List<ISegment> list = new ArrayList<>(segments);
-        Set<I2DPoint> hashSet = new HashSet<>();
         TreeMap<Double, Set<I2DPoint>> map = new TreeMap<>();
+        Set<I2DPoint> hashSet = new HashSet<>();
 
         for (int i = 0; i < list.size(); i++) {
             for (int j = i + 1; j < list.size(); j++) {
@@ -17,13 +16,14 @@ public class Task26Impl implements Task26 {
                 I2DPoint intersectionPoint = getIntersectionPoint(list.get(i), list.get(j));
 
                 if (intersectionPoint != null) {
-                    if (!map.containsKey(intersectionPoint.getX())) {
+                    double key = intersectionPoint.getX();
+                    if (!map.containsKey(key)) {
                         hashSet.add(intersectionPoint);
-                        map.put(intersectionPoint.getX(), hashSet);
+                        map.put(key, hashSet);
                     } else {
-                        Set<I2DPoint> i2DPoints = map.get(intersectionPoint.getX());
+                        Set<I2DPoint> i2DPoints = map.get(key);
                         i2DPoints.add(intersectionPoint);
-                        map.put(intersectionPoint.getX(), i2DPoints);
+                        map.put(key, i2DPoints);
                     }
                 }
             }
@@ -62,7 +62,6 @@ public class Task26Impl implements Task26 {
         return new Point2D(x1 + d * (x2 - x1), y1 + d * (y2 - y1));
     }
 }
-
 
 class Point2D implements Task26.I2DPoint {
     private double x;
