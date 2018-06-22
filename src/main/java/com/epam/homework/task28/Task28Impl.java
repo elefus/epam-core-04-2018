@@ -1,6 +1,6 @@
 package com.epam.homework.task28;
 
-import java.util.*;
+import java.util.Set;
 
 public class Task28Impl implements Task28 {
 
