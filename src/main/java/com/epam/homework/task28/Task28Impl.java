@@ -20,9 +20,9 @@ public class Task28Impl implements Task28 {
 
     private int howManyTimesOvertakes(Car car1, Car car2, int length, int lengthLap) {
         if (car1.getSpeed() > car2.getSpeed()) {
-            int car2Time = length / car2.getSpeed();
-            int numOvertakes = (length - car2Time) / lengthLap;
-            return car1.getStartPosition() > car2.getStartPosition() ? ++numOvertakes : numOvertakes;
+            int car1Time = length / car1.getSpeed();
+            int numOvertakes =  (length - car1Time * car2.getSpeed()) / lengthLap;
+            return car1.getStartPosition() > car2.getStartPosition() ?  ++numOvertakes : numOvertakes;
         }
 
         return 0;
