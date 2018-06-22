@@ -47,7 +47,7 @@ public class Segments implements Task26 {
         double x4 = seg2.second().getX();
         double y4 = seg2.second().getY();
 
-        double a1 = -(y2 - y1);
+        double a1 = -(seg1.second().getY() - seg1.first().getY());
         double b1 = (x2 - x1);
         double c1 = -(a1 * x1 + b1 * y1);
 
@@ -64,7 +64,6 @@ public class Segments implements Task26 {
         if (segmentStart1 * segmentEnd1 > 0 || segmentStart2 * segmentEnd2 > 0) {
             return null;
         }
-
 
         double d = segmentStart1 / (segmentStart1 - segmentEnd2);
 
