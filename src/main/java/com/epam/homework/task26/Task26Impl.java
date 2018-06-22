@@ -49,10 +49,17 @@ public class Task26Impl implements Task26 {
         double c1 = -(a1 * x1 + b1 * y1);
         double c2 = -(a2 * x3 + b2 * y3);
 
-        if ((a2 * x1 + b2 * y1 + c2) * (a2 * x2 + b2 * y2 + c2) > 0 || (a1 * x3 + b1 * y3 + c1) * (a1 * x4 + b1 * y4 + c1) > 0)
+
+        double beginningOfTheFirstSegment = a2 * x1 + b2 * y1 + c2;
+        double endOfTheFirstSegment = a2 * x2 + b2 * y2 + c2;
+
+        double beginningOfTheSecondSegment = a1 * x3 + b1 * y3 + c1;
+        double endOfTheSecondSegment = a1 * x4 + b1 * y4 + c1;
+
+        if (beginningOfTheFirstSegment * endOfTheFirstSegment > 0 || beginningOfTheSecondSegment * endOfTheSecondSegment > 0)
             return null;
 
-        double d = (a2 * x1 + b2 * y1 + c2) / ((a2 * x1 + b2 * y1 + c2) - (a2 * x2 + b2 * y2 + c2));
+        double d = beginningOfTheFirstSegment / (beginningOfTheFirstSegment - endOfTheFirstSegment);
         return new Point2D(x1 + d * (x2 - x1), y1 + d * (y2 - y1));
     }
 
