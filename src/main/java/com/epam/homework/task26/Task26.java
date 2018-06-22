@@ -17,7 +17,6 @@ public interface Task26 {
      * Отрезок.
      */
     interface ISegment {
-
         /**
          * @return Первая точка отрезка.
          */
