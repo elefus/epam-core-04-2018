@@ -69,44 +69,53 @@ public class Task26Impl implements Task26 {
             }
         }
 
+        double x;
+        double y;
+
         if (x1 - x2 == 0) {
+            x = x1;
             double a2 = (y3 - y4) / (x3 - x4);
             double b2 = y3 - a2 * x3;
-            double ya = a2 * x1 + b2;
+            y = a2 * x1 + b2;
 
-            if (!(x3 <= x1 && x4 >= x1 && Math.min(y1, y2) <= ya && Math.max(y1, y2) >= ya)) {
+            if (!(x3 <= x && x4 >= x && Math.min(y1, y2) <= y && Math.max(y1, y2) >= y)) {
                 return null;
             }
+
+            return new Point2D(x, y);
         }
 
         if (x3 - x4 == 0) {
+            x = x3;
             double a1 = (y1 - y2) / (x1 - x2);
             double b1 = y1 - a1 * x1;
-            double Ya = a1 * x3 + b1;
+            y = a1 * x3 + b1;
 
-            if (x1 <= x3 && x2 >= x3 && Math.min(y3, y4) <= Ya && Math.max(y3, y4) >= Ya) {
+            if (x1 <= x && x2 >= x && Math.min(y3, y4) <= y && Math.max(y3, y4) >= y) {
                 return null;
             }
+
+            return new Point2D(x, y);
         }
 
-        double a1 = (y1 - y2) / (x1 - x2);
-        double a2 = (y3 - y4) / (x3 - x4);
-        double b1 = y1 - a1 * x1;
-        double b2 = y3 - a2 * x3;
+        double k1 = (y1 - y2) / (x1 - x2);
+        double k2 = (y3 - y4) / (x3 - x4);
+        double b1 = y1 - k1 * x1;
+        double b2 = y3 - k2 * x3;
 
-        if (a1 == a2) {
+        if (k1 == k2) {
             return null;
         }
 
-        double xa = (b2 - b1) / (a1 - a2);
+        x = (b2 - b1) / (k1 - k2);
 
-        if ((xa < Math.max(x1, x3)) || (xa > Math.min(x2, x4))) {
+        if ((x < Math.max(x1, x3)) || (x > Math.min(x2, x4))) {
             return null;
         }
 
-        double ya = a1 * xa + b1;
+        y = k1 * x + b1;
 
-        return new Point2D(xa, ya);
+        return new Point2D(x, y);
     }
 
     static class Point2D implements I2DPoint {
