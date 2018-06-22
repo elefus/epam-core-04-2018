@@ -15,6 +15,8 @@ public class Segments implements Task26 {
 
                 I2DPoint point = getIntersectionPoint(iSegmentList.get(i), iSegmentList.get(j));
 
+                if (point == null) continue;
+
                 double keyIntersectionsMap = point.getX();
 
                 if (intersectionsMap.containsKey(keyIntersectionsMap)) {
