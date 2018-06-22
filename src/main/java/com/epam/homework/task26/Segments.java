@@ -8,6 +8,7 @@ public class Segments implements Task26 {
     public Set<I2DPoint> analyze(Set<ISegment> segments){
 
         TreeMap<Double, Set<I2DPoint>> intersectionsMap = new TreeMap<>();
+
         List<ISegment> iSegmentList = new ArrayList<>(segments);
 
         for (int i = 0; i < iSegmentList.size(); i++) {
@@ -15,18 +16,20 @@ public class Segments implements Task26 {
 
                 I2DPoint point = getIntersectionPoint(iSegmentList.get(i), iSegmentList.get(j));
 
-                if (point == null) continue;
+                if (point != null) {
 
-                double keyIntersectionsMap = point.getX();
+                    double keyIntersectionsMap = point.getX();
 
-                if (intersectionsMap.containsKey(keyIntersectionsMap)) {
-                    Set<I2DPoint> i2DPoints = intersectionsMap.get(keyIntersectionsMap);
-                    i2DPoints.add(point);
-                    intersectionsMap.put(keyIntersectionsMap, i2DPoints);
-                } else {
-                    Set<I2DPoint> hashSet = new HashSet<>();
-                    hashSet.add(point);
-                    intersectionsMap.put(keyIntersectionsMap, hashSet);
+                    if (!intersectionsMap.containsKey(keyIntersectionsMap)) {
+                        Set<I2DPoint> hashSet = new HashSet<>();
+                        hashSet.add(point);
+                        intersectionsMap.put(keyIntersectionsMap, hashSet);
+
+                    } else {
+                        Set<I2DPoint> i2DPoints = intersectionsMap.get(keyIntersectionsMap);
+                        i2DPoints.add(point);
+                        intersectionsMap.put(keyIntersectionsMap, i2DPoints);
+                    }
                 }
             }
         }
