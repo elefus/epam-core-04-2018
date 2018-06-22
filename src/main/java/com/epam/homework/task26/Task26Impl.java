@@ -59,24 +59,54 @@ public class Task26Impl implements Task26 {
         double x4 = segment2.second().getX();
         double y4 = segment2.second().getY();
 
-        double k1 = y1 == y2 ? 0 :(y2 - y1) / (x2 - x1);
-        double k2 = y3 == y4 ? 0: (y4 - y3) / (x4 - x3);
-
-        if (k1 == k2) {
+        if (x2 < x3) {
             return null;
         }
 
-        double b1 = y1 - k1 * x1;
-        double b2 = y3 - k2 * x3;
+        if ((x1 - x2 == 0) && (x3 - x4 == 0)) {
+            if ((Math.max(y1, y2) < Math.min(y3, y4)) || (Math.min(y1, y2) > Math.max(y3, y4))) {
+                return null;
+            }
+        }
 
-        double x = (b2 - b1) / (k1 -  k2);
-        double y = k1 * x + b1;
+        if (x1 - x2 == 0) {
+            double a2 = (y3 - y4) / (x3 - x4);
+            double b2 = y3 - a2 * x3;
+            double ya = a2 * x1 + b2;
 
-        if (!((x1 <= x4 && x4 <= x2) || (x1 <= x3 && x3 <= x2))) {
+            if (!(x3 <= x1 && x4 >= x1 && Math.min(y1, y2) <= ya && Math.max(y1, y2) >= ya)) {
+                return null;
+            }
+        }
+
+        if (x3 - x4 == 0) {
+            double a1 = (y1 - y2) / (x1 - x2);
+            double b1 = y1 - a1 * x1;
+            double Ya = a1 * x3 + b1;
+
+            if (x1 <= x3 && x2 >= x3 && Math.min(y3, y4) <= Ya && Math.max(y3, y4) >= Ya) {
+                return null;
+            }
+        }
+
+        double a1 = (y1 - y2) / (x1 - x2);
+        double a2 = (y3 - y4) / (x3 - x4);
+        double b1 = y1 - a1 * x1;
+        double b2 = y3 - a2 * x3;
+
+        if (a1 == a2) {
             return null;
         }
 
-        return new Point2D(x, y);
+        double xa = (b2 - b1) / (a1 - a2);
+
+        if ((xa < Math.max(x1, x3)) || (xa > Math.min(x2, x4))) {
+            return null;
+        }
+
+        double ya = a1 * xa + b1;
+
+        return new Point2D(xa, ya);
     }
 
     static class Segment implements ISegment {
