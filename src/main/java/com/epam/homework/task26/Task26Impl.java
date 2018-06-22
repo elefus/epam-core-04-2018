@@ -9,21 +9,26 @@ public class Task26Impl implements Task26 {
         List<ISegment> segmentList = new ArrayList<>(segments);
 
         for (int i = 0; i < segmentList.size(); i++) {
+            Set<I2DPoint> segmentIntersectionPoints = new HashSet<>();
             for (int j = i + 1; j < segmentList.size(); j++) {
                 Point2D intersectionPoint = getIntersectionPoint(segmentList.get(i), segmentList.get(j));
                 if (intersectionPoint != null) {
-                    addPointsByAbscissa(allIntersectionPoints, intersectionPoint);
+                    segmentIntersectionPoints.add(intersectionPoint);
                 }
             }
+
+            addPointsByAbscissa(allIntersectionPoints, segmentIntersectionPoints);
         }
 
         return allIntersectionPoints.firstEntry().getValue();
     }
 
-    private void addPointsByAbscissa(TreeMap<Double, Set<I2DPoint>> intersectionPoints, Point2D point) {
-        Set<I2DPoint> pointsByAbscissa = intersectionPoints.containsKey(point.getX()) ? intersectionPoints.get(point.getX()) : new HashSet<>();
-        pointsByAbscissa.add(point);
-        intersectionPoints.put(point.getX(), pointsByAbscissa);
+    private void addPointsByAbscissa(TreeMap<Double, Set<I2DPoint>> intersectionPoints, Set<I2DPoint> points) {
+        for (I2DPoint point : points) {
+            Set<I2DPoint> pointsByAbscissa = intersectionPoints.containsKey(point.getX()) ? intersectionPoints.get(point.getX()) : new HashSet<>();
+            pointsByAbscissa.add(point);
+            intersectionPoints.put(point.getX(), pointsByAbscissa);
+        }
     }
 
     private Point2D getIntersectionPoint(ISegment segment1, ISegment segment2) {
@@ -48,8 +53,8 @@ public class Task26Impl implements Task26 {
         double firstStart = a2 * x1 + b2 * y1 + c2;
         double firstEnd = a2 * x2 + b2 * y2 + c2;
 
-        double secondStart = a1 * x3 + b2 * y3 + c1;
-        double secondEnd = a1 * x4 + b2 * y4 + c1;
+        double secondStart = a1 * x3 + b1 * y3 + c1;
+        double secondEnd = a1 * x4 + b1 * y4 + c1;
 
         if (firstStart * firstEnd > 0 || secondStart * secondEnd > 0) {
             return null;
