@@ -17,19 +17,18 @@ public class Task26Impl implements Task26 {
                 }
             }
 
-            allIntersectionPoints = addPointsByAbscissa(allIntersectionPoints, segmentIntersectionPoints);
+            addPointsByAbscissa(allIntersectionPoints, segmentIntersectionPoints);
         }
 
         return allIntersectionPoints.firstEntry().getValue();
     }
 
-    private TreeMap<Double, Set<I2DPoint>> addPointsByAbscissa(TreeMap<Double, Set<I2DPoint>> intersectionPoints, Set<I2DPoint> points) {
+    private void addPointsByAbscissa(TreeMap<Double, Set<I2DPoint>> intersectionPoints, Set<I2DPoint> points) {
         for (I2DPoint point : points) {
             Set<I2DPoint> pointsByAbscissa = intersectionPoints.containsKey(point.getX()) ? intersectionPoints.get(point.getX()) : new HashSet<>();
             pointsByAbscissa.add(point);
             intersectionPoints.put(point.getX(), pointsByAbscissa);
         }
-        return intersectionPoints;
     }
 
     private Point2D getIntersectionPoint(ISegment segment1, ISegment segment2) {
