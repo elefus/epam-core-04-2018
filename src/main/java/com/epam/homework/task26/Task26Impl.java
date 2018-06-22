@@ -15,14 +15,13 @@ public class Task26Impl implements Task26 {
                 I2DPoint intersectionPoint = getIntersectionPoint(list.get(i), list.get(j));
 
                 if (intersectionPoint != null) {
-                    double key = intersectionPoint.getX();
-                    if (!map.containsKey(key)) {
+                    if (!map.containsKey(intersectionPoint.getX())) {
                         hashSet.add(intersectionPoint);
-                        map.put(key, hashSet);
+                        map.put(intersectionPoint.getX(), hashSet);
                     } else {
-                        Set<I2DPoint> i2DPoints = map.get(key);
+                        Set<I2DPoint> i2DPoints = map.get(intersectionPoint.getX());
                         i2DPoints.add(intersectionPoint);
-                        map.put(key, i2DPoints);
+                        map.put(intersectionPoint.getX(), i2DPoints);
                     }
                 }
             }
@@ -50,12 +49,8 @@ public class Task26Impl implements Task26 {
         double c1 = -(a1 * x1 + b1 * y1);
         double c2 = -(a2 * x3 + b2 * y3);
 
-        if ((a2 * x1 + b2 * y1 + c2) * (a2 * x2 + b2 * y2 + c2) > 0) {
+        if ((a2 * x1 + b2 * y1 + c2) * (a2 * x2 + b2 * y2 + c2) > 0 || (a1 * x3 + b1 * y3 + c1) * (a1 * x4 + b1 * y4 + c1) > 0)
             return null;
-        }
-        if ((a1 * x3 + b1 * y3 + c1) * (a1 * x4 + b1 * y4 + c1) > 0) {
-            return null;
-        }
 
         double d = (a2 * x1 + b2 * y1 + c2) / ((a2 * x1 + b2 * y1 + c2) - (a2 * x2 + b2 * y2 + c2));
         return new Point2D(x1 + d * (x2 - x1), y1 + d * (y2 - y1));
