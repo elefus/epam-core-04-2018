@@ -12,6 +12,7 @@ public class Task28Impl implements Task28 {
         for (Car car1 : cars) {
             for (Car car2 : cars) {
                 numberOvertaking += howManyTimesOvertakes(car1, car2, length, lengthLap, numberLaps);
+                System.out.println(car1.getStartPosition() + " " + car1.getSpeed() + "/" + car2.getStartPosition() + " " + car2.getSpeed() + " " + numberOvertaking);
             }
         }
 
@@ -19,13 +20,12 @@ public class Task28Impl implements Task28 {
     }
 
     private int howManyTimesOvertakes(Car car1, Car car2, int length, int lengthLap, int numberLaps) {
-        int numOvertakes = 0;
-
         if (car1.getSpeed() > car2.getSpeed()) {
-            int lapsOfCar2WhenCar1IsDone = ((length / car1.getSpeed()) * car2.getSpeed()) / lengthLap;
-            numOvertakes = numberLaps - lapsOfCar2WhenCar1IsDone - 1;
+            int whereIsCar2WhenCar1IsDone = car2.getSpeed() * numberLaps;
+            int numOvertakes = (length - whereIsCar2WhenCar1IsDone) / lengthLap;
+            return car1.getStartPosition() > car2.getStartPosition() ? ++numOvertakes : numOvertakes;
         }
 
-        return car1.getStartPosition() > car2.getStartPosition() ? ++numOvertakes : numOvertakes;
+        return 0;
     }
 }
