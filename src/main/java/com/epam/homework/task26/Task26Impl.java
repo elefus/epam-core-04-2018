@@ -25,13 +25,9 @@ public class Task26Impl implements Task26 {
 
     private TreeMap<Double, Set<I2DPoint>> addPointsByAbscissa(TreeMap<Double, Set<I2DPoint>> intersectionPoints, Set<I2DPoint> points) {
         for (I2DPoint point : points) {
-            if (!intersectionPoints.containsKey(point.getX())) {
-                Set<I2DPoint> pointsByAbscissa = new HashSet<>();
-                pointsByAbscissa.add(point);
-                intersectionPoints.put(point.getX(), pointsByAbscissa);
-            } else {
-                intersectionPoints.get(point.getX()).add(point);
-            }
+            Set<I2DPoint> pointsByAbscissa = intersectionPoints.containsKey(point.getX()) ? intersectionPoints.get(point.getX()) : new HashSet<>();
+            pointsByAbscissa.add(point);
+            intersectionPoints.put(point.getX(), pointsByAbscissa);
         }
         return intersectionPoints;
     }
