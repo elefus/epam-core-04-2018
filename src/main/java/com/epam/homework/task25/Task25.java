@@ -10,5 +10,6 @@ public interface Task25 {
      * @param string Анализируемая строка.
      * @return true - скобки расставлены верно, иначе - false.
      */
+
     boolean isNormalBrackets(String string);
 }
