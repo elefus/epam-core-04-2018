@@ -34,6 +34,7 @@ public interface Task26 {
      */
     interface I2DPoint {
 
+
         /** Значение абсциссы */
         double getX();
 
