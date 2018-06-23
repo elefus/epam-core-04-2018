@@ -65,7 +65,7 @@ public class Task16 {
         int[][] givenMatrix = readMatrix(sc);
         int rotationDegree = Integer.parseInt(sc.next());
         int[][] rotatedMatrix = rotateMatrix(givenMatrix, rotationDegree);
-        printMatrix();
+        printMatrix(rotatedMatrix);
     }
 
     private static int[][] readMatrix(Scanner scanner) {
