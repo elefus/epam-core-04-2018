@@ -19,5 +19,4 @@ public class Task21reverser implements Task21 {
         }
         return list;
     }
-
 }
