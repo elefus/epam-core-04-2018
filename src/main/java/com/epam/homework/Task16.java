@@ -67,7 +67,6 @@ public class Task16 {
             int[][] matrix = readMatrix(reader);
             int k = reader.nextInt();
             matrix = matrixRoll(k, matrix);
-            System.out.println(matrix.length);
             printMatrix(matrix);
 
     }
