@@ -2,7 +2,7 @@ package com.epam.homework.task25;
 
 import java.util.*;
 
-class Task25brackets implements Task25 {
+public class Task25brackets implements Task25 {
     @Override
     public boolean isNormalBrackets(String string) {
 
