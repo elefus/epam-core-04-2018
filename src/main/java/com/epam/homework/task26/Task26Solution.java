@@ -88,5 +88,4 @@ public class Task26Solution implements Task26 {
             return y;
         }
     }
- +
 }
