@@ -2,7 +2,7 @@ package com.epam.homework.task26;
 
 import java.util.*;
 
-public class Task26Implementation implements Task26 {
+public class Task26Solution implements Task26 {
 
     @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
