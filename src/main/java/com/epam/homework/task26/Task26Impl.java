@@ -10,13 +10,24 @@ public class Task26Impl implements Task26 {
 
         for (int i = 0; i < segmentsAsList.size(); i++) {
             for (int j = i + 1; j < segmentsAsList.size(); j++) {
-                I2DPoint currentPoint = intersectionDot(segmentsAsList.get(i), segmentsAsList.get(j));
-                if (currentPoint != null) {
-                    addIntersectionPoint(intersectionMap, currentPoint);
+                I2DPoint point = intersectionDot(segmentsAsList.get(i), segmentsAsList.get(j));
+                if (point != null) {
+                    addIntersectionPoint(intersectionMap, point);
                 }
             }
         }
         return intersectionMap.firstEntry().getValue();
+    }
+
+    private void addIntersectionPoint(TreeMap<Double, Set<I2DPoint>> intersectionMap, I2DPoint point) {
+        double key = point.getX();
+        if (intersectionMap.containsKey(key)) {
+            intersectionMap.get(key).add(point);
+        } else {
+            Set<I2DPoint> tempSet = new HashSet<>();
+            tempSet.add(point);
+            intersectionMap.put(key, tempSet);
+        }
     }
 
     private I2DPoint intersectionDot(ISegment segment1, ISegment segment2) {
@@ -24,6 +35,7 @@ public class Task26Impl implements Task26 {
         double y1 = segment1.first().getY();
         double x2 = segment1.second().getX();
         double y2 = segment1.second().getY();
+
         double x3 = segment2.first().getX();
         double y3 = segment2.first().getY();
         double x4 = segment2.second().getX();
@@ -35,37 +47,23 @@ public class Task26Impl implements Task26 {
         double a1 = -seg1Direction.getY();
         double b1 = seg1Direction.getX();
         double d1 = -(a1 * x1 + b1 * y1);
+
         double a2 = -seg2Direction.getY();
         double b2 = seg2Direction.getX();
-        double d2 = -(a2 * x2 + b2 * y2);
+        double d2 = -(a2 * x3 + b2 * y3);
 
-        double seg12Start = a2 * x1 + b2 * y1 + d2;
+        double seg1Start = a2 * x1 + b2 * y1 + d2;
         double seg1End = a2 * x2 + b2 * y2 + d2;
         double seg2Start = a1 * x3 + b1 * y3 + d1;
         double seg2End = a1 * x4 + b1 * y4 + d1;
 
         //если концы одного отрезка имеют один знак, значит он в одной полуплоскости и пересечения нет.
-        if ((seg12Start * seg1End >= 0) || (seg2Start * seg2End >= 0))
+        if ((seg1Start * seg1End >= 0) || (seg2Start * seg2End >= 0))
             return null;
 
-        double u = seg12Start / (seg12Start - seg1End);
+        double u = seg1Start / (seg1Start - seg1End);
 
         return new Point(x1 + u * seg1Direction.getX(), y1 + u * seg1Direction.getY());
-    }
-
-    private void addIntersectionPoint(TreeMap<Double, Set<I2DPoint>> intersectionMap, I2DPoint point) {
-        double key = point.getX();
-        if (!intersectionMap.containsKey(key)) {
-            Set<I2DPoint> hashSet = new HashSet<>();
-            hashSet.add(point);
-            intersectionMap.put(key, hashSet);
-        } else {
-            intersectionMap.merge(key, intersectionMap.get(key),
-                    (a, b) -> {
-                        intersectionMap.get(key).add(point);
-                        return intersectionMap.get(key);
-                    });
-        }
     }
 
     public class Point implements I2DPoint {
@@ -85,6 +83,20 @@ public class Task26Impl implements Task26 {
         @Override
         public double getY() {
             return this.y;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Point point = (Point) o;
+            return Double.compare(point.x, x) == 0 &&
+                    Double.compare(point.y, y) == 0;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y);
         }
     }
 }
