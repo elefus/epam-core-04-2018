@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Task28Car implements Task28 {
+
     @Override
     public int getNumberOvertaking(Set<Car> cars, int lengthLap, int numberLaps) {
         int outrunnings = 0;
