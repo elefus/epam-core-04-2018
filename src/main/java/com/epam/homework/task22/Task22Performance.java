@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class Task22Realisation implements Task22 {
+public class Task22Performance implements Task22 {
     @Override
     public List<String> sortPoems(Set<IPoem> currentPoem, String author) {
         List<String> result = new ArrayList<>();
