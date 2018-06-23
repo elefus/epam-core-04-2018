@@ -44,6 +44,7 @@ public interface Task27 {
          * @param first Первая вершина.
          * @param second Вторая вершина.
          */
+
         public abstract boolean isEdgeExists(int first, int second);
     }
 }
