@@ -14,7 +14,6 @@ public class Task25brackets implements Task25 {
 
             if (oBrackets.contains(string.charAt(i))) {
                 brackets.push(string.charAt(i));
-
             } else if (cBrackets.contains(string.charAt(i))) {
                 if (brackets.isEmpty() || brackets.pop() != oBrackets.get(cBrackets.indexOf(string.charAt(i)))) {
                     return false;
