@@ -7,8 +7,7 @@ public class Task26Impl implements Task26 {
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
         List<ISegment> segmentsAsList = new ArrayList<>(segments);
         TreeMap<Double, Set<I2DPoint>> intersectionMap = new TreeMap<>();
-
-        int counter = 0;
+        
         for (int i = 0; i < segmentsAsList.size(); i++) {
             for (int j = i + 1; j < segmentsAsList.size(); j++) {
                 I2DPoint point = intersectionDot(segmentsAsList.get(i), segmentsAsList.get(j));
@@ -23,16 +22,16 @@ public class Task26Impl implements Task26 {
 
     private void addIntersectionPoint(TreeMap<Double, Set<I2DPoint>> intersectionMap, I2DPoint point) {
         double key = point.getX();
+
+//        System.out.println(point.getX() + " " + point.getY()+" in add point");
         if (!intersectionMap.containsKey(key)) {
             Set<I2DPoint> hashSet = new HashSet<>();
             hashSet.add(point);
             intersectionMap.put(key, hashSet);
         } else {
-            intersectionMap.merge(key, intersectionMap.get(key),
-                    (a, b) -> {
-                        intersectionMap.get(key).add(point);
-                        return intersectionMap.get(key);
-                    });
+            Set<I2DPoint> i2DPoints = intersectionMap.get(key);
+            i2DPoints.add(point);
+            intersectionMap.put(key, i2DPoints);
         }
 
     }
@@ -64,11 +63,14 @@ public class Task26Impl implements Task26 {
         double seg2Start = a1 * x3 + b1 * y3 + d1;
         double seg2End = a1 * x4 + b1 * y4 + d1;
 
-        //если концы одного отрезка имеют один знак, значит он в одной полуплоскости и пересечения нет.
+
         if ((seg1Start * seg1End >= 0) || (seg2Start * seg2End >= 0))
             return null;
 
         double u = seg1Start / (seg1Start - seg1End);
+
+//        System.out.print(x1 + u * seg1Direction.getX() + " ");
+//        System.out.println(y1 + u * seg1Direction.getY());
 
         return new Point(x1 + u * seg1Direction.getX(), y1 + u * seg1Direction.getY());
     }
@@ -90,20 +92,6 @@ public class Task26Impl implements Task26 {
         @Override
         public double getY() {
             return this.y;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Point point = (Point) o;
-            return Double.compare(point.x, x) == 0 &&
-                    Double.compare(point.y, y) == 0;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(x, y);
         }
     }
 }
