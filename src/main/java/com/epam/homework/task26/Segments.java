@@ -17,18 +17,14 @@ public class Segments implements Task26 {
                 I2DPoint point = getIntersectionPoint(iSegmentList.get(i), iSegmentList.get(j));
 
                 if (point != null) {
-
-                    double keyIntersectionsMap = point.getX();
-
-                    if (intersectionsMap.containsKey(keyIntersectionsMap)) {
-                        intersectionsMap.merge(keyIntersectionsMap, intersectionsMap.get(keyIntersectionsMap), (point1, point2) -> {
-                            intersectionsMap.get(keyIntersectionsMap).add(point);
-                            return intersectionsMap.get(keyIntersectionsMap);
-                        });
+                    if (!intersectionsMap.containsKey(point.getX())) {
+                        Set<I2DPoint> hashSet = new HashSet<>();
+                        hashSet.add(point);
+                        intersectionsMap.put(point.getX(), hashSet);
                     } else {
-                        Set<I2DPoint> points = new HashSet<>();
-                        points.add(point);
-                        intersectionsMap.put(keyIntersectionsMap, points);
+                        Set<I2DPoint> i2DPoints = intersectionsMap.get(point.getX());
+                        i2DPoints.add(point);
+                        intersectionsMap.put(point.getX(), i2DPoints);
                     }
                 }
             }
@@ -50,8 +46,8 @@ public class Segments implements Task26 {
         double x4 = seg2.second().getX();
         double y4 = seg2.second().getY();
 
-        double a1 = -(seg1.second().getY() - seg1.first().getY());
-        double b1 = (x2 - x1);
+        double a1 = -(y2 - y1);
+        double b1 = x2 - x1;
         double c1 = -(a1 * x1 + b1 * y1);
 
         double a2 = -(y4 - y3);
@@ -68,7 +64,7 @@ public class Segments implements Task26 {
             return null;
         }
 
-        double d = segmentStart1 / (segmentStart1 - segmentEnd2);
+        double d = segmentStart1 / (segmentStart1 - segmentEnd1);
 
         return new Intersection(x1 + d * (x2 - x1), y1 + d * (y2 - y1));
     }
