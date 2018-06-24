@@ -14,14 +14,16 @@ public class Task26Impl implements Task26 {
         for (int i = 0; i < segmentList.size(); i++) {
             for (int j = i + 1; j < segmentList.size(); j++) {
                 I2DPoint interPoint = intersection(segmentList.get(i), segmentList.get(j));
-                if(interPoint != null && !intersectionsMap.containsKey(interPoint.getX())){
-                    Set<I2DPoint> interSet = new HashSet<>();
-                    interSet.add(interPoint);
-                    intersectionsMap.put(interPoint.getX(), interSet);
-                }else{
-                    Set<I2DPoint> interSet = intersectionsMap.get(interPoint.getX());
-                    interSet.add(interPoint);
-                    intersectionsMap.put(interPoint.getX(), interSet);
+                if(interPoint != null) {
+                    if (!intersectionsMap.containsKey(interPoint.getX())) {
+                        Set<I2DPoint> interSet = new HashSet<>();
+                        interSet.add(interPoint);
+                        intersectionsMap.put(interPoint.getX(), interSet);
+                    } else {
+                        Set<I2DPoint> interSet = intersectionsMap.get(interPoint.getX());
+                        interSet.add(interPoint);
+                        intersectionsMap.put(interPoint.getX(), interSet);
+                    }
                 }
             }
         }
@@ -60,7 +62,7 @@ public class Task26Impl implements Task26 {
 
         double u = seg1Start / (seg1Start - seg1End);
 
-        return new Point2D(x1 + u * b1, y1 + u * dir1.getY());
+        return new Point2D(x1 + u * dir1.getX(), y1 + u * dir1.getY());
     }
 
     @AllArgsConstructor
