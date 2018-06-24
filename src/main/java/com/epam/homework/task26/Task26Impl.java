@@ -7,7 +7,7 @@ public class Task26Impl implements Task26 {
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
         List<ISegment> segmentsAsList = new ArrayList<>(segments);
         TreeMap<Double, Set<I2DPoint>> intersectionMap = new TreeMap<>();
-        
+
         for (int i = 0; i < segmentsAsList.size(); i++) {
             for (int j = i + 1; j < segmentsAsList.size(); j++) {
                 I2DPoint point = intersectionDot(segmentsAsList.get(i), segmentsAsList.get(j));
@@ -64,7 +64,7 @@ public class Task26Impl implements Task26 {
         double seg2End = a1 * x4 + b1 * y4 + d1;
 
 
-        if ((seg1Start * seg1End >= 0) || (seg2Start * seg2End >= 0))
+        if ((seg1Start * seg1End > 0) || (seg2Start * seg2End > 0))
             return null;
 
         double u = seg1Start / (seg1Start - seg1End);
