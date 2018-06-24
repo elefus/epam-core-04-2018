@@ -22,8 +22,7 @@ public class Task26Impl implements Task26 {
 
     private void addIntersectionPoint(TreeMap<Double, Set<I2DPoint>> intersectionMap, I2DPoint point) {
         double key = point.getX();
-
-//        System.out.println(point.getX() + " " + point.getY()+" in add point");
+        
         if (!intersectionMap.containsKey(key)) {
             Set<I2DPoint> hashSet = new HashSet<>();
             hashSet.add(point);
@@ -63,14 +62,10 @@ public class Task26Impl implements Task26 {
         double seg2Start = a1 * x3 + b1 * y3 + d1;
         double seg2End = a1 * x4 + b1 * y4 + d1;
 
-
         if ((seg1Start * seg1End > 0) || (seg2Start * seg2End > 0))
             return null;
 
         double u = seg1Start / (seg1Start - seg1End);
-
-//        System.out.print(x1 + u * seg1Direction.getX() + " ");
-//        System.out.println(y1 + u * seg1Direction.getY());
 
         return new Point(x1 + u * seg1Direction.getX(), y1 + u * seg1Direction.getY());
     }
