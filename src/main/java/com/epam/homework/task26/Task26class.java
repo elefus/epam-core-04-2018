@@ -1,133 +1,93 @@
 package com.epam.homework.task26;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-
 import java.util.*;
 
 public class Task26class implements Task26 {
 
-     @Override
+    @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
-        TreeMap<Double, Set<I2DPoint>> intersections = new TreeMap<>();
-        List<Segment> segmentsList = new ArrayList<>(segments.size());
-        for (ISegment segment : segments) {
-            segmentsList.add(new Segment(segment.first(), segment.second()));
-        }
-        for (int i = 0; i < segmentsList.size() - 1; i++) {
-            for (int j = i + 1; j < segmentsList.size(); j++) {
-                I2DPoint inter = xPoint(segmentsList.get(i), segmentsList.get(j));
-                if (inter != null) {
-                    Set<I2DPoint> newInter = new HashSet<>();
-                    newInter.add(inter);
-                    if (intersections.containsKey(inter.getX())) {
-                        newInter.addAll(intersections.get(inter.getX()));
+
+        TreeMap<Double, Set<I2DPoint>> intersectionsMap = new TreeMap<>();
+
+        List<ISegment> iSegmentList = new ArrayList<>(segments);
+
+        for (int i = 0; i < iSegmentList.size(); i++) {
+            for (int j = i + 1; j < iSegmentList.size(); j++) {
+
+                I2DPoint point = getIntersectionPoint(iSegmentList.get(i), iSegmentList.get(j));
+
+                if (point != null) {
+                    if (!intersectionsMap.containsKey(point.getX())) {
+                        Set<I2DPoint> hashSet = new HashSet<>();
+                        hashSet.add(point);
+                        intersectionsMap.put(point.getX(), hashSet);
+                    } else {
+                        Set<I2DPoint> i2DPoints = intersectionsMap.get(point.getX());
+                        i2DPoints.add(point);
+                        intersectionsMap.put(point.getX(), i2DPoints);
                     }
-                    intersections.put(inter.getX(), newInter);
                 }
             }
         }
-
-         return intersections.firstEntry().getValue();
-        }
-
-
-
-    public static I2DPoint xPoint(Segment segment1, Segment segment2) {
-        boolean xDefinated = false;
-        boolean yDefinated = false;
-        double xX = 0;
-        double xY = 0;
-        IndexOfLine line1 = new IndexOfLine(segment1.first().getX(), segment1.second().getX(), segment1.first().getY(), segment1.second().getY());
-        if (line1.xConst) {
-            xX = segment1.first().getX();
-            xDefinated = true;
-        }
-        if (line1.yConst) {
-            xY = segment1.first().getY();
-            yDefinated = true;
-        }
-        IndexOfLine line2 = new IndexOfLine(segment2.first().getX(), segment2.second().getX(), segment2.first().getY(), segment2.second().getY());
-        if (line2.xConst && !xDefinated) {
-            xX = segment2.first().getX();
-            xDefinated = true;
-        }
-        if (line2.yConst && !yDefinated) {
-            xY = segment2.first().getY();
-            yDefinated = true;
-        }
-        double k1 = line1.getK();
-        double k2 = line2.getK();
-        double b1 = line1.getB();
-        double b2 = line2.getB();
-        if (k1 == k2 && b1==b2) return null;
-        if (!xDefinated) {
-            xX = (b2 - b1) / (k1 - k2);
-        }
-                if (!yDefinated) {
-            xY = (k1 * b2 - k2 * b1) / (k1 - k2);
-        }
-        if (isInSegment(xX, xY, segment1, segment2)) {
-            Point intersection = new Point();
-            intersection.setX(xX);
-            intersection.setY(xY);
-            return intersection;
-        } else return null;
-
+        return intersectionsMap.firstEntry().getValue();
     }
 
-    @Getter
-    static class IndexOfLine {
-        double k;
-        double b;
-        boolean xConst;
-        boolean yConst;
+    private I2DPoint getIntersectionPoint(ISegment seg1, ISegment seg2) {
 
-        public IndexOfLine (double x1, double x2, double y1,double y2){
-            xConst = x1 == x2;
-            yConst = y1 == y2;
-            k = x1==x2 ? 0 : (y2-y1)/(x2-x1);
-            b = y1 - k*x1;
+        double x1 = seg1.first().getX();
+        double y1 = seg1.first().getY();
+
+        double x2 = seg1.second().getX();
+        double y2 = seg1.second().getY();
+
+        double x3 = seg2.first().getX();
+        double y3 = seg2.first().getY();
+
+        double x4 = seg2.second().getX();
+        double y4 = seg2.second().getY();
+
+        double a1 = -(y2 - y1);
+        double b1 = x2 - x1;
+        double c1 = -(a1 * x1 + b1 * y1);
+
+        double a2 = -(y4 - y3);
+        double b2 = x4 - x3;
+        double c2 = -(a2 * x3 + b2 * y3);
+
+        double segmentStart1 = a2 * x1 + b2 * y1 + c2;
+        double segmentEnd1 = a2 * x2 + b2 * y2 + c2;
+
+        double segmentStart2 = a1 * x3 + b1 * y3 + c1;
+        double segmentEnd2 = a1 * x4 + b1 * y4 + c1;
+
+        if (segmentStart1 * segmentEnd1 > 0 || segmentStart2 * segmentEnd2 > 0) {
+            return null;
+        }
+
+        double d = segmentStart1 / (segmentStart1 - segmentEnd1);
+
+        return new Intersection(x1 + d * (x2 - x1), y1 + d * (y2 - y1));
     }
-    }
 
-    public static boolean isInSegment(double xX, double xY, Segment segment1, Segment segment2) {
-        if (xX < Math.min(segment1.first().getX(), segment1.second().getX())  || xX > Math.max(segment1.first().getX(), segment1.second().getX())){
-            return false;
-        }
-        if (xX < Math.min(segment2.first().getX(), segment2.second().getX())  || xX > Math.max(segment2.first().getX(), segment2.second().getX())) {
-            return false;
-        }
-        if (xY < Math.min(segment1.first().getY(), segment1.second().getY())  || xY > Math.max(segment1.first().getY(), segment1.second().getY())){
-            return false;
-        }
-        if (xY < Math.min(segment2.first().getY(), segment2.second().getY())  || xY > Math.max(segment2.first().getY(), segment2.second().getY())) {
-             return false;
-        }
-        return true;
-    }
+    private class Intersection implements I2DPoint {
 
-    @AllArgsConstructor
-    @Data
-    static class Segment implements ISegment {
-        I2DPoint first;
-        I2DPoint second;
+        private double x;
+        private double y;
 
-        @Override
-        public I2DPoint first() {
-            return first;
+        Intersection(double x, double y) {
+            this.x = x;
+            this.y = y;
         }
 
         @Override
-        public I2DPoint second() {
-            return second;
+        public double getX() {
+            return x;
+        }
+
+        @Override
+        public double getY() {
+            return y;
         }
     }
 
-    @Data
-    static class Point implements I2DPoint {
-        double x;
-        double y;
-    }
 }
