@@ -83,19 +83,21 @@ public class Task19 {
         System.out.println(m);
 
 
+       boolean exist = false;
+
         for (int i = 0; i < N; i++) {
-            boolean exist = false;
+            if (exist) {
+                System.out.println();
+                exist = false;
+            }
             for (int j = 0; j < N; j++) {
                 if (rows[i] && colums[j]) {
                     System.out.print(matrix[i][j] + " ");
                     exist = true;
                 }
-            } 
-            if (exist) {
-                System.out.println();
             }
-        }
 
+        }
     }
 }
 
